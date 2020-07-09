@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,7 +16,7 @@
 <!-- Latest compiled JavaScript ------------>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 <!-- customStyle ------------>
-<link rel="stylesheet" type="text/css" href="resources/css/common/style.css">
+<link rel="stylesheet" type="text/css" href="/resources/css/common/style.css">
 </head>
 <body>
   <!-- nav ------------>

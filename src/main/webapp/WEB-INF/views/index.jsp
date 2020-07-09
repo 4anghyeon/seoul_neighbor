@@ -3,13 +3,13 @@
 1. 메인
 1.1 로그인 폼
 1.2 일러스트
-1.3 비회원 접속 폼 -->
+1.3 비회원 접속 폼
+2. javaScript -->
 <!-- index.jsp -->
 
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 
 <head>
@@ -73,5 +73,7 @@
 	</main>
 	<!-- ./main -->
 </body>
-
+<!-- 2. javaScript ------------------------------>
+<%@include file="/resources/js/index_js.jsp"%>
+<!-- 2. javaScirpt -->
 </html>
