@@ -1,6 +1,7 @@
 package com.justdo.controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,14 +18,15 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class CommonController {
 	
-	 private commonService service; 
-	
+	 private commonService service;
+	 
 	// 로그인 ////////////////////////////////////
 	@PostMapping("login")
-	public String login(MemberVO vo,RedirectAttributes rttr) {
+	public String login(Model model,MemberVO vo,RedirectAttributes rttr) {
 		
 		try { 
-			service.login(vo).getId();
+			vo = service.login(vo);
+			rttr.addFlashAttribute("id",vo.getId());
 			return "redirect:board/list"; 
 		}catch(Exception e) {
 		  rttr.addFlashAttribute("result","fail");

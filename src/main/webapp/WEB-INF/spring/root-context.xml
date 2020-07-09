@@ -15,9 +15,10 @@
         <property name="driverClassName" value="com.mysql.cj.jdbc.Driver"></property>
         <property name="jdbcUrl"
             value="jdbc:mysql://34.64.138.203/seoul?useSSL=false&amp;serverTimezone=UTC&amp;allowMultiQueries=true">
+            <!-- value="jdbc:mysql://localhost:3306/데이터베이스이름?useSSL=false&amp;serverTimezone=UTC&amp;allowMultiQueries=true" -->
         </property>
-        <property name="username" value="mysqlsys"></property>
-        <property name="password" value="seoul12"></property>
+        <property name="username" value="mysqlsys"></property> <!-- 본인의 아이디에 맞게 변경해 주세요 -->
+        <property name="password" value="seoul12"></property> <!-- 본인의 비밀번호에 맞게 변경해 주세요 -->
     </bean> 
     
     <!-- HikariCP configuration -->
