@@ -5,6 +5,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.justdo.domain.MemberVO;
@@ -19,6 +20,12 @@ import lombok.AllArgsConstructor;
 public class CommonController {
 	
 	 private commonService service;
+	 
+	@RequestMapping(value = "/", method = RequestMethod.GET)
+	public String home() {
+		
+		return "index";
+	}
 	 
 	// 로그인 ////////////////////////////////////
 	@PostMapping("login")
