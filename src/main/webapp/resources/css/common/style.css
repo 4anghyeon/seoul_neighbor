@@ -32,3 +32,8 @@ a {
 .navbar-default .nav>li>a:hover {
   color: #fff;
 }
+
+/* top nav logo */
+#logo{
+	margin:0 !important;
+}

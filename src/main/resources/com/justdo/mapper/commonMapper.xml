@@ -5,7 +5,7 @@
 <mapper namespace="com.justdo.mapper.commonMapper">
 
 	<select id="login" resultType="com.justdo.domain.MemberVO">
-		select * from member_tbl
+		select * from tbl_member
 		where id= #{id} and pwd =#{pwd}
 	</select>
 </mapper>

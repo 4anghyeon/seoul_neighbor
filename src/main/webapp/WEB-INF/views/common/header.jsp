@@ -24,7 +24,7 @@
   <nav class="navbar navbar-default">
     <div class="container-fluid">
       <div class="navbar-header">
-        <a class="navbar-brand" href="index.html">서울이웃</a>
+        <a class="navbar-brand" href="/"><img id="logo" src="/resources/img/common/logo_1.png" alt="logo" class="mr-3 mt-3" style="width: 100px"></a>
       </div>
       <ul class="nav justify-content-end">
         <li class="nav-item"><a class="nav-link" href="home.html">Home</a></li>
