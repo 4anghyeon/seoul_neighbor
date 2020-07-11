@@ -1,8 +1,8 @@
-<!-- profile.jsp ---------------->
+<!-- mylist.jsp ---------------->
 <!-- 
 1. 메인
 1.1 왼쪽 메뉴
-1.2 프로필 레이아웃
+1.2 나의 게시글 레이아웃
 2. 자바스크립트 -->
 <!-- profile.jsp -->
 
@@ -11,10 +11,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<!-- profile.css -->
-<link rel="stylesheet" type="text/css" href="/resources/css/mypage/profile.css">
-<title>프로필</title>
+<title>나의 게시글 보기</title>
 </head>
 <body>
 	<!-- header include ------------>
@@ -31,16 +28,15 @@
 				<!-- header include -->
 			</div>
 		<!-- 1.1 왼쪽 메뉴 -->
-		<!-- 1.2 프로필 레이아웃 ---------------------------------->
+		<!-- 1.2 나의 게시글 레이아웃 ---------------------------------->
 			<div id="rightDiv" class="col-lg-9">
-				<h1>프로필</h1>
+				<h1>나의 게시글</h1>
 				<div id="rightDivContent" class="container-fluid">
 				</div>
 			</div>
-		<!-- 1.2 프로필 레이아웃 ---------------------------------->
+		<!-- 1.2 나의 게시글 레이아웃 -->
 		</div>
 	</div>
 	<!-- 1. 메인 -->
-	
 </body>
 </html>

@@ -1,0 +1,10 @@
+#rightDiv{
+	margin-top:20px;
+}
+
+#rightDivContent{
+	margin-top:40px;
+	height:60vh;
+	border:solid 1px #ced4da;
+	border-radius:25px;
+}

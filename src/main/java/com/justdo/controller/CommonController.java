@@ -51,4 +51,10 @@ public class CommonController {
 	};
 	// 목록 페이지 이동 //
 	
+	// 프로필 페이지 이동 ////////////////////////
+	@GetMapping("profile")
+	public String profile() {
+		return "mypage/profile";
+	}
+	
 }
