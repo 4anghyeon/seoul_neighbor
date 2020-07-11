@@ -18,6 +18,8 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 <!-- customStyle ------------>
 <link rel="stylesheet" type="text/css" href="/resources/css/common/style.css">
+<!-- fontawesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css"/>
 </head>
 <body>
   <!-- nav ------------>
@@ -28,7 +30,7 @@
       </div>
       <ul class="nav justify-content-end">
         <li class="nav-item"><a class="nav-link" href="home.html">Home</a></li>
-        <li class="nav-item"><a class="nav-link" href="profile.html">Profile</a></li>
+        <li class="nav-item"><a class="nav-link" href="/profile">Profile</a></li>
         <li class="nav-item"><a class="nav-link" href="#">Logout</a></li>
       </ul>
     </div>
