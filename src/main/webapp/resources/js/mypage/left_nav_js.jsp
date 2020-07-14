@@ -6,7 +6,7 @@ $(document).ready(function(){
 	//초기값 설정 ///////////////////////////////////	
 	if($(window).width() < 988) { 
 		$("#leftNav").css("left",-$("#leftNav").width()-100);
-		$("#leftNav").css("position","absolute");
+		$("#leftNav").css("position","fixed");
 		$("#dropDownBtn").css("left","0px");
 		$("#dropDownBtn").show();
 	}else{
@@ -21,8 +21,10 @@ $(document).ready(function(){
 	$(window).resize(function() {
 		if($(window).width() < 988) { 
 			$("#leftNav").css("left",-$("#leftNav").width()-100);
-			$("#leftNav").css("position","absolute");
+			$("#leftNav").css("position","fixed");
 			$("#dropDownBtnIcon").css("transform","rotate(0deg)");
+			$("#dropDownBtn").css("left","0px");
+			isDropDownClicked = false;
 			$("#dropDownBtn").show();
 		}else{
 			$("#leftNav").css("position","relative");
@@ -44,7 +46,7 @@ $(document).ready(function(){
 			},450);
 			$("#leftNav").animate({
 				left : "0"
-			},500).css("position","absolute");
+			},500).css("position","fixed");
 			$("#dropDownBtnIcon").css({
 				transform : "rotate(180deg)",
 				transition: "0.7s"

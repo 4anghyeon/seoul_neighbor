@@ -1,0 +1,8 @@
+.page-item{
+	cursor:pointer;
+}
+
+.page-item.active .page-link{
+	background:black !important;
+	border-color:black !important;
+}

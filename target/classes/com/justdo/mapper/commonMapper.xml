@@ -6,6 +6,7 @@
 
 	<select id="login" resultType="com.justdo.domain.MemberVO">
 		select * from tbl_member
-		where id= #{id} and pwd =#{pwd}
+		where userid= #{userid} and userpw =#{userpw}
 	</select>
+	
 </mapper>

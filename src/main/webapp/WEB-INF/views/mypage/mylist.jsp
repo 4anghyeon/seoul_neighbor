@@ -19,7 +19,7 @@
 	<!-- header include -->
 	
 	<!-- 1. 메인 ------------------------------------------------->
-	<div class="container-fluid">
+	<div class="container-fluid" style="margin-top:60px">
 		<div class="row">
 		<!-- 1.1 왼쪽 메뉴 ---------------------------->
 			<div id="leftNav" class="col-lg-3 d-flex justify-content-center">

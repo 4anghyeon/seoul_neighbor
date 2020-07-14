@@ -22,7 +22,7 @@
 	<!-- header include -->
 
 	<!-- 1. main ---------------->
-	<main class="container">
+	<main class="container" style="margin-top:60px">
 		<h1 class="text-center">반가워요 이웃!</h1>
 
 		<div class="row">
@@ -32,11 +32,11 @@
 				<h4>로그인</h4>
 				<form method="post" action="login">
 					<div class="form-group">
-						<input class="form-control" type="text" name="id" placeholder="Id" />
+						<input class="form-control" type="text" name="userid" placeholder="Id" />
 					</div>
 
 					<div class="form-group">
-						<input class="form-control" type="password" name="pwd" placeholder="Password" />
+						<input class="form-control" type="password" name="userpw" placeholder="Password" />
 					</div>
 
 					<div class="form-group">

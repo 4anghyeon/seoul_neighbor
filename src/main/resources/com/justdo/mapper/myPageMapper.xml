@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.justdo.mapper.myPageMapper">
+
+	<select id="selectUser" resultType="com.justdo.domain.MemberVO">
+		select * from tbl_member
+		where userid= #{id}
+	</select>
+	
+	<!-- 유저 정보 업데이트 -->
+	<update id="updateUser">
+		update tbl_member set
+		nickname = #{nickname},
+		member_location = #{member_location},
+		member_filename = #{member_filename}
+		where userid = #{userid}
+	</update>
+	
+	<!-- 원래 프로필파일 이름 가져오기 (기존 프로필 파일 삭제 위함) -->
+	<select id="getOriginalFileName" resultType="String">
+		select member_filename from tbl_member where userid = #{userid}
+	</select>
+	
+	<!-- 비밀번호 변경 -->
+	<update id="updatePassword">
+		update tbl_member set
+		userpw = #{userpw}
+		where userid = #{userid}
+	</update>
+	
+	<!-- 쪽지함 가져오기 -->
+	<select id="selectMessageList" resultType="com.justdo.domain.MessageVO">
+		select mno,sender,receiver,message_content,read_check,date_format(writedate,'%Y/%m/%d') 
+		as writedate from tbl_message
+		where receiver = #{userid} 
+		limit #{pageNum},8
+	</select>
+	
+	<!-- 쪽지 총 개수 -->
+	<select id="selectCountMessage" resultType="int">
+		select count(*) from tbl_message where receiver = #{userid}
+	</select>
+</mapper>

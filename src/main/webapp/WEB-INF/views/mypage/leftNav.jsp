@@ -9,6 +9,7 @@
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -22,9 +23,16 @@
 	<div id="leftNavContainer" class="container-fluid">
 	<!-- 1.1 프로필 이미지 --------------------------->
 		<div id="profileImg" class="card text-center">
-		  <img class="card-img-top" src="/resources/img/mypage/profile_sample.png" alt="프로필 사진">
+			<c:choose>
+				<c:when test = "${member.member_filename eq null }">
+		  		<img class="card-img-top" src="/resources/img/mypage/profile_sample.png" alt="프로필 사진">
+		  		</c:when>
+		  		<c:when test = "${member.member_filename != null}">
+		  		<img class="card-img-top" src="/resources/img/mypage/<c:out value="${member.member_filename}"/>" alt="프로필 사진">
+		  		</c:when>
+		  	</c:choose>
 		  <div class="card-body">
-				    <p class="card-title">회원님 안녕하세요?</p>
+				    <p class="card-title"><c:out value="${member.nickname}"/>님 안녕하세요?</p>
 		  </div>
 		</div>
 	<!-- 1.1 프로필 이미지 -->
