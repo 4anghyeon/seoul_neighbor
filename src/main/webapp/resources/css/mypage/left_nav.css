@@ -1,0 +1,44 @@
+#leftNav{
+	padding:0;
+	width:auto;
+	z-index:100;
+}
+
+#leftNavContainer{
+	border-right:solid 1px #ced4da;
+	height:90vh;
+	width:300px;
+	background:white;
+	margin:0 auto;
+}
+
+#profileImg {
+	margin-top:20px;
+	border:none;
+}
+
+#profileImg img{
+	width:170px;
+	margin:0 auto;
+}
+
+#leftNavBar{
+	margin-top:20px;	
+}
+
+#leftNavBar li{
+	border-bottom:solid 1px #ced4da;
+}
+
+#leftNavBar ul{
+	border-top:solid 1px #ced4da;
+}
+
+#dropDownBtn{
+	display:none;
+	position:fixed;
+	top:150px;
+	width:25px;
+	height:50px;
+	z-index:100;
+}

@@ -23,7 +23,7 @@
 </head>
 <body>
   <!-- nav ------------>
-  <nav class="navbar navbar-default">
+  <nav class="navbar navbar-default fixed-top">
     <div class="container-fluid">
       <div class="navbar-header">
         <a class="navbar-brand" href="/"><img id="logo" src="/resources/img/common/logo_1.png" alt="logo" class="mr-3 mt-3" style="width: 100px"></a>

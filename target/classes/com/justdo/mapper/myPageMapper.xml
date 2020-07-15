@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.justdo.mapper.myPageMapper">
+
+	<select id="selectUser" resultType="com.justdo.domain.MemberVO">
+		select * from tbl_member
+		where userid= #{id}
+	</select>
+	
+	<!-- 유저 정보 업데이트 -->
+	<update id="updateUser">
+		update tbl_member set
+		nickname = #{nickname},
+		member_location = #{member_location},
+		member_filename = #{member_filename}
+		where userid = #{userid}
+	</update>
+	
+	<!-- 원래 프로필파일 이름 가져오기 (기존 프로필 파일 삭제 위함) -->
+	<select id="getOriginalFileName" resultType="String">
+		select member_filename from tbl_member where userid = #{userid}
+	</select>
+	
+	<!-- 비밀번호 변경 -->
+	<update id="updatePassword">
+		update tbl_member set
+		userpw = #{userpw}
+		where userid = #{userid}
+	</update>
+	
+	<!-- 쪽지함 가져오기 -->
+	<select id="selectMessageList" resultType="com.justdo.domain.MessageVO">	
+	select tbl_member.nickname, a.* from ((select mno,sender,receiver,message_content,read_check,date_format(writedate,'%Y/%m/%d')as writedate,count(*) as totalMessageNum 
+	from (tbl_message) group by mno ) a ,tbl_member) where a.sender = tbl_member.userid and receiver=#{userid} limit #{pageNum},8;
+	</select>
+	
+	<!-- 쪽지 총 개수 -->
+	<select id="selectCountMessage" resultType="int">
+		select count(*) from tbl_message where receiver = #{userid}
+	</select>
+	
+	<!-- 쪽지 보내기 -->
+	<insert id="sendMessage">
+		insert into tbl_message (sender,receiver,message_content) values(#{sender},#{receiver},#{message_content})
+	</insert>
+	
+	<!-- 쪽지 받는 사람 아이디 불러오기 -->
+	<select id="selectFindReceiver" resultType="String">
+		select sender from tbl_message where mno = #{mno}
+	</select>
+	
+	<!-- 나의 게시글 불러오기 -->
+	<select id="selectMyBoardList" resultType="com.justdo.domain.BoardVO">
+		select substring_index(location,'_',1) as location,title,category,like_count,date_format(regdate,'%Y/%m/%d')as regdate from tbl_board where userid=#{userid} limit 0,8
+	</select>
+	<!-- 나의 게시글 불러오기 -->
+</mapper>
