@@ -23,9 +23,9 @@
 	<!-- header include ------------>
 	<%@include file="../common/header.jsp"%>
 	<!-- header include -->
-	
+	<div style="position:fixed"><img src="/resources/img/mypage/left_background.png"></div>
 	<!-- 1. 메인 ------------------------------------------------->
-	<div class="container-fluid" style="margin-top:60px">
+	<div class="container" style="margin-top:60px">
 		<div class="row">
 		<!-- 1.1 왼쪽 메뉴 ---------------------------->
 			<div id="leftNav" class="col-lg-3 d-flex justify-content-center">
@@ -40,7 +40,7 @@
 				<div id="rightDivContent" class="container">
 				<!-- 1.3 쪽지 내용 출력 부분 ------------------------------->
 					<table class="table text-center table-hover">
-						<thead class="thead-dark">
+						<thead class="thead">
 							<tr>
 								<th style="width:25%">보낸사람</th>
 								<th style="width:55%">쪽지 내용</th>

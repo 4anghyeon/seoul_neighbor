@@ -74,19 +74,19 @@ $(document).ready(function(){
 	// 무슨 페이지인지 읽어오기 ///////////////////////
 	var url = window.window.location.pathname;
 	if(url == "/profile"){
-		$(".flex-column").children().eq(0).css("border-left","solid 5px #3b5998").css("font-weight","bold");
+		$(".flex-column").children().eq(0).css("border-left","solid 5px #827FFE").css("font-weight","bold");
 	}
 	else if(url == "/mylist"){
-		$(".flex-column").children().eq(1).css("border-left","solid 5px #3b5998").css("font-weight","bold");
+		$(".flex-column").children().eq(1).css("border-left","solid 5px #827FFE").css("font-weight","bold");
 	}
 	else if(url == "/myMessage"){
-		$(".flex-column").children().eq(2).css("border-left","solid 5px #3b5998").css("font-weight","bold");
+		$(".flex-column").children().eq(2).css("border-left","solid 5px #827FFE").css("font-weight","bold");
 	}
 	else if(url == "/myQA"){
-		$(".flex-column").children().eq(3).css("border-left","solid 5px #3b5998").css("font-weight","bold");
+		$(".flex-column").children().eq(3).css("border-left","solid 5px #827FFE").css("font-weight","bold");
 	}
 	else if(url == "/myPassword"){
-		$(".flex-column").children().eq(4).css("border-left","solid 5px #3b5998").css("font-weight","bold");
+		$(".flex-column").children().eq(4).css("border-left","solid 5px #827FFE").css("font-weight","bold");
 	}
 	// 무슨 페이지인지 읽어오기 //
 })

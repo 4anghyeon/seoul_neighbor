@@ -53,7 +53,26 @@
 	
 	<!-- 나의 게시글 불러오기 -->
 	<select id="selectMyBoardList" resultType="com.justdo.domain.BoardVO">
-		select substring_index(location,'_',1) as location,title,category,like_count,date_format(regdate,'%Y/%m/%d')as regdate from tbl_board where userid=#{userid} limit 0,8
+		select substring_index(location,'_',1) as location,title,category,like_count,date_format(regdate,'%Y/%m/%d')as regdate from tbl_board where userid=#{userid} limit #{pageNum},8
 	</select>
-	<!-- 나의 게시글 불러오기 -->
+	
+	<!-- 나의 게시글 총 개수 -->
+	<select id="selectCountMyBoardList" resultType="int">
+		select count(*) from tbl_board where userid = #{userid}
+	</select>
+	
+	<!-- 1:1 문의 불러오기 -->
+	<select id="selectQAList" resultType="com.justdo.domain.QAVO">
+		select qno,userid,q_content,q_title,q_check,date_format(q_regdate,'%Y/%m/%d')as q_regdate from tbl_qa where userid=#{userid} order by qno desc limit #{pageNum},8
+	</select>
+	
+	<!-- 1:1 문의 총 개수 -->
+	<select id="selectCountQAList" resultType="int">
+		select count(*) from tbl_qa where userid = #{userid}
+	</select>
+	
+	<!-- 1:1 문의 올리기 -->
+	<insert id="insertQA">
+		insert into tbl_qa(userid,q_content,q_title) values (#{userid},#{q_content},#{q_title})
+	</insert>
 </mapper>

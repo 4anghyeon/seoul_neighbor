@@ -5,6 +5,7 @@ import java.util.List;
 import com.justdo.domain.BoardVO;
 import com.justdo.domain.MemberVO;
 import com.justdo.domain.MessageVO;
+import com.justdo.domain.QAVO;
 
 public interface myPageService {
 
@@ -21,7 +22,7 @@ public interface myPageService {
 	public void updatePassword(MemberVO vo);
 	
 	//쪽지함 리스트 가져오기
-	public List<MessageVO> selectMessageList(String userid,int pageNum);
+	public List<MessageVO> selectMessageList(String userid, int pageNum);
 	
 	//쪽지 총 개수
 	public int selectCountMessage(String userid);
@@ -33,5 +34,17 @@ public interface myPageService {
 	public String selectFindReceiver(int mno);
 	
 	//나의 게시글 불러오기
-	public List<BoardVO> selectMyBoardList(String userid);
+	public List<BoardVO> selectMyBoardList(String userid, int pageNum);
+	
+	//나의 게시글 총 개수
+	public int selectCountMyBoardList(String userid);
+	
+	//1:1 문의 불러오기
+	public List<QAVO> selectQAList(String userid, int pageNum);
+	
+	//1:1 문의 총 개수
+	public int selectCountQAList(String userid);
+	
+	//1:1 문의 올리기
+	public void insertQA(QAVO qvo);
 }

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import com.justdo.domain.BoardVO;
 import com.justdo.domain.MemberVO;
 import com.justdo.domain.MessageVO;
+import com.justdo.domain.QAVO;
 import com.justdo.mapper.myPageMapper;
 import com.justdo.service.myPageService;
 
@@ -59,8 +60,28 @@ public class myPageServiceImpl implements myPageService {
 	}
 
 	@Override
-	public List<BoardVO> selectMyBoardList(String userid) {
-		return mapper.selectMyBoardList(userid);
+	public List<BoardVO> selectMyBoardList(String userid, int pageNum) {
+		return mapper.selectMyBoardList(userid, pageNum);
+	}
+
+	@Override
+	public int selectCountMyBoardList(String userid) {
+		return mapper.selectCountMyBoardList(userid);
+	}
+
+	@Override
+	public List<QAVO> selectQAList(String userid, int pageNum) {
+		return mapper.selectQAList(userid, pageNum);
+	}
+
+	@Override
+	public int selectCountQAList(String userid) {
+		return mapper.selectCountQAList(userid);
+	}
+
+	@Override
+	public void insertQA(QAVO qvo) {
+		mapper.insertQA(qvo);
 	}
 
 

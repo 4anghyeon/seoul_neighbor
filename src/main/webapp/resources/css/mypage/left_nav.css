@@ -1,12 +1,27 @@
+/* font *********************************/
+@font-face { font-family: 'HangeulNuri-Bold'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_three@1.0/HangeulNuri-Bold.woff') format('woff'); font-weight: normal; font-style: normal; }
+@font-face { font-family: 'Handon3gyeopsal300g'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_seven@1.2/Handon3gyeopsal300g.woff') format('woff'); font-weight: normal; font-style: normal; }
+@font-face { font-family: 'ImcreSoojin'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.3/ImcreSoojin.woff') format('woff'); font-weight: normal; font-style: normal; }
+/* font */
+#hello{
+	font-family: 'HangeulNuri-Bold';
+	font-size:1.1rem;
+}
+
 #leftNav{
 	padding:0;
 	width:auto;
+	font-family: 'Handon3gyeopsal300g';
 	z-index:100;
+}
+
+#leftNav a{
+	color:#827FFE !important;
 }
 
 #leftNavContainer{
 	border-right:solid 1px #ced4da;
-	height:90vh;
+	height:fit-content;
 	width:300px;
 	background:white;
 	margin:0 auto;
@@ -41,4 +56,17 @@
 	width:25px;
 	height:50px;
 	z-index:100;
+}
+
+/* input border focus 변경 **************************/
+textarea:focus, input:focus, .form-control:focus, input[type]:focus, .uneditable-input:focus {
+    border-color: #827FFE;
+    box-shadow: 0 1px 1px #827FFE inset, 0 0 8px #827FFE;
+    outline: 0 none;
+}
+/* input border focus 변경 */
+
+.page-item.active .page-link{
+	background:#534fd6 !important;
+	border-color:#534fd6 !important;
 }

@@ -32,7 +32,7 @@
 		  		</c:when>
 		  	</c:choose>
 		  <div class="card-body">
-				    <p class="card-title"><c:out value="${member.nickname}"/>님 안녕하세요?</p>
+				    <p id="hello" class="card-title"><c:out value="${member.nickname}"/>님 안녕하세요?</p>
 		  </div>
 		</div>
 	<!-- 1.1 프로필 이미지 -->

@@ -1,33 +1,36 @@
+/* font *********************************/
+@font-face { font-family: 'BBTreeGB'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_nine_@1.1/BBTreeGB.woff') format('woff'); font-weight: normal; font-style: normal; }
+
+/* font */
+
 /* form 디자인 *************************************/
 
-h3:nth-child(n+2) {
+h3:nth-child(n+4) {
 	margin-top: 20px;
 }
 
-#nickName {
-	width: 50%;
-}
-
 #selectGu {
-	width: 20vw;
-	margin-right: 20px;
+	margin-bottom:5px;
 }
 
 #selectDong {
-	width: 20vw;
-}
-
-#email {
-	width: 15rem;
+	margin-bottom:5px;
 }
 
 #saveChangeBtn {
 	margin-top: 20px;
+	background-color:#827FFE ;
+	border-color:#827FFE ;
+	color:white;
+}
+#saveChangeBtn:hover{
+	background-color:#6663db;
 }
 
 #profileChangeImgBox {
 	width: 200px;
 	padding: 15px;
+	border:none;
 }
 
 #profileChangeImgBox img {
@@ -35,13 +38,19 @@ h3:nth-child(n+2) {
 }
 
 #searchPost{
-	margin-left:20px;
+	background-color:#827FFE ;
+	border-color:#827FFE ;
+	color:white;
 }
+
+#searchPost:hover{
+	background-color:#6663db;
+}
+
 /* form 디자인 */
 
 /* 파일 업로드 디자인 *************************************/
 .filebox{
-	margin-top:5px;
 	padding:0 !important;
 }
 
@@ -74,6 +83,9 @@ h3:nth-child(n+2) {
 #uploadBtn{
 	background:rgba(0,0,0,0.7);
 	color:white;
+	border:none;
+	border-radius:0px !important;
+	margin-top:-55px;
 }
 
 /* 파일 업로드 디자인 */

@@ -29,9 +29,7 @@
         <a class="navbar-brand" href="/"><img id="logo" src="/resources/img/common/logo_1.png" alt="logo" class="mr-3 mt-3" style="width: 100px"></a>
       </div>
       <ul class="nav justify-content-end">
-        <li class="nav-item"><a class="nav-link" href="home.html">Home</a></li>
         <li class="nav-item"><a class="nav-link" href="/profile">Profile</a></li>
-        <li class="nav-item"><a class="nav-link" href="#">Logout</a></li>
       </ul>
     </div>
   </nav>

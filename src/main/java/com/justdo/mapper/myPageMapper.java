@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Param;
 import com.justdo.domain.BoardVO;
 import com.justdo.domain.MemberVO;
 import com.justdo.domain.MessageVO;
+import com.justdo.domain.QAVO;
 
 public interface myPageMapper {
 
@@ -35,6 +36,17 @@ public interface myPageMapper {
 	public String selectFindReceiver(int mno);
 	
 	//나의 게시글 불러오기
-	public List<BoardVO> selectMyBoardList(String userid);
+	public List<BoardVO> selectMyBoardList(@Param("userid") String userid, @Param("pageNum") int pageNum);
 	
+	//니의 게시글 총 개수
+	public int selectCountMyBoardList(String userid);
+	
+	//1:1 문의 불러오기
+	public List<QAVO> selectQAList(@Param("userid") String userid, @Param("pageNum") int pageNum);
+	
+	//1:1 문의 총 개수
+	public int selectCountQAList(String userid);
+	
+	//1:1 문의 올리기
+	public void insertQA(QAVO qvo);
 }

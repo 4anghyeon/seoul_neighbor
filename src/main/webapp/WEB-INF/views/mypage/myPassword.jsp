@@ -19,9 +19,9 @@
 	<!-- header include ------------>
 	<%@include file="../common/header.jsp"%>
 	<!-- header include -->
-	
+	<div style="position:fixed"><img src="/resources/img/mypage/left_background.png"></div>
 	<!-- 1. 메인 ------------------------------------------------->
-	<div class="container-fluid" style="margin-top:60px">
+	<div class="container" style="margin-top:60px">
 		<div class="row">
 		<!-- 1.1 왼쪽 메뉴 ---------------------------->
 			<div id="leftNav" class="col-lg-3 d-flex justify-content-center">
@@ -59,7 +59,7 @@
 						</div>
 						<div class="row">
 							<div class="col-md-12">
-								<button id="passwordChangeBtn" class="btn btn-info">비밀번호 변경</button>
+								<button id="passwordChangeBtn" class="btn">비밀번호 변경</button>
 							</div>
 						</div>
 					</form>

@@ -12,14 +12,15 @@
 <html>
 <head>
 <title>나의 게시글 보기</title>
+<link rel="stylesheet" type="text/css" href="/resources/css/mypage/myList.css">
 </head>
 <body>
 	<!-- header include ------------>
 	<%@include file="../common/header.jsp"%>
 	<!-- header include -->
-	
+	<div style="position:fixed"><img src="/resources/img/mypage/left_background.png"></div>
 	<!-- 1. 메인 ------------------------------------------------->
-	<div class="container-fluid" style="margin-top:60px">
+	<div class="container" style="margin-top:60px">
 		<div class="row">
 		<!-- 1.1 왼쪽 메뉴 ---------------------------->
 			<div id="leftNav" class="col-lg-3 d-flex justify-content-center">
@@ -32,8 +33,8 @@
 			<div id="rightDiv" class="col-lg-9">
 				<h1>나의 게시글</h1>
 				<div id="rightDivContent" class="container">
-						<table class="table text-center table-hover">
-						<thead class="thead-dark">
+					<table class="table text-center table-hover">
+						<thead class="thead">
 							<tr>
 								<th>지역</th>
 								<th>키테고리</th>
@@ -47,18 +48,26 @@
 							<tr>
 								<td>${board.location }</td>
 								<td>${board.category}</td>
-								<td>${board.title}</td>
+								<td><span class="boardTitle">${board.title}</span> [${board.reply_count}]</td>
 								<td>${board.like_count}</td>
 								<td>${board.regdate}</td>
 							</tr>
 							</c:forEach>
 						</tbody>
 					</table>
+				<!-- 1.3 페이지 버튼 출력 부분 -------------------------------->
+					<nav>
+						<ul id="pageNumBtnList" class="pagination justify-content-center"></ul>
+					</nav>
+				<!-- 1.3 페이지 버튼 출력 부분 -->
 				</div>
 			</div>
 		<!-- 1.2 나의 게시글 레이아웃 -->
 		</div>
 	</div>
 	<!-- 1. 메인 -->
+<!-- 2.자바스크립트------------------------>
+<%@include file="/resources/js/mypage/myList_js.jsp"%>
+<!-- 2.자바스크립트 -->
 </body>
 </html>

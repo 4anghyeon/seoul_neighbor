@@ -23,9 +23,9 @@
 	<!-- header include ------------>
 	<%@include file="../common/header.jsp"%>
 	<!-- header include -->
-	
+	<div style="position:fixed"><img src="/resources/img/mypage/left_background.png"></div>
 	<!-- 1. 메인 ------------------------------------------------->
-	<div class="container-fluid" style="margin-top:60px">
+	<div class="container" style="margin-top:60px">
 		<div class="row">
 		<!-- 1.1 왼쪽 메뉴 ---------------------------->
 			<div id="leftNav" class="col-lg-3 d-flex justify-content-center">
@@ -63,48 +63,61 @@
 						</div>
 					<!-- 1.4 닉네임 수정 부분 ------------------------------------------->
 						<h3><span style="color:red"> * </span>닉네임</h3>
-						<input id="nickName" name="nickname" type="text" value="${member.nickname }" class="form-control">
+						<div class="row">
+							<div class="col-md-5">
+								<input id="nickName" name="nickname" type="text" value="${member.nickname }" class="form-control">
+							</div>
+						</div>
 					<!-- 1.4 닉네임 수정 부분 -->
 					<!-- 1.5 주소 수정 부분 ------------------------------------------>
 						<h3><span style="color:red"> * </span>지역</h3>
-							<div class="form-row">
-								<select id="selectGu" name="gu" class="form-control">
-								<option>강남구</option>
-								<option>강동구</option>
-								<option>강북구</option>
-								<option>강서구</option>
-								<option>관악구</option>
-								<option>광진구</option>
-								<option>구로구</option>
-								<option>금천구</option>
-								<option>노원구</option>
-								<option>도봉구</option>
-								<option>동대문구</option>
-								<option>동작구</option>
-								<option>마포구</option>
-								<option>서대문구</option>
-								<option>서초구</option>
-								<option>성동구</option>
-								<option>성북구</option>
-								<option>송파구</option>
-								<option>양천구</option>
-								<option>영등포구</option>
-								<option>용산구</option>
-								<option>은평구</option>
-								<option>종로구</option>
-								<option>중구</option>
-								<option>중랑구</option>
-								</select>
-								<select id="selectDong" name="dong" class="form-control">
-								</select>
-								<input id="searchPost" type="button" class="btn btn-info" value="주소 검색">
+							<div class="row">
+								<div class="col-md-5">
+									<select id="selectGu" name="gu" class="form-control">
+									<option>강남구</option>
+									<option>강동구</option>
+									<option>강북구</option>
+									<option>강서구</option>
+									<option>관악구</option>
+									<option>광진구</option>
+									<option>구로구</option>
+									<option>금천구</option>
+									<option>노원구</option>
+									<option>도봉구</option>
+									<option>동대문구</option>
+									<option>동작구</option>
+									<option>마포구</option>
+									<option>서대문구</option>
+									<option>서초구</option>
+									<option>성동구</option>
+									<option>성북구</option>
+									<option>송파구</option>
+									<option>양천구</option>
+									<option>영등포구</option>
+									<option>용산구</option>
+									<option>은평구</option>
+									<option>종로구</option>
+									<option>중구</option>
+									<option>중랑구</option>
+									</select>
+								</div>
+								<div class="col-md-5">
+									<select id="selectDong" name="dong" class="form-control"></select>
+								</div>
+								<div class="col-md-2">
+									<input id="searchPost" type="button" class="btn form-control" value="주소 검색">
+								</div>
 								<div id="member_location"></div>
 							</div>
 						<!-- 1.5 주소 수정 부분 -->
 						<h3>이메일</h3>
-						<input id="email" class="form-control" type="email" value="${member.email}" readonly>
+						<div class="row">
+							<div class="col-md-5">
+								<input id="email" class="form-control" type="email" value="${member.email}" readonly>
+							</div>
+						</div>
 						<input type="hidden" name="userid" value="${member.userid }">
-						<input id="saveChangeBtn" type="submit" class="btn btn-info" value="변경사항 저장">
+						<input id="saveChangeBtn" type="submit" class="btn" value="변경사항 저장">
 					</div>
 
 				</form>

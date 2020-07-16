@@ -2,8 +2,17 @@
 	cursor:pointer;
 }
 
+
 .table-hover{
 	cursor:pointer;
+}
+
+#QABtn{
+	margin-bottom:20px;
+}
+
+#writeQAContent{
+	margin-top:20px;
 }
 
 .warn{
@@ -14,4 +23,14 @@
 .thead{
 	background-color:#827FFE;
 	color:white;
+}
+
+#insertQABtn{
+	background-color:#534fd6;
+	color:white
+}
+
+#QABtn{
+	background-color:#534fd6;
+	color:white
 }
