@@ -106,6 +106,9 @@ $(document).ready(function(){
         $.ajax({
             url: "/QASendAjax",
             type: "POST",
+            beforeSend: function(xhr){
+            	xhr.setRequestHeader("${_csrf.headerName}", "${_csrf.token}");
+            },
             data: form,
             success: function(data){
             	location.reload(true)

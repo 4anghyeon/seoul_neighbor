@@ -67,7 +67,7 @@ $(document).ready(function(){
                 $(data).each(function(i,board){
 	                $("#messageList").append(
 						"<tr>"+
-						"<td style='display:none'><input type='hidden' value='"+board.bno+"' /></td>"+
+						"<td style='display:none'>"+board.bno+"</td>"+
 						"<td>"+board.location+"</td>"+
 						"<td>"+board.category+"</td>"+
 						"<td>"+"<span class='boardTitle'>"+board.title+"</span> ["+board.reply_count+"]</td>"+
@@ -98,6 +98,14 @@ $(document).ready(function(){
 	}
 	cutContent();
 	// 게시글 제목 길면 ...로 자르기 //
+	
+	// 게시글 클릭 하면 상세페이지 이동 //////////////////////////////////
+	$(document).on("click",".boardTitle",function(){
+		var bno = $($(this).parents().siblings("td")[0]).text();
+		location.href = "/read?bno="+bno;
+		
+	})
+	// 게시글 클릭 하면 상세페이지 이동 //
 })
 
 </script>

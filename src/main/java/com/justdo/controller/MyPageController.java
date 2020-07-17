@@ -6,6 +6,7 @@ import java.util.UUID;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,8 +29,10 @@ import lombok.AllArgsConstructor;
 @RequestMapping("/*")
 @AllArgsConstructor
 public class MyPageController {
+	
 	private commonService service;
 	private myPageService myPageService;
+	private BCryptPasswordEncoder pwdEncoder;
 	
 	// 나의 게시글 불러오기 ///////////////////////////////////////////
 	@GetMapping("mylist")
@@ -70,6 +73,14 @@ public class MyPageController {
 		return new ResponseEntity<List<MessageVO>>(myPageService.selectMessageList(userid, pageNum),HttpStatus.OK);
 	}
 	//쪽지 Ajax로 불러오기 //
+	
+	//미니쪽지 Ajax로 불러오기 //////////////////////////////////////////////
+	@GetMapping("myMiniMessageAjax")
+	@ResponseBody
+	public ResponseEntity<List<MessageVO>> myMiniMessageAjax(String userid) {
+		return new ResponseEntity<List<MessageVO>>(myPageService.selectMiniMessageList(userid),HttpStatus.OK);
+	}
+	//쪽지 Ajax로 불러오기 //
 
 	// 쪽지 Ajax로 보내기 ///////////////////////////////////////////////////
 	@PostMapping("myMessageSendAjax")
@@ -78,6 +89,20 @@ public class MyPageController {
 		myPageService.sendMessage(vo); 
 	}
 	// 쪽지 보내기 //
+	
+	// 쪽지 삭제 Ajax ///////////////////////////////////////////////////
+	@PostMapping("deleteMessageAjax")
+	@ResponseBody public void deleteMessageAjax(int mno){
+		myPageService.deleteMessage(mno);
+	}
+	// 쪽지 삭제 Ajax //
+	
+	// 쪽지 읽음 업데이트 /////////////////////////////////
+	@PostMapping("updateMessageAjax")
+	@ResponseBody public void updateReadCheck(int mno){
+		myPageService.updateReadCheck(mno);
+	}
+	// 쪽지 읽음 업데이트 //
 	  
 	// 1:1 문의 이동 ///////////////////////////////////////////
 	@GetMapping("myQA")
@@ -110,7 +135,7 @@ public class MyPageController {
 	// 비밀번호 변경 페이지 이동////////////////////////////////////////
 	@GetMapping("myPassword")
 	public String myPassword(Model model) {
-		model.addAttribute("member", myPageService.selectUser("test")); //test -> 동적으로 바꿔야함
+		model.addAttribute("member", myPageService.selectUser("test3")); //test -> 동적으로 바꿔야함
 		return "mypage/myPassword";
 	}
 	// 비밀번호 변경 페이지 이동//
@@ -156,15 +181,17 @@ public class MyPageController {
 	@PostMapping("changePassword")
 	public String changePassword(RedirectAttributes rttr, MemberVO vo, String changePw) {
 		try { 
-			service.login(vo).getUserid(); //기존 비밀번호 맞는지 확인
+			String encodedPassword = pwdEncoder.encode(vo.getUserpw());
+			vo.setUserpw(encodedPassword);
+			service.login(vo).getUserid();
 		}catch(Exception e) {
 			e.printStackTrace();
 			rttr.addFlashAttribute("result","fail");
 			return"redirect:/myPassword"; 
 		}
-		rttr.addFlashAttribute("result","success");
-		vo.setUserpw(changePw);
+		vo.setUserpw(pwdEncoder.encode(changePw));
 		myPageService.updatePassword(vo);
+		rttr.addFlashAttribute("result","success");
 		return "redirect:/myPassword";
 	}
 	//비밀번호 변경//

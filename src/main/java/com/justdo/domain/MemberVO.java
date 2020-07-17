@@ -1,5 +1,7 @@
 package com.justdo.domain;
 
+import java.util.List;
+
 import lombok.Data;
 
 // 회원 테이블 속성을 나타냅니다 ////////////
@@ -13,4 +15,6 @@ public class MemberVO {
 	private String member_location;
 	private String member_filename;
 	private char member_enabled;
+	
+	private List<AuthVO> authList;
 }

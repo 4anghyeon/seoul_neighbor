@@ -58,6 +58,11 @@ public class myPageServiceImpl implements myPageService {
 	public String selectFindReceiver(int mno) {
 		return mapper.selectFindReceiver(mno);
 	}
+	
+	@Override
+	public void deleteMessage(int mno) {
+		mapper.deleteMessage(mno);
+	}
 
 	@Override
 	public List<BoardVO> selectMyBoardList(String userid, int pageNum) {
@@ -84,6 +89,14 @@ public class myPageServiceImpl implements myPageService {
 		mapper.insertQA(qvo);
 	}
 
+	@Override
+	public List<MessageVO> selectMiniMessageList(String userid) {
+		return mapper.selectMiniMessageList(userid);
+	}
 
+	@Override
+	public void updateReadCheck(int mno) {
+		mapper.updateReadCheck(mno);
+	}
 
 }

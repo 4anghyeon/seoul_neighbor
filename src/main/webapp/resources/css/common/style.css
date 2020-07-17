@@ -37,3 +37,23 @@ a {
 #logo{
 	margin:0 !important;
 }
+
+/* 상단 메시지 디자인 *********************************/
+#noReadCount{
+	position:relative;
+}
+
+.dropdown a{
+	cursor:pointer;
+}
+
+#subMessageDiv{
+	margin:0;
+	padding:0;
+	top:51px;
+}
+#subMessageDiv a{
+	color:white;
+	border-bottom:1px solid #e9ecef;
+}
+/* 상단 메시지 디자인 */

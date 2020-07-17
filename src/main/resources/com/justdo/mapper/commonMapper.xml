@@ -9,4 +9,31 @@
 		where userid= #{userid} and userpw =#{userpw}
 	</select>
 	
+	<select id="selectBoard" resultType="com.justdo.domain.BoardVO">
+		select * from tbl_board
+		where bno=#{bno}
+	</select>
+	
+	<!-- tbl_member테이블에 가입정보 insert -->
+	<insert id="insertUser">
+		insert into tbl_member(userid, nickname, userpw, email, member_location)
+		values(#{userid}, #{nickname}, #{userpw}, #{email}, #{member_location})
+	</insert>
+	
+	<!-- id중복체크 -->
+	<select id="checkID" resultType="int">
+		select count(*) from tbl_member
+		where userid = #{userid}
+	</select>
+	
+	<!-- 닉네임 중복체크 -->
+	<select id="checkNickName" resultType="int">
+		select count(*) from tbl_member
+		where nickname = #{nickname}
+	</select>
+	
+	<!-- 안읽은 메시지 개수 가져오기 -->
+	<select id="selectMessageReadCount" resultType="int">
+		select count(read_check = 'N') as noreadcount from tbl_message where RECEIVER=#{userid};
+	</select>
 </mapper>

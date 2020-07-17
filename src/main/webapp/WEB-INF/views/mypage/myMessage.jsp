@@ -109,8 +109,9 @@
 				<div class="modal-body">
 					<p id="readMessageContent"></p>
 				</div>
-				<div class="modal-footer">
-					<button type="button" id="replyMessageBtn" class="btn btn-primary" data-toggle="modal" data-dismiss="modal" data-target="#sendMessage">답장</button>
+				<div class="modal-footer" style="display:initial">
+					<button type="button" id="deleteMessageBtn" class="btn btn-danger float-left" data-toggle="modal" data-dismiss="modal">삭제</button>
+					<button type="button" id="replyMessageBtn" class="btn btn-primary float-right" data-toggle="modal" data-dismiss="modal" data-target="#sendMessage">답장</button>
 				</div>
 				<div id="messageInfo"></div>
 			</div>

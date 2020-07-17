@@ -49,13 +49,15 @@
 		// 쪽지 리스트 이전 버튼 //
 		
 		// Ajax 쪽지 페이지 이동 //////////////////////////////
+		var pageNum;
 		$(document).on("click",".pageBtn",function(){
 			$(this).nextAll().removeClass("active");
 			$(this).prevAll().removeClass("active");
 			$(this).addClass("active");
+			pageNum = $(this).text()*8-8;
 	        var form = {
 	                userid: '${member.userid}',
-	                pageNum: $(this).text()*8-8
+	                pageNum: pageNum
 	        }
 	        $.ajax({
 	            url: "/myMessageAjax",
@@ -128,6 +130,9 @@
 	        $.ajax({
 	            url: "/myMessageSendAjax",
 	            type: "POST",
+	            beforeSend: function(xhr){
+	            	xhr.setRequestHeader("${_csrf.headerName}", "${_csrf.token}");
+	            },
 	            data: form,
 	            success: function(data){
 	            	alert("답장했습니다!");
@@ -165,10 +170,61 @@
 			
 			$("#messageInfo").empty();
 			$("#messageInfo").append(
-				"<input type='hidden' name='mno' value='"+$($(messageInfo[0]).children().first()).val()+"'>"+
+				"<input type='hidden' id='mno' name='mno' value='"+$($(messageInfo[0]).children().first()).val()+"'>"+
 				"<input type='hidden' name='nickname' value='"+$(messageInfo[1]).text()+"'>"		
 			)
 		})
 		// 쪽지 답장 모달창 //
+		
+		// 쪽지 삭제 /////////////////////////////////////////////////////
+		$(document).on("click","#deleteMessageBtn",function(){
+			if(confirm("삭제하시겠습니까?")){
+		        var form = {
+		        		mno: parseInt($("#mno").val()),
+		        }
+		        $.ajax({
+		            url: "/deleteMessageAjax",
+		            type: "POST",
+		            data: form,
+		            beforeSend: function(xhr){
+		            	xhr.setRequestHeader("${_csrf.headerName}", "${_csrf.token}");
+		            },
+		            success: function(data){
+		            	alert("삭제했습니다!");
+		    	        var form = {
+		    	                userid: '${member.userid}',
+		    	                pageNum: pageNum
+		    	        }
+		    	        $.ajax({
+		    	            url: "/myMessageAjax",
+		    	            type: "GET",
+		    	            data: form,
+		    	            success: function(data){ //리스트 다시 불러옴
+		    	                $("#messageList").empty();
+		    	                $(data).each(function(i,message){
+		    		                $("#messageList").append(
+		    							"<tr>"+
+		    							"<td style='display:none'><input type='hidden' value='"+message.mno+"' /></td>"+
+		    							"<td>"+message.nickname+"</td>"+
+		    							"<td class='messageContent' data-toggle='modal' data-target='#readMessage'>"+message.message_content+"</td>"+
+		    							"<td>"+message.writedate+"</td>"+
+		    							"<td style='display:none'><input type='hidden' value='"+message.message_content+"' /></td>"+
+		    							"</tr>"
+		    		                )
+		    	                });
+		    	                cutContent();
+		    	            },
+		    	            error: function(){
+		    	                alert("simpleWithObject err");
+		    	            }
+		    	        });
+		            },
+		            error: function(){
+		                alert("simpleWithObject err");
+		            }
+		        });
+			}
+		})
+		// 쪽지 삭제 //
 	})
 </script>

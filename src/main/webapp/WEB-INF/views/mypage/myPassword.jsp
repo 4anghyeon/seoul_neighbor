@@ -35,6 +35,7 @@
 				<h1>비밀번호 변경</h1>
 				<div id="rightDivContent" class="container">
 					<form id="changePasswordForm" method="post" action="changePassword">
+					<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 						<input type="hidden" name="userid" value="${member.userid }">
 						<h3><span style="color:red"> * </span>현재 비밀번호</h3>
 						<div class="row">
@@ -48,7 +49,7 @@
 							<div class="col-md-6">
 							<input type="password" id="changePassword" name="changePw" class="form-control" />
 							</div>
-							<div class="col-md-6"></div>
+							<div class="col-md-6"><span id="showVerifyResult"></span></div>
 						</div>
 						<h3><span style="color:red"> * </span>변경 할 비밀번호 확인</h3>
 						<div class="row">

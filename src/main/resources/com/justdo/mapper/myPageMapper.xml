@@ -33,8 +33,19 @@
 	<!-- 쪽지함 가져오기 -->
 	<select id="selectMessageList" resultType="com.justdo.domain.MessageVO">	
 	select tbl_member.nickname, a.* from ((select mno,sender,receiver,message_content,read_check,date_format(writedate,'%Y/%m/%d')as writedate,count(*) as totalMessageNum 
-	from (tbl_message) group by mno ) a ,tbl_member) where a.sender = tbl_member.userid and receiver=#{userid} limit #{pageNum},8;
+	from (tbl_message) group by mno ) a ,tbl_member) where a.sender = tbl_member.userid and receiver=#{userid} order by mno desc limit #{pageNum},8;
 	</select>
+	
+	<!-- 미니 쪽지함 가져오기 -->
+	<select id="selectMiniMessageList" resultType="com.justdo.domain.MessageVO">	
+	select tbl_member.nickname, a.* from ((select mno,sender,receiver,message_content,read_check,date_format(writedate,'%Y/%m/%d')as writedate,count(*) as totalMessageNum 
+	from (tbl_message) group by mno ) a ,tbl_member) where a.sender = tbl_member.userid and receiver=#{userid} order by mno desc limit 0,5;
+	</select>
+	
+	<!-- 쪽지 읽음 업데이트 -->
+	<update id="updateReadCheck">
+		update tbl_message set read_check = 'Y' where mno = #{mno};
+	</update>
 	
 	<!-- 쪽지 총 개수 -->
 	<select id="selectCountMessage" resultType="int">
@@ -53,7 +64,7 @@
 	
 	<!-- 나의 게시글 불러오기 -->
 	<select id="selectMyBoardList" resultType="com.justdo.domain.BoardVO">
-		select substring_index(location,'_',1) as location,title,category,like_count,date_format(regdate,'%Y/%m/%d')as regdate from tbl_board where userid=#{userid} limit #{pageNum},8
+		select bno,substring_index(location,'_',1) as location,title,category,like_count,date_format(regdate,'%Y/%m/%d')as regdate from tbl_board where userid=#{userid} limit #{pageNum},8
 	</select>
 	
 	<!-- 나의 게시글 총 개수 -->
@@ -75,4 +86,9 @@
 	<insert id="insertQA">
 		insert into tbl_qa(userid,q_content,q_title) values (#{userid},#{q_content},#{q_title})
 	</insert>
+	
+	<!-- 쪽지 삭제 -->
+	<delete id="deleteMessage">
+		delete from tbl_message where mno = #{mno}
+	</delete>
 </mapper>

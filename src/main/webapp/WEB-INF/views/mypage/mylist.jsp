@@ -46,6 +46,7 @@
 						<tbody id="messageList">
 							<c:forEach items="${board}" var="board">
 							<tr>
+								<td style="display:none">${board.bno}</td>
 								<td>${board.location }</td>
 								<td>${board.category}</td>
 								<td><span class="boardTitle">${board.title}</span> [${board.reply_count}]</td>
