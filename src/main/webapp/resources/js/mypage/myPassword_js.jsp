@@ -5,7 +5,7 @@
 	var correct = false;
 	
 	$("#changePassword").on("propertychange change keyup paste",function(){
-		if($("#changePasswordCheck").val()==$("#changePassword").val()){
+		if($("#changePasswordCheck").val()==$("#changePassword").val() && $("#changePasswordCheck").val().length >0 && $("#changePassword").val().length >0){
 			$("#showCompareResult").text("일치합니다.").css("color","green");
 			correct = true;
 		}
@@ -17,12 +17,13 @@
 	})
 	
 	$("#changePasswordCheck").on("propertychange change keyup paste",function(){
-		if($("#changePasswordCheck").val()==$("#changePassword").val()){
+		if($("#changePasswordCheck").val()==$("#changePassword").val() && $("#changePasswordCheck").val().length >0 && $("#changePassword").val().length >0){
 			$("#showCompareResult").text("일치합니다.").css("color","green");
 			correct = true;
 		}
 		else if($("#changePassword").val()==""){
-			$("#showCompareResult").text("")
+			$("#showVerifyResult").text("");
+			$("#showCompareResult").text("");
 			correct = false;
 		}
 		else{

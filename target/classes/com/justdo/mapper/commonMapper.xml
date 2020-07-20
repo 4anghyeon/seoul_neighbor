@@ -34,6 +34,6 @@
 	
 	<!-- 안읽은 메시지 개수 가져오기 -->
 	<select id="selectMessageReadCount" resultType="int">
-		select count(read_check = 'N') as noreadcount from tbl_message where RECEIVER=#{userid};
+		select count(read_check = 'N') as noreadcount from tbl_message where RECEIVER=#{userid} and read_check ='N';
 	</select>
 </mapper>

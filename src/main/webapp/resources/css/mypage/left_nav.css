@@ -33,8 +33,10 @@
 }
 
 #profileImg img{
-	width:170px;
+	width:10rem;
 	margin:0 auto;
+	border-radius:10px;
+	box-shadow:0 3px 20px 0px rgba(0, 0, 0, 0.15);
 }
 
 #leftNavBar{
@@ -47,6 +49,10 @@
 
 #leftNavBar ul{
 	border-top:solid 1px #ced4da;
+}
+
+#leftNavBar li:hover{
+	background-color:#f3f0ff;
 }
 
 #dropDownBtn{

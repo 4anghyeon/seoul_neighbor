@@ -23,6 +23,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css"/>
 </head>
 <body>
+<%response.setHeader("Access-Control-Allow-Origin","*"); %>
   <!-- nav ------------>
   <nav class="navbar navbar-default fixed-top">
     <div class="container-fluid">
@@ -31,6 +32,7 @@
       </div>
       <ul class="nav justify-content-end">
       	<!-- 메시지 알림 창 -------------------------------------------------------------->
+      	<li class="weather-state-text"></li>
       	<li class="nav-item">
       	<div class="dropdown">
       		<a id="showMiniMessageBtn" class="nav-link" data-toggle="dropdown"><i class="far fa-comments" style="font-size:1.4rem;color:white"></i><span id="noReadCount" class="badge badge-light"></span></a>
@@ -109,6 +111,7 @@
 
 <!-- 자바스크립트------------------------>
 <%@include file="/resources/js/messageAlert_js.jsp"%>
+<%@include file="/resources/js/getWeather_js.jsp"%>
 <!-- 자바스크립트 -->
 </body>
 </html>

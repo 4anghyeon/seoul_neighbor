@@ -55,5 +55,11 @@ a {
 #subMessageDiv a{
 	color:white;
 	border-bottom:1px solid #e9ecef;
+	padding:9px;
+}
+
+.subMessageDivHover{
+	background:#ae3ec9 !important;
+	color:white !important;
 }
 /* 상단 메시지 디자인 */

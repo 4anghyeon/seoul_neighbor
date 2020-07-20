@@ -98,7 +98,7 @@ public class MyPageController {
 	// 쪽지 삭제 Ajax //
 	
 	// 쪽지 읽음 업데이트 /////////////////////////////////
-	@PostMapping("updateMessageAjax")
+	@PostMapping("updateReadCheckAjax")
 	@ResponseBody public void updateReadCheck(int mno){
 		myPageService.updateReadCheck(mno);
 	}

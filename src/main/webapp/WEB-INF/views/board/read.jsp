@@ -6,6 +6,7 @@
 	<meta charset="UTF-8">
 	
 	<style>
+
 	body {
 	  font-family: "Lato", sans-serif;
 	}
@@ -64,9 +65,68 @@
 		text-align: right;
 		margin:20px;
 	}
+	
+	/* temp */
+	#selectGu{
+		display:initial;
+		width:auto;
+	}
+	
+	#selectCategory{
+		display:initial;
+		width:auto;
+	}
+	
+	#sideMenu{
+		height:90vh;
+		border-right:1px solid black;
+		padding:2rem;
+	}
+	
+	/* 게시글 상세 제목,아이디 부분  */
+	#rightTop{
+		border-top:1.5px solid black;
+		border-bottom:1.5px solid black;
+	}
+	
+	#rightContent{
+		padding:5rem;
+	}
+	
+	#boardTitle{
+		padding:1rem;
+	}
+	
+	#userDiv{
+		width:3rem;
+		display:inline-block;
+		border:none;
+	}
+	
+	/* 게시글 상세 내용 부분 */
+	#boardContent{
+		padding:1rem;
+	}
+	
+	.likeCount{
+		float:right;
+		padding:1rem;
+		cursor:pointer;
+	}
+	
+	.unlikeCount{
+		float:left;
+		padding:1rem;
+		cursor:pointer;
+	}
+	
+	#commentInsertDiv{
+		margin:10px;
+	}
+	
 	</style>
 	
-	<title>Insert title here</title>
+	<title>상세 보기</title>
 	    
 </head>
 
@@ -75,14 +135,122 @@
 	<%@include file="../common/header.jsp"%>
 	<!-- header include -->
 	
-	<!-------	side menu-------------------------->
-			<div class="sidenav">
-				<h3>빠른 게시판 이동</h3>
-				<br>
-			  <em>지역-><a href="#">${board.location}</a></em>
-			  <em>카테고리-><a href="#">${board.category}</a></em>
+	<div class="container" style="margin-top:60px">
+		<div class="row">
+			<div id="sideMenu" class="col-lg-3">
+					<!-------	side menu-------------------------->
+					<div>
+						<h5>빠른 게시판 이동</h5>
+							<div>지역 >
+							<select id="selectGu" name="gu" class="form-control">
+								<option>강남구</option>
+								<option>강동구</option>
+								<option>강북구</option>
+								<option>강서구</option>
+								<option>관악구</option>
+								<option>광진구</option>
+								<option>구로구</option>
+								<option>금천구</option>
+								<option>노원구</option>
+								<option>도봉구</option>
+								<option>동대문구</option>
+								<option>동작구</option>
+								<option>마포구</option>
+								<option>서대문구</option>
+								<option>서초구</option>
+								<option>성동구</option>
+								<option>성북구</option>
+								<option>송파구</option>
+								<option>양천구</option>
+								<option>영등포구</option>
+								<option>용산구</option>
+								<option>은평구</option>
+								<option>종로구</option>
+								<option>중구</option>
+								<option>중랑구</option>
+							</select>
+							</div>
+							<div>카테고리 >
+							<select id="selectCategory" name="category" class="form-control">
+								<option>놀아요</option>
+								<option>운동해요</option>
+								<option>메롱</option>
+							</select>
+							</div>
+					</div>
+					<div>
+						<h5>우리 동네 인기글</h5>
+					</div>
+<%-- 			  		<em>지역-><a href="#">${board.location}</a></em>
+			  		<em>카테고리-><a href="#">${board.category}</a></em> --%>
+					<!-- side menu -->
 			</div>
-	<!-- 			side menu -->
+			<div id="rightContent" class="col-lg-9">
+				<!-- 게시글 상세 제목,아이디 부분 -------------------->
+				<div id="rightTop" class="row">
+					<div id="boardTitle" class="col-lg-9">
+						<h4>[${board.category}] ${board.title}</h4>
+						<span>${board.updatedate} | 조회 ${board.view_count} | 추천 ${board.like_count} | 댓글 ${board.reply_count} </span>
+					</div>
+					<div class="col-lg-3" style="padding:1rem">
+						<div id="userDiv" class="card text-center">
+							<img class="card-img-top" src="/resources/img/mypage/profile_sample.png" alt="프로필 사진">
+						</div>
+						<span id="userId">${board.userid}</span>
+					</div>
+				</div>
+				<!-- 게시글 상세 제목, 아이디 부분 -->
+				
+				<!-- 게시글 내용 부분 ------------------------------->
+				<div id="boardContent" class="row">
+					<p>${board.content}</p>
+				</div>
+				<!-- 게시글 내용 부분 -->
+				
+				<!-- 좋아요, 싫어요 부분 ------------------------------>
+				<div id="boardLikeUnlike" class="row text-center">
+					<div style="width:50%">
+						<span class="likeCount">${board.like_count} <i id="likeButton" class="fas fa-thumbs-up"></i> 좋아요</span>
+					</div>
+					<div style="width:50%">
+						<span class="unlikeCount">${board.unlike_count} <i id="unlikeButton" class="fas fa-thumbs-down"></i> 별로에요</span>
+					</div>
+				</div>
+				<!-- 좋아요, 싫어요 부분 -->
+				
+				<!-- 댓글 창 부분 ----------------------------------->
+				<div id="commentDiv	" class="row">
+					
+				</div>
+				<!-- 댓글 창 부분 -->
+				
+				<!-- 댓글 입력 창 ----------------------------------->
+				<div id="commentInsertDiv" class="row">
+					<input type="text" class="form-control" placeholder="댓글을 입력하세요" style="width:80%"><input type="button" class="form-control" value="등록" style="width:20%">
+				</div>
+				<!-- 댓글 입력 창 -->
+				
+				<!-- 다른 페이지 이동 버튼 --------------------------->
+				<div id="crudDiv" class="row" style="display:block">
+						<button type="button" class="btn btn-primary">목록</button>
+						<button type="button" class="btn btn-primary float-right">글쓰기</button>
+						<button type="button" class="btn btn-primary float-right">삭제</button>
+						<button type="button" class="btn btn-primary float-right">수정</button>
+
+		
+				</div>
+				<!-- 다른 페이지 이동 버튼 -->
+			</div>
+
+		</div>
+	</div>
+	
+	
+	
+	
+	
+<%-- 	<div class="container" style="margin-top:600px">
+
 	
   <div class="main">
 
@@ -148,38 +316,7 @@
 <!-- 	좋아요, 싫어요------------------------------------------------- -->
 	<div style="text-align: center;">
 	
-		<script>
-		   $(document).ready(function(){
-		      $("#likeButton").click(function(){
-		    	  let bno=${board.bno}
-		         $.ajax({
-		            url: "/read/plusLike/" + bno, 
-		            type: "GET",
-		            dataType: "text",
-		            success: function(result, status, xhr){
-		               console.log(result);
-		               
-		               $(".likeCount").html(result);
-		            }
-		         });
-		      });
-		   })
-		   $(document).ready(function(){
-		      $("#unlikeButton").click(function(){
-		    	  let bno=${board.bno}
-		         $.ajax({
-		            url: "/read/plusUnlike/" + bno, 
-		            type: "GET",
-		            dataType: "text",
-		            success: function(result, status, xhr){
-		               console.log(result);
-		               
-		               $(".unlikeCount").html(result);
-		            }
-		         });
-		      });
-		   })		   
-		</script>	
+
 								
 		<button class="btn btn-primary" id="likeButton">
 			<i class="fas fa-thumbs-up"> 
@@ -247,6 +384,38 @@
 	
 	<!--목록, 삭제, 수정, 글쓰기 버튼  -->
 	</div>
+	</div> --%>
+<script>
+   $(document).ready(function(){
+	   $(document).on("click","#likeButton",function(){
+    	  let bno=${board.bno}
+         $.ajax({
+            url: "/read/plusLike/" + bno, 
+            type: "GET",
+            dataType: "text",
+            success: function(result, status, xhr){
+               console.log(result);
+               
+               $(".likeCount").html(result+" <i id='likeButton' class='fas fa-thumbs-up'></i> 좋아요</span>");
+            }
+         });
+      });
+
+      $(document).on("click","#unlikeButton",function(){
+    	  let bno=${board.bno}
+         $.ajax({
+            url: "/read/plusUnlike/" + bno, 
+            type: "GET",
+            dataType: "text",
+            success: function(result, status, xhr){
+               console.log(result);
+               
+               $(".unlikeCount").html(result+" <i id='unlikeButton' class='fas fa-thumbs-down'></i> 별로에요</span>");
+            }
+         });
+      });
+   })		   
+</script>
 
 </body> 
 

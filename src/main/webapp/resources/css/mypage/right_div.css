@@ -4,9 +4,9 @@
 }
 
 #rightDivContent{
-	margin-top:40px;
+	margin-top:20px;
 	margin-left:0;
-	padding:0.9rem;
+	padding:2.5rem;
 	height:auto;
 	border:solid 1px #ced4da;
 	border-radius:25px;
@@ -14,10 +14,11 @@
 }
 
 h1{
-	font-family: 'ImcreSoojin'
+	font-family: 'ImcreSoojin';
+	margin-left: 2.5rem;
 }
 
 h3{
 	font-family: 'ImcreSoojin';
-	font-size: 1.45rem;
+	font-size: 1.35rem;
 }

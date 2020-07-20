@@ -49,7 +49,7 @@
 		// 쪽지 리스트 이전 버튼 //
 		
 		// Ajax 쪽지 페이지 이동 //////////////////////////////
-		var pageNum;
+		var pageNum = 1;
 		$(document).on("click",".pageBtn",function(){
 			$(this).nextAll().removeClass("active");
 			$(this).prevAll().removeClass("active");
@@ -66,15 +66,29 @@
 	            success: function(data){
 	                $("#messageList").empty();
 	                $(data).each(function(i,message){
-		                $("#messageList").append(
-							"<tr>"+
-							"<td style='display:none'><input type='hidden' value='"+message.mno+"' /></td>"+
-							"<td>"+message.nickname+"</td>"+
-							"<td class='messageContent' data-toggle='modal' data-target='#readMessage'>"+message.message_content+"</td>"+
-							"<td>"+message.writedate+"</td>"+
-							"<td style='display:none'><input type='hidden' value='"+message.message_content+"' /></td>"+
-							"</tr>"
-		                )
+	                	if(message.read_check == 'Y'){
+    		                $("#messageList").append(
+    								"<tr>"+
+    								"<td style='display:none'><input type='hidden' value='"+message.mno+"' /></td>"+
+    								"<td>"+message.nickname+"</td>"+
+    								"<td class='messageContent' data-toggle='modal' data-target='#readMessage'>"+message.message_content+"</td>"+
+    								"<td>"+message.writedate+"</td>"+
+    								"<td style='display:none'><input type='hidden' value='"+message.message_content+"' /></td>"+
+    								"</tr>"
+    			             )
+	                	}
+	                	else if(message.read_check == 'N'){
+    		                $("#messageList").append(
+    								"<tr>"+
+    								"<td style='display:none'><input type='hidden' value='"+message.mno+"' /></td>"+
+    								"<td>"+message.nickname+"</td>"+
+    								"<td class='messageContent' data-toggle='modal' data-target='#readMessage'>"+"[읽지 않음] "+message.message_content+"</td>"+
+    								"<td>"+message.writedate+"</td>"+
+    								"<td style='display:none'><input type='hidden' value='"+message.message_content+"' /></td>"+
+    								"</tr>"
+    			             )
+	                	}
+
 	                });
 	                cutContent();
 	            },
@@ -173,6 +187,63 @@
 				"<input type='hidden' id='mno' name='mno' value='"+$($(messageInfo[0]).children().first()).val()+"'>"+
 				"<input type='hidden' name='nickname' value='"+$(messageInfo[1]).text()+"'>"		
 			)
+			console.log($($(messageInfo[0]).children().first()).val());
+ 			var form = {
+				mno: $($(messageInfo[0]).children().first()).val()
+		  		}
+				$.ajax({
+		       url: "/updateReadCheckAjax",
+		       type: "POST",
+		       beforeSend: function(xhr){
+		       	xhr.setRequestHeader("${_csrf.headerName}", "${_csrf.token}");
+		       },
+		       data: form,
+		       success: function(data){
+	    	       var form2 = {
+	    	                userid: '${member.userid}',
+	    	                pageNum: pageNum
+	    	        }
+	    	        $.ajax({
+	    	            url: "/myMessageAjax",
+	    	            type: "GET",
+	    	            data: form2,
+	    	            success: function(data){ //리스트 다시 불러옴
+	    	                $("#messageList").empty();
+	    	                $(data).each(function(i,message){
+	    	                	if(message.read_check == 'Y'){
+	        		                $("#messageList").append(
+	        								"<tr>"+
+	        								"<td style='display:none'><input type='hidden' value='"+message.mno+"' /></td>"+
+	        								"<td>"+message.nickname+"</td>"+
+	        								"<td class='messageContent' data-toggle='modal' data-target='#readMessage'>"+message.message_content+"</td>"+
+	        								"<td>"+message.writedate+"</td>"+
+	        								"<td style='display:none'><input type='hidden' value='"+message.message_content+"' /></td>"+
+	        								"</tr>"
+	        			             )
+	    	                	}
+	    	                	else if(message.read_check == 'N'){
+	        		                $("#messageList").append(
+	        								"<tr>"+
+	        								"<td style='display:none'><input type='hidden' value='"+message.mno+"' /></td>"+
+	        								"<td>"+message.nickname+"</td>"+
+	        								"<td class='messageContent' data-toggle='modal' data-target='#readMessage'>"+"[읽지 않음] "+message.message_content+"</td>"+
+	        								"<td>"+message.writedate+"</td>"+
+	        								"<td style='display:none'><input type='hidden' value='"+message.message_content+"' /></td>"+
+	        								"</tr>"
+	        			             )
+	    	                	}
+	    	                });
+	    	                cutContent();
+	    	            },
+	    	            error: function(){
+	    	                alert("simpleWithObject err");
+	    	            }
+	    	        });
+		       },
+		       error: function(){
+		           alert("simpleWithObject err");
+		       }
+		   });
 		})
 		// 쪽지 답장 모달창 //
 		
@@ -202,15 +273,28 @@
 		    	            success: function(data){ //리스트 다시 불러옴
 		    	                $("#messageList").empty();
 		    	                $(data).each(function(i,message){
-		    		                $("#messageList").append(
-		    							"<tr>"+
-		    							"<td style='display:none'><input type='hidden' value='"+message.mno+"' /></td>"+
-		    							"<td>"+message.nickname+"</td>"+
-		    							"<td class='messageContent' data-toggle='modal' data-target='#readMessage'>"+message.message_content+"</td>"+
-		    							"<td>"+message.writedate+"</td>"+
-		    							"<td style='display:none'><input type='hidden' value='"+message.message_content+"' /></td>"+
-		    							"</tr>"
-		    		                )
+		    	                	if(message.read_check == 'Y'){
+		        		                $("#messageList").append(
+		        								"<tr>"+
+		        								"<td style='display:none'><input type='hidden' value='"+message.mno+"' /></td>"+
+		        								"<td>"+message.nickname+"</td>"+
+		        								"<td class='messageContent' data-toggle='modal' data-target='#readMessage'>"+message.message_content+"</td>"+
+		        								"<td>"+message.writedate+"</td>"+
+		        								"<td style='display:none'><input type='hidden' value='"+message.message_content+"' /></td>"+
+		        								"</tr>"
+		        			             )
+		    	                	}
+		    	                	else if(message.read_check == 'N'){
+		        		                $("#messageList").append(
+		        								"<tr>"+
+		        								"<td style='display:none'><input type='hidden' value='"+message.mno+"' /></td>"+
+		        								"<td>"+message.nickname+"</td>"+
+		        								"<td class='messageContent' data-toggle='modal' data-target='#readMessage'>"+"[읽지 않음] "+message.message_content+"</td>"+
+		        								"<td>"+message.writedate+"</td>"+
+		        								"<td style='display:none'><input type='hidden' value='"+message.message_content+"' /></td>"+
+		        								"</tr>"
+		        			             )
+		    	                	}
 		    	                });
 		    	                cutContent();
 		    	            },

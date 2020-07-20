@@ -1,7 +1,8 @@
 package com.justdo.controller;
 
 
-import javax.servlet.http.HttpServletRequest;
+
+import java.io.IOException;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -39,7 +40,8 @@ public class CommonController {
 	// test //
 	// 메인 이동 //////////////////////////////////
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String home() {
+	public String home() throws IOException {
+		service.getWeather();
 		return "index";
 	}
 	// 메인 이동 //

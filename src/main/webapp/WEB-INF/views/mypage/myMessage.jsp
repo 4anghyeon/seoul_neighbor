@@ -49,13 +49,26 @@
 						</thead>
 						<tbody id="messageList">
 							<c:forEach items="${message}" var="message">
-							<tr>
-								<td style="display:none"><input type="hidden" value="${message.mno }" /></td>
-								<td>${message.nickname}</td>
-								<td class="messageContent" data-toggle="modal" data-target="#readMessage">${message.message_content}</td>
-								<td>${message.writedate}</td>
-								<td style="display:none"><input type="hidden" value="${message.message_content}" /></td>
-							</tr>
+							<c:choose>
+								<c:when test="${message.read_check eq 'N'.charAt(0) }">
+									<tr>
+										<td style="display:none"><input type="hidden" value="${message.mno }" /></td>
+										<td>${message.nickname}</td>
+										<td class="messageContent" data-toggle="modal" data-target="#readMessage">[읽지 않음] ${message.message_content}</td>
+										<td>${message.writedate}</td>
+										<td style="display:none"><input type="hidden" value="${message.message_content}" /></td>
+									</tr>
+								</c:when>
+								<c:when test="${message.read_check eq 'Y'.charAt(0) }">
+									<tr>
+										<td style="display:none"><input type="hidden" value="${message.mno }" /></td>
+										<td>${message.nickname}</td>
+										<td class="messageContent" data-toggle="modal" data-target="#readMessage">${message.message_content}</td>
+										<td>${message.writedate}</td>
+										<td style="display:none"><input type="hidden" value="${message.message_content}" /></td>
+									</tr>
+								</c:when>
+							</c:choose>
 							</c:forEach>
 						</tbody>
 					</table>
