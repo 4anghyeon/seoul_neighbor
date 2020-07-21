@@ -19,6 +19,7 @@ public class CustomUser extends User {
 	private static final long serialVersionUID = 1L;
 	
 	private MemberVO member;
+	private String nickname;
 	
 	// 해당 기능 사용시 외부로그인 연동 세션 처리에 문제가 있을 수 있음!
 	public CustomUser(String username, String password, Collection<? extends GrantedAuthority> authorities) {
@@ -31,5 +32,6 @@ public class CustomUser extends User {
 		log.warn("-------------CustomUser---------------");
 		log.warn("CustomUser - 들어온 memberVO : "+vo);
 		this.member = vo;
+		this.nickname = vo.getNickname();
 	}	
 }

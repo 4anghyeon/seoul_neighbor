@@ -24,7 +24,7 @@
 	<beans:bean id="multipartResolver" class="org.springframework.web.multipart.support.StandardServletMultipartResolver" />
 	
 	<context:component-scan base-package="com.justdo.controller" />
-	<context:component-scan base-package="com.justdo.serviceImpl" />
+    <context:component-scan base-package="com.justdo.serviceImpl" />
 	
 	
 </beans:beans>

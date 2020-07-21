@@ -65,10 +65,10 @@ public class JoinValidator implements Validator {
 			errors.rejectValue("email", "trouble");
 		}
 		
-//		if(memberLocation == null || memberLocation.trim().isEmpty()) {
-//			System.out.println("지역선택이 비었거나 적절하지 않습니다.");
-//			errors.rejectValue("memberLocation", "trouble");
-//		}
+		if(memberLocation == null || memberLocation.trim().isEmpty()) {
+			System.out.println("지역선택이 비었거나 적절하지 않습니다.");
+			errors.rejectValue("memberLocation", "trouble");
+		}
 		
 	}
 

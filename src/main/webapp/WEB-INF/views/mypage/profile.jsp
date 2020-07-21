@@ -25,104 +25,132 @@
 	<!-- header include -->
 	<div style="position:fixed"><img src="/resources/img/mypage/left_background.png"></div>
 	<!-- 1. 메인 ------------------------------------------------->
-	<div class="container" style="margin-top:60px">
+	<div class="container pt-0" >
 		<div class="row">
 		<!-- 1.1 왼쪽 메뉴 ---------------------------->
-			<div id="leftNav" class="col-lg-3 d-flex justify-content-center">
+			<div id="leftNav" class="col-lg-3">
 				<!-- header include ------------>
 				<%@include file="leftNav.jsp"%>
 				<!-- header include -->
 			</div>
 		<!-- 1.1 왼쪽 메뉴 -->
 		<!-- 1.2 프로필 레이아웃 ---------------------------------->
-			<div id="rightDiv" class="col-lg-9">
+			<div id="rightDiv" class="col-lg-9 p-5">
 				<form class="form-group" method="post" action="updateUser" enctype="multipart/form-data">
+				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 				<h1>프로필</h1>
-					<div id="rightDivContent" class="container">
+					<div id="rightDivContent" class="mt-5">
 					<!-- 1.3 프로필 이미지 업로드 부분 --------------------------------------------->
-						<h3>프로필 이미지</h3>
-						<div id="profileChangeImgBox" class="card">
-							<c:choose>
-								<c:when test = "${member.member_filename eq null }">
-						  		<img class="card-img-top" src="/resources/img/mypage/profile_sample.png" alt="프로필 사진">
-						  		</c:when>
-								<c:when test = "${member.member_filename != null }">
-						  		<img id="profileChangeImg" class="card-img-top" src="/resources/img/mypage/<c:out value="${member.member_filename}"/>" alt="프로필 이미지">
-						  		</c:when>
-						  	</c:choose>
-						  
-						  <div class="card-body filebox text-center">
-						  	<label id="uploadBtn" for="uploadFile">업로드</label>
-						    <input type="file" id="uploadFile" name="uploadFile" />
-						    <input type="hidden" id="isFileChanged" name="isFileChanged" value="false" />
-						  </div>
-						  <div id="fileNameContainer">
-						  	<input type="hidden" name="member_filename" value="${member.member_filename }">
-						  </div>
-					<!-- 1.3 프로필 이미지 업로드 부분 -->
-						</div>
-					<!-- 1.4 닉네임 수정 부분 ------------------------------------------->
-						<h3><span style="color:red"> * </span>닉네임</h3>
-						<div class="row">
-							<div class="col-md-5">
-								<input id="nickName" name="nickname" type="text" value="${member.nickname }" class="form-control">
-							</div>
-						</div>
-					<!-- 1.4 닉네임 수정 부분 -->
-					<!-- 1.5 주소 수정 부분 ------------------------------------------>
-						<h3><span style="color:red"> * </span>지역</h3>
-							<div class="row">
-								<div class="col-md-5">
-									<select id="selectGu" name="gu" class="form-control">
-									<option>강남구</option>
-									<option>강동구</option>
-									<option>강북구</option>
-									<option>강서구</option>
-									<option>관악구</option>
-									<option>광진구</option>
-									<option>구로구</option>
-									<option>금천구</option>
-									<option>노원구</option>
-									<option>도봉구</option>
-									<option>동대문구</option>
-									<option>동작구</option>
-									<option>마포구</option>
-									<option>서대문구</option>
-									<option>서초구</option>
-									<option>성동구</option>
-									<option>성북구</option>
-									<option>송파구</option>
-									<option>양천구</option>
-									<option>영등포구</option>
-									<option>용산구</option>
-									<option>은평구</option>
-									<option>종로구</option>
-									<option>중구</option>
-									<option>중랑구</option>
-									</select>
-								</div>
-								<div class="col-md-5">
-									<select id="selectDong" name="dong" class="form-control"></select>
-								</div>
-								<div class="col-md-2">
-									<input id="searchPost" type="button" class="btn form-control" value="주소 검색">
-								</div>
-								<div id="member_location"></div>
-							</div>
-						<!-- 1.5 주소 수정 부분 -->
-						<h3>이메일</h3>
-						<div class="row">
-							<div class="col-md-5">
-								<input id="email" class="form-control" type="email" value="${member.email}" readonly>
-							</div>
-						</div>
-						<input type="hidden" name="userid" value="${member.userid }">
-						<input id="saveChangeBtn" type="submit" class="btn" value="변경사항 저장">
-					</div>
+				<div class="content-box">
+							<h3>프로필 이미지</h3>
+							<div id="profileChangeImgBox" class="card">
+								<c:choose>
+									<c:when test="${member.member_filename eq null }">
+										<img id="profileChangeImg"
+											class="card-img-top"
+											src="/resources/img/mypage/profile_sample.png" alt="프로필 사진">
+									</c:when>
+									<c:when test="${member.member_filename != null }">
+										<img id="profileChangeImg" class="card-img-top"
+											src="/resources/img/mypage/<c:out value="${member.member_filename}"/>"
+											alt="프로필 이미지">
+									</c:when>
+								</c:choose>
 
+								<div class="card-body filebox text-center">
+									<label id="uploadBtn" for="uploadFile">업로드</label> <input
+										type="file" id="uploadFile" name="uploadFile" /> <input
+										type="hidden" id="isFileChanged" name="isFileChanged"
+										value="false" />
+								</div>
+								<div id="fileNameContainer">
+									<input type="hidden" name="member_filename"
+										value="${member.member_filename }">
+								</div>
+							</div>
+							<!-- 1.3 프로필 이미지 업로드 부분 -->
+
+							<!-- 1.4 닉네임 수정 부분 ------------------------------------------->
+							<div class="content-box">
+								<h3>
+									닉네임<span style="color: red"> * </span>
+								</h3>
+								<div class="row">
+									<div class="col-md-5">
+										<input id="nickName" name="nickname" type="text"
+											value="${member.nickname }" class="form-control">
+									</div>
+								</div>
+							</div>
+							<!-- 1.4 닉네임 수정 부분 -->
+
+							<!-- 1.5 주소 수정 부분 ------------------------------------------>
+							<div class="content-box">
+								<h3>
+									지역<span style="color: red"> * </span>
+								</h3>
+								<div class="row">
+									<div class="col-md-5">
+										<select id="selectGu" name="gu" class="form-control">
+											<option>강남구</option>
+											<option>강동구</option>
+											<option>강북구</option>
+											<option>강서구</option>
+											<option>관악구</option>
+											<option>광진구</option>
+											<option>구로구</option>
+											<option>금천구</option>
+											<option>노원구</option>
+											<option>도봉구</option>
+											<option>동대문구</option>
+											<option>동작구</option>
+											<option>마포구</option>
+											<option>서대문구</option>
+											<option>서초구</option>
+											<option>성동구</option>
+											<option>성북구</option>
+											<option>송파구</option>
+											<option>양천구</option>
+											<option>영등포구</option>
+											<option>용산구</option>
+											<option>은평구</option>
+											<option>종로구</option>
+											<option>중구</option>
+											<option>중랑구</option>
+										</select>
+									</div>
+									<div class="col-md-5">
+										<select id="selectDong" name="dong" class="form-control"></select>
+									</div>
+									<div class="col-md-2">
+										<input id="searchPost" type="button" class="btn form-control"
+											value="주소 검색">
+									</div>
+									<div id="member_location"></div>
+								</div>
+							</div>
+							<!-- 1.5 주소 수정 부분 -->
+
+							<!-- 1.6 이메일 표시 부분(수정불가) -------------------------------------->
+							<div class="content-box">
+								<h3>이메일</h3>
+								<div class="row">
+									<div class="col-md-5">
+										<input id="email" class="form-control" type="email"
+											value="${member.email}" readonly>
+									</div>
+								</div>
+							</div>
+							<!-- 1.6 이메일 표시 부분(수정불가) -->
+							<div class="content-box">
+								<input type="hidden" name="userid" value="${member.userid }">
+								<input id="saveChangeBtn" type="submit" class="btn" value="변경사항 저장">
+							</div>
+						</div>
+					</div>
 				</form>
 			</div>
-		<!-- 1.2 프로필 레이아웃 ---------------------------------->
+			<!-- 1.2 프로필 레이아웃 ---------------------------------->
 		</div>
 	</div>
 	<!-- 1. 메인 -->

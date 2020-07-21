@@ -99,4 +99,9 @@ public class myPageServiceImpl implements myPageService {
 		mapper.updateReadCheck(mno);
 	}
 
+	@Override
+	public String selectUserPw(String userid) {
+		return mapper.selectUserPw(userid);
+	}
+
 }

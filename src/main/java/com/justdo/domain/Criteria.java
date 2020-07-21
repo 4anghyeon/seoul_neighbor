@@ -14,7 +14,7 @@ public class Criteria {
 	private int amount;
 	private int startIndex;
 	
-	private String recommend;	
+	private String category;
 	private String gu;
 	
 	private String type;
@@ -24,12 +24,12 @@ public class Criteria {
 		this(1, 20 ,0,null,null);
 	}
 
-	public Criteria(int pageNum, int amount, int startIndex,String gu, String recommend) {
+	public Criteria(int pageNum, int amount, int startIndex,String gu, String category) {
 		this.pageNum = pageNum;
 		this.amount = amount;
 		this.startIndex=startIndex;
 		this.gu=gu;
-		this.recommend=recommend;
+		this.category=category;
 	}
 	
 	public void setPageNum(int pageNum) {

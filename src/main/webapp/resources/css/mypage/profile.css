@@ -1,9 +1,120 @@
+/* 태그 기본 css ////////////////////////////////////////////*/
+
+* {
+	margin: 0px; 
+	padding: 0px; 
+	box-sizing: border-box;
+}
+
+body, html {
+	height: 100%;
+}
+
+a {
+	line-height: 1.7;
+	color: #666666;
+	margin: 0px;
+	transition: all 0.4s;
+	-webkit-transition: all 0.4s;
+  -o-transition: all 0.4s;
+  -moz-transition: all 0.4s;
+}
+
+a:focus {
+	outline: none !important;
+}
+
+a:hover {
+	text-decoration: none;
+}
+
+h1,h2,h3,h4,h5,h6 {
+	margin: 0px;
+}
+
+p {
+	font-size: 15px;
+	line-height: 1.7;
+	color: #666666;
+	margin: 0px !important;
+}
+
+ul, li {
+	margin: 0px;
+	list-style-type: none;
+}
+
+input {
+	outline: none;
+	border: none;
+}
+
+textarea {
+  outline: none;
+  border: none;
+}
+
+textarea:focus, input:focus {
+  border-color: transparent !important;
+}
+
+input::-webkit-input-placeholder { color: #8f8fa1;}
+input:-moz-placeholder { color: #8f8fa1;}
+input::-moz-placeholder { color: #8f8fa1;}
+input:-ms-input-placeholder { color: #8f8fa1;}
+
+textarea::-webkit-input-placeholder { color: #8f8fa1;}
+textarea:-moz-placeholder { color: #8f8fa1;}
+textarea::-moz-placeholder { color: #8f8fa1;}
+textarea:-ms-input-placeholder { color: #8f8fa1;}
+
+label {
+  display: block;
+  margin: 0;
+}
+
+button {
+	outline: none !important;
+	border: none;
+	background: transparent;
+}
+
+button:hover {
+	cursor: pointer;
+}
+
+iframe {
+	border: none !important;
+}
+/* 태그 기본 css */
+
+/* 배경  ////////////////////////////////////////////*/
+.container {
+  min-height: 90vh;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  padding: 15px;
+  
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+/* 배경  */
+
 /* font *********************************/
 @font-face { font-family: 'BBTreeGB'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_nine_@1.1/BBTreeGB.woff') format('woff'); font-weight: normal; font-style: normal; }
 
 /* font */
 
 /* form 디자인 *************************************/
+
+
+
+.content-box {
+	margin-top: 20px;
+}
 
 h3:nth-child(n+4) {
 	margin-top: 20px;
@@ -35,8 +146,6 @@ h3:nth-child(n+4) {
 
 #profileChangeImgBox img {
 	width: 170px;
-	border-radius:10px;
-	box-shadow:0 3px 20px 0px rgba(0, 0, 0, 0.1);
 }
 
 #searchPost{
@@ -86,7 +195,7 @@ h3:nth-child(n+4) {
 	background:rgba(0,0,0,0.7);
 	color:white;
 	border:none;
-	border-radius:10px !important;
+	border-radius:0px !important;
 	margin-top:-55px;
 }
 

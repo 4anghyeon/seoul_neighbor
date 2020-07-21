@@ -1,0 +1,53 @@
+/* styles */
+
+#leftside{
+	border-right: 1px solid #888888;
+}
+#map_choice{
+	margin: 30px 0px 10px 0px;
+	text-align: center;
+	font-size: x-large;
+	position: relative;
+}
+#name_choice{
+	position: relative;
+	margin-top: 10px;
+}
+#writer{
+	margin: 30px 10px 10px 10px;
+	font-size: xx-large;
+	position: relative;	
+}
+#category_wrap{
+	position: relative;
+	margin: 10px;
+}
+#title{
+	position: relative;
+	margin: 10px;
+	width: 50%;
+}
+#content{
+	position: relative;
+	margin: 10px;
+}
+#selectGu{
+	float:left;
+	position: relative;
+	width:48%;
+	margin: 0px 1%;
+}
+#selectDong{
+	float:left;
+	position: relative;
+	width:48%;
+	margin: 0px 1%;
+}
+.dropdown-menu{
+	max-height: 200px;
+  	overflow-y: auto;
+}
+.bottomButton{
+	margin: 5px;
+	float: right;
+}

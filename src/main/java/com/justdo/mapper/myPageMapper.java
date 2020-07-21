@@ -58,5 +58,8 @@ public interface myPageMapper {
 	
 	//쪽지 읽음 업데이트
 	public void updateReadCheck(int mno);
+	
+	//비밀번호 변경위한 비밀번호 가져오기
+	public String selectUserPw(String userid);
 
 }

@@ -27,7 +27,7 @@ public class LoginController {
 	// 서브 로그인 페이지로 이동 //////////////////////////////////
 	@RequestMapping(value = "subLogin", method = RequestMethod.GET)
 	public String subLogin() {
-		return "subLogin";
+		return "/login/subLogin";
 	}
 	// 서브 로그인 페이지로 이동 //
 	
@@ -38,5 +38,11 @@ public class LoginController {
 		return "board/list";
 	}
 	// 로그인 성공 - 목록 이동 //
+	
+	// 권한 없음 페이지로 이동  ///////////////////////////////////
+    @RequestMapping(value = "access_denied", method = RequestMethod.GET)
+    public String accessDeniedPage() throws Exception {
+        return "/login/access_denied";
+    }
 
 }

@@ -26,7 +26,7 @@ public class LoginFailureHandler implements AuthenticationFailureHandler {
 		String errorMessage = "가입하지 않은 아이디이거나, 잘못된 비밀번호입니다."; 
 		request.setAttribute("message", errorMessage); // 로그인 실패시 뜰 문구
 		
-		response.sendRedirect("/login?error=true");
+		response.sendRedirect("/subLogin?error=true");
 	}
 
 }

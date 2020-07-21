@@ -28,9 +28,15 @@ public interface commonService {
 	//닉네임 중복체크
 	public boolean isUniqueNickName(String nickname);
 	
+	//이메일 중복체크
+	public boolean isUniqueEmail(String email);
+	
 	//안읽은 메시지 개수 가져오기
 	public int selectMessageReadCount(String userid);
 
 	//날씨 불러오기
 	public String getWeather() throws IOException;
+	
+    //해당 bno의 board 삭제.
+	public boolean remove(int bno);
 }

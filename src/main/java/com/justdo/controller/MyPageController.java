@@ -1,6 +1,7 @@
 package com.justdo.controller;
 
 import java.io.File;
+import java.security.Principal;
 import java.util.List;
 import java.util.UUID;
 
@@ -20,7 +21,6 @@ import com.justdo.domain.BoardVO;
 import com.justdo.domain.MemberVO;
 import com.justdo.domain.MessageVO;
 import com.justdo.domain.QAVO;
-import com.justdo.service.commonService;
 import com.justdo.service.myPageService;
 
 import lombok.AllArgsConstructor;
@@ -30,14 +30,14 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class MyPageController {
 	
-	private commonService service;
 	private myPageService myPageService;
 	private BCryptPasswordEncoder pwdEncoder;
 	
 	// 나의 게시글 불러오기 ///////////////////////////////////////////
 	@GetMapping("mylist")
-	public String myList(Model model,MemberVO vo) {
-		vo = myPageService.selectUser("test");//test -> 동적으로 바꿔야함
+	public String myList(Model model,MemberVO vo,Principal principal) {
+		String username = principal.getName();
+		vo = myPageService.selectUser(username);
 		model.addAttribute("member", myPageService.selectUser(vo.getUserid())); 
 		model.addAttribute("board",myPageService.selectMyBoardList(vo.getUserid(),0));
 		model.addAttribute("pageTotalNum",myPageService.selectCountMyBoardList(vo.getUserid()));
@@ -49,15 +49,17 @@ public class MyPageController {
 	// 나의 게시글 Ajax로 불러오기 //////////////////////////////////////////////
 	@GetMapping("myListAjax")
 	@ResponseBody
-	public ResponseEntity<List<BoardVO>> myListAjax(String userid, int pageNum) {
-		return new ResponseEntity<List<BoardVO>>(myPageService.selectMyBoardList(userid, pageNum),HttpStatus.OK);
+	public ResponseEntity<List<BoardVO>> myListAjax(Principal principal, int pageNum) {
+		String username = principal.getName();
+		return new ResponseEntity<List<BoardVO>>(myPageService.selectMyBoardList(username, pageNum),HttpStatus.OK);
 	}
 	// 나의 게시글 Ajax로 불러오기 //
 	
 	// 쪽지함 페이지 이동 ///////////////////////////////////////////
 	@GetMapping("myMessage")
-	public String myMessage(Model model, MemberVO vo) {
-		vo = myPageService.selectUser("test"); //test -> 동적으로 바꿔야함
+	public String myMessage(Model model, MemberVO vo, Principal principal) {
+		String username = principal.getName();
+		vo = myPageService.selectUser(username);
 		model.addAttribute("member", vo); 
 		model.addAttribute("message",myPageService.selectMessageList(vo.getUserid(),0));
 		model.addAttribute("pageTotalNum",myPageService.selectCountMessage(vo.getUserid()));
@@ -69,16 +71,19 @@ public class MyPageController {
 	//쪽지 Ajax로 불러오기 //////////////////////////////////////////////
 	@GetMapping("myMessageAjax")
 	@ResponseBody
-	public ResponseEntity<List<MessageVO>> myMessageAjax(String userid, int pageNum) {
-		return new ResponseEntity<List<MessageVO>>(myPageService.selectMessageList(userid, pageNum),HttpStatus.OK);
+	public ResponseEntity<List<MessageVO>> myMessageAjax(Principal principal, int pageNum) {
+		String username = principal.getName();
+		System.out.println(username);
+		return new ResponseEntity<List<MessageVO>>(myPageService.selectMessageList(username, pageNum),HttpStatus.OK);
 	}
 	//쪽지 Ajax로 불러오기 //
 	
 	//미니쪽지 Ajax로 불러오기 //////////////////////////////////////////////
 	@GetMapping("myMiniMessageAjax")
 	@ResponseBody
-	public ResponseEntity<List<MessageVO>> myMiniMessageAjax(String userid) {
-		return new ResponseEntity<List<MessageVO>>(myPageService.selectMiniMessageList(userid),HttpStatus.OK);
+	public ResponseEntity<List<MessageVO>> myMiniMessageAjax(Principal principal) {
+		String username = principal.getName();
+		return new ResponseEntity<List<MessageVO>>(myPageService.selectMiniMessageList(username),HttpStatus.OK);
 	}
 	//쪽지 Ajax로 불러오기 //
 
@@ -106,8 +111,9 @@ public class MyPageController {
 	  
 	// 1:1 문의 이동 ///////////////////////////////////////////
 	@GetMapping("myQA")
-	public String myQA(Model model,MemberVO vo) {
-		vo = myPageService.selectUser("test");//test -> 동적으로 바꿔야함
+	public String myQA(Model model,MemberVO vo,Principal principal) {
+		String username = principal.getName();		
+		vo = myPageService.selectUser(username);
 		model.addAttribute("member", myPageService.selectUser(vo.getUserid())); 
 		model.addAttribute("QA",myPageService.selectQAList(vo.getUserid(),0));
 		model.addAttribute("pageTotalNum",myPageService.selectCountQAList(vo.getUserid()));
@@ -119,8 +125,9 @@ public class MyPageController {
 	// 1:1 문의 Ajax로 불러오기 //////////////////////////////////////////////
 	@GetMapping("myQAAjax")
 	@ResponseBody
-	public ResponseEntity<List<QAVO>> myQAAjax(String userid, int pageNum) {
-		return new ResponseEntity<List<QAVO>>(myPageService.selectQAList(userid, pageNum),HttpStatus.OK);
+	public ResponseEntity<List<QAVO>> myQAAjax(Principal principal, int pageNum) {
+		String username = principal.getName();	
+		return new ResponseEntity<List<QAVO>>(myPageService.selectQAList(username, pageNum),HttpStatus.OK);
 	}
 	// 1:1문의 Ajax로 불러오기 //
 	
@@ -134,8 +141,9 @@ public class MyPageController {
 	
 	// 비밀번호 변경 페이지 이동////////////////////////////////////////
 	@GetMapping("myPassword")
-	public String myPassword(Model model) {
-		model.addAttribute("member", myPageService.selectUser("test3")); //test -> 동적으로 바꿔야함
+	public String myPassword(Model model,Principal principal) {
+		String username = principal.getName();	
+		model.addAttribute("member", myPageService.selectUser(username));
 		return "mypage/myPassword";
 	}
 	// 비밀번호 변경 페이지 이동//
@@ -145,28 +153,41 @@ public class MyPageController {
 	
 	//유저 정보 수정 //////////////////////////////////////
 	@PostMapping("updateUser")
-	public String profile(MemberVO vo, MultipartFile[] uploadFile, String isFileChanged) {
+	public String profile(MemberVO vo, MultipartFile[] uploadFile, String isFileChanged, Principal principal) {
 		File file;
 		
 		String uploadFolder = "c://Project/seoulneighbor/seoulNeighbor/src/main/webapp/resources/img/mypage";
 		
+		String username = principal.getName();
+		vo = myPageService.selectUser(username);
+		
 		UUID uuid = UUID.randomUUID();
+		
+		
 		String uploadFileName = vo.getMember_filename();
 		
 		String fileChanged = isFileChanged;
+		
+		System.out.println("uploadFileName"+uploadFileName);
 	
-		uploadFileName = uuid.toString()+"_"+uploadFileName;
-		
-		
 		for(MultipartFile multipartFile : uploadFile) {
 			File saveFile = new File(uploadFolder,uuid.toString()+"_"+multipartFile.getOriginalFilename());
 			
 			try {
 				if(fileChanged.equals("true")) { //프로필 이미지가 바뀌었을떼만
-					file = new File(uploadFolder,myPageService.getOriginalFileName(vo.getUserid())); //기존에 있던 파일 이름을 가져와서
-					file.delete(); //삭제
+					uploadFileName = uuid.toString()+"_"+multipartFile.getOriginalFilename();
+					System.out.println("uploadFileName"+uploadFileName);
+					try {
+						file = new File(uploadFolder,myPageService.getOriginalFileName(vo.getUserid())); //기존에 있던 파일 이름을 가져와서
+						file.delete(); //삭제
+					}catch(NullPointerException e) {
+						e.printStackTrace();
+					}
 					multipartFile.transferTo(saveFile); //새로운 파일 등록
 					vo.setMember_filename(uploadFileName);
+				}
+				if(vo.getMember_filename().equals("")) {
+					vo.setMember_filename(null);
 				}
 				myPageService.updateUser(vo); //데이터베이스 업데이트
 			}catch(Exception e) {
@@ -180,19 +201,19 @@ public class MyPageController {
 	//비밀번호 변경 //////////////////////////////////////////////////
 	@PostMapping("changePassword")
 	public String changePassword(RedirectAttributes rttr, MemberVO vo, String changePw) {
-		try { 
-			String encodedPassword = pwdEncoder.encode(vo.getUserpw());
-			vo.setUserpw(encodedPassword);
-			service.login(vo).getUserid();
-		}catch(Exception e) {
-			e.printStackTrace();
-			rttr.addFlashAttribute("result","fail");
-			return"redirect:/myPassword"; 
-		}
-		vo.setUserpw(pwdEncoder.encode(changePw));
-		myPageService.updatePassword(vo);
-		rttr.addFlashAttribute("result","success");
-		return "redirect:/myPassword";
+
+			if(pwdEncoder.matches(vo.getUserpw(), myPageService.selectUserPw(vo.getUserid()))) {
+				vo.setUserpw(pwdEncoder.encode(changePw));
+				myPageService.updatePassword(vo);
+				rttr.addFlashAttribute("result","success");
+				return "redirect:/myPassword";
+			}
+			else {
+				rttr.addFlashAttribute("result","fail");
+				return"redirect:/myPassword"; 
+			}
+
+
 	}
 	//비밀번호 변경//
 

@@ -12,6 +12,8 @@ public interface BoardService {
 	
 	public int getTotal(Criteria cri);
 	
+	public List<BoardVO> getListWithPagingTabs(Criteria cri);
+	
 	//등록
 	public void register(BoardVO board);
 	

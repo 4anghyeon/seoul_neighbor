@@ -147,19 +147,21 @@ $(document).ready(function(){
 	
 	function cutContentLength(){
 		var writeQAContent = $("#writeQAContent").val();
+		console.log(writeQAContent);
 		stringLength = writeQAContent.length
 		if(stringLength>1000){
-			$("#warn").empty();
+			$("#qaWarn").empty();
 			writeQAContent = writeQAContent.substring(0,1000);
 			$("#writeQAContent").val("");
 			$("#writeQAContent").val(writeQAContent);
-			$("#warn").append("1000글자를 초과했습니다.");
+			$("#qaWarn").append("1000글자를 초과했습니다.");
 			$("#writeQAContent").addClass("warn");
 		}
 		else{
+			console.log("stringlength"+stringLength);
 			$("#writeQAContent").removeClass("warn");
-			$("#warn").empty();
-			$("#warn").append("("+stringLength+"/1000) 글자");
+			$("#qaWarn").empty();
+			$("#qaWarn").append("("+stringLength+"/1000) 글자");
 		}
 	}
 	

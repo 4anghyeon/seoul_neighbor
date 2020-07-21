@@ -4,6 +4,10 @@ a {
   color: #3b5998;
 }
 
+.collapse {
+  height: 50px;
+}
+
 .navbar {
   -webkit-border-radius: 0;
   -moz-border-radius: 0;
@@ -33,6 +37,10 @@ a {
   color: #fff;
 }
 
+.nav-link {
+  line-height: 51px !important;
+  height: 100%;
+}
 /* top nav logo */
 #logo{
 	margin:0 !important;
@@ -48,12 +56,13 @@ a {
 }
 
 #subMessageDiv{
+	left:-3vw;
 	margin:0;
 	padding:0;
 	top:51px;
 }
 #subMessageDiv a{
-	color:white;
+	color:black;
 	border-bottom:1px solid #e9ecef;
 	padding:9px;
 }

@@ -32,6 +32,11 @@ public class BoardServicelmpl implements BoardService{
 	public List<BoardVO> getList(Criteria cri) {
 		return mapper.getListWithPaging(cri);
 	}
+	
+	@Override
+	public List<BoardVO> getListWithPagingTabs(Criteria cri) {
+		return mapper.getListWithPagingTabs(cri);
+	}
 
 
 	@Override

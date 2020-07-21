@@ -20,6 +20,12 @@
 		values(#{userid}, #{nickname}, #{userpw}, #{email}, #{member_location})
 	</insert>
 	
+	<!-- tbl_member_auth테이블에 권한 추가 -->
+	<insert id="insertUserAuth">
+		insert into tbl_member_auth(userid, auth)
+		values(#{userid}, 'ROLE_USER');
+	</insert>
+	
 	<!-- id중복체크 -->
 	<select id="checkID" resultType="int">
 		select count(*) from tbl_member
@@ -30,6 +36,12 @@
 	<select id="checkNickName" resultType="int">
 		select count(*) from tbl_member
 		where nickname = #{nickname}
+	</select>
+	
+	<!-- 이메일 중복체크 -->
+	<select id="checkEmail" resultType="int">
+		select count(*) from tbl_member
+		where email = #{email}
 	</select>
 	
 	<!-- 안읽은 메시지 개수 가져오기 -->

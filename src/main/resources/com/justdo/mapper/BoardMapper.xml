@@ -38,6 +38,14 @@
 	</select>
 	<!-- 하단영역 선택된 지역의 전체 글목록 및 페이징 쿼리문 (end) -->
 	
+	<!-- 탭부분 글 리스트 불러오기 -->
+	<select id="getListWithPagingTabs" resultType="com.justdo.domain.BoardVO">
+		select * from tbl_board
+		where (location LIKE CONCAT('%',#{gu},'%')) and category LIKE CONCAT('%',#{category},'%')
+		order by bno desc
+		limit #{startIndex}, #{amount}
+	</select>
+
 	<!-- 페이징 시 필요한 글의갯수를 구하는 쿼리문 -->
 	<select id="getTotalCount" resultType="int">
 		select count(*) from tbl_board 
@@ -46,7 +54,9 @@
 	</select>
 	<!-- 페이징 시 필요한 글의갯수를 구하는 쿼리문 (end) -->
 	
-		<!-- 목록 -->
+
+	
+	<!-- 목록 -->
 	<select id="getList" resultType="com.justdo.domain.BoardVO">
 		<![CDATA[
 			select * from tbl_board where bno > 0

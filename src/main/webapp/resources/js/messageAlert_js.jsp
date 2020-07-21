@@ -42,13 +42,14 @@ $(document).ready(function(){
 	// 미니 쪽지함 리스트 불러오기 //////////////////////////////////
 	function getMiniMessage(){
 	    var form = {
-	            userid: '${member.userid}'
+	            userid:'${member.userid}'
 	    }
 	    $.ajax({
 	        url: "/myMiniMessageAjax",
 	        type: "GET",
 	        data: form,
 	        success: function(data){
+	        	console.log(data);
 				$("#subMessageDiv").empty();
             	$("#subMessageDiv").append(
             			"<h5 class='dropdown-header'>최근 5개 메시지</h5>"
@@ -204,5 +205,30 @@ $(document).ready(function(){
 		}
 	}
 	// 쪽지 내용 길면 ...로 자르기 //
+	
+			// 쪽지 삭제 /////////////////////////////////////////////////////
+		$(document).on("click","#deleteMessageBtn",function(){
+			if(confirm("삭제하시겠습니까?")){
+		        var form = {
+		        		mno: parseInt($("#mno").val()),
+		        }
+		        $.ajax({
+		            url: "/deleteMessageAjax",
+		            type: "POST",
+		            data: form,
+		            beforeSend: function(xhr){
+		            	xhr.setRequestHeader("${_csrf.headerName}", "${_csrf.token}");
+		            },
+		            success: function(data){
+		            	alert("삭제했습니다!");
+		            	getMiniMessage();
+		            },
+		            error: function(){
+		                alert("simpleWithObject err");
+		            }
+		        });
+			}
+		})
+		// 쪽지 삭제 //
 })
 </script>

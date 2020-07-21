@@ -13,6 +13,8 @@ public interface BoardMapper {
 	//페이징된 리스트 가져오기
 	public List<BoardVO> getListWithPaging(Criteria cri);
 	
+	public List<BoardVO> getListWithPagingTabs(Criteria cri);
+	
 	//게시글 전체 개수 가져오기
 	public int getTotalCount(Criteria cri);
 	
@@ -42,5 +44,8 @@ public interface BoardMapper {
 	
 	//해당 bno의 싫어요 숫자를 가져옵니다.
     public int selectUnlikeCount(int bno);	
+    
+    //해당 bno의 board 삭제.
+	public int delete(int bno);
 	
 }

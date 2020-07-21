@@ -91,4 +91,9 @@
 	<delete id="deleteMessage">
 		delete from tbl_message where mno = #{mno}
 	</delete>
+	
+	<!-- 비밀번호 수정 위한 비밀번호 가져오기 -->
+	<select id="selectUserPw" resultType="String">
+		select userpw from tbl_member where userid=#{userid}
+	</select>
 </mapper>
