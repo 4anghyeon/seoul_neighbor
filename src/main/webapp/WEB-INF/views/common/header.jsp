@@ -34,6 +34,37 @@
 			aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
 		</button>
+		<sec:authorize access="isAuthenticated()">
+			<div class="weatherContent">
+				<span id="guWeatherText">${weatherGu} </span>
+				<c:choose>
+					<c:when test="${weather eq '비' }">
+					<i class="fas fa-cloud-rain"></i><span> 비 </span><span> ${temperature} °C</span>
+					</c:when>
+					<c:when test="${weather eq '비/눈' }">
+					<i class="fas fa-cloud-meatball"></i><span> 비/눈 </span><span> ${temperature} °C</span>
+					</c:when>
+					<c:when test="${weather eq '눈' }">
+					<i class="far fa-snowflake"></i><span> 눈 </span><span> ${temperature} °C</span>
+					</c:when>
+					<c:when test="${weather eq '소나기' }">
+					<i class="fas fa-cloud-showers-heavy"></i><span> 소나기 </span><span> ${temperature} °C</span>
+					</c:when>
+					<c:when test="${weather eq '진눈개비' }">
+					<i class="fas fa-wind"></i><span> 진눈개비 </span><span> ${temperature} °C</span>
+					</c:when>
+					<c:when test="${weather eq '맑음' }">
+					<i class="fas fa-sun"></i><span> 맑음 </span><span> ${temperature} °C</span>
+					</c:when>
+					<c:when test="${weather eq '구름많음' }">
+					<i class="fas fa-cloud-sun"></i><span> 구름많음 </span><span> ${temperature} °C</span>
+					</c:when>
+					<c:when test="${weather eq '흐림' }">
+					<i class="fas fa-cloud"></i><span> 흐림 </span><span> ${temperature} °C</span>
+					</c:when>
+				</c:choose>
+			</div>
+		</sec:authorize>
 		<div class="collapse navbar-collapse" id="navbarSupportedContent">
 			<div class="mr-auto"></div>
 			<ul class="navbar-nav my-2 my-lg-0">
@@ -47,7 +78,7 @@
 				<!-- 로그인 한 상태에서 노출 :: 상단바  -------------------------------------------------->
 				<sec:authorize access="isAuthenticated()">
 			      	<!-- 메시지 알림 창 -------------------------------------------------------------->
-			      	<li class="weather-state-text"></li>
+
 			      	<li class="nav-item">
 			      	<div class="dropdown">
 			      		<a id="showMiniMessageBtn" class="nav-link" data-toggle="dropdown"><i class="far fa-comments" style="font-size:1.4rem; line-height:51px"></i><span id="noReadCount" class="badge badge-light"></span></a>
@@ -63,7 +94,7 @@
 						<a class="nav-link dropdown-toggle" href="/profile"	id="nav-profile" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 							<c:choose>
 								<c:when test="${user.member_filename eq null }">
-									 <img src="../resources/img/mypage/profile_sample.png" width="35" height="35" class="rounded-circle" alt="프로필 사진">
+									 <img src="../resources/img/mypage/<c:out value="${member.member_filename}"/>" width="35" height="35" class="rounded-circle" alt="프로필 사진">
 								</c:when>
 								<c:when test="${user.member_filename != null}">
 									<img src="/resources/img/mypage/<c:out value="${user.member_filename}"/>" width="35" height="35" class="rounded-circle" alt="프로필 사진">

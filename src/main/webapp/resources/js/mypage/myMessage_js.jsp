@@ -49,7 +49,7 @@
 		// 쪽지 리스트 이전 버튼 //
 		
 		// Ajax 쪽지 페이지 이동 //////////////////////////////
-		var pageNum = 1;
+		var pageNum = 0;
 		$(document).on("click",".pageBtn",function(){
 			$(this).nextAll().removeClass("active");
 			$(this).prevAll().removeClass("active");
@@ -209,7 +209,7 @@
 	    	            data: form2,
 	    	            success: function(data){ //리스트 다시 불러옴
 	    	                $("#messageList").empty();
-	    	                $(data).each(function(i,message){
+	    	                $(data).each(function(j,message){
 	    	                	if(message.read_check == 'Y'){
 	        		                $("#messageList").append(
 	        								"<tr>"+
@@ -248,7 +248,7 @@
 		// 쪽지 답장 모달창 //
 		
 		// 쪽지 삭제 /////////////////////////////////////////////////////
-		$(document).on("click","#deleteMessageBtn",function(){
+		$("#deleteMessageBtn").on("click",function(){
 			if(confirm("삭제하시겠습니까?")){
 		        var form = {
 		        		mno: parseInt($("#mno").val()),

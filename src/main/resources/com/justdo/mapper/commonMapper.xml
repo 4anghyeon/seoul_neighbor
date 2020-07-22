@@ -48,4 +48,9 @@
 	<select id="selectMessageReadCount" resultType="int">
 		select count(read_check = 'N') as noreadcount from tbl_message where RECEIVER=#{userid} and read_check ='N';
 	</select>
+	
+	<!-- 날씨 정보 위한 회원 구 가져오기 -->
+	<select id="selectGuForWeather" resultType="String">
+		select substring_index(member_location,'_',1) as location from tbl_member where userid = #{userid}
+	</select>
 </mapper>

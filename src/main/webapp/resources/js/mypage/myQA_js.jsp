@@ -183,14 +183,14 @@ $(document).ready(function(){
 	$(document).on("click",".QATitle",function(){
 		if($($(this).siblings()[0]).text() == "접수 중"){
 			$("#QAStatus").text("처리 상태: "+$($(this).siblings()[0]).text());
-			$("#QAStatus").css("color","blue");
+			$("#QAStatus").css("color","#228be6").css("border-bottom","1px solid #e9ecef");
 		}
 		else if($($(this).siblings()[0]).text() == "처리 완료"){
 			$("#QAStatus").text("처리 상태: "+$($(this).siblings()[0]).text());
-			$("#QAStatus").css("color","green");
+			$("#QAStatus").css("color","#40c057").css("border-bottom","1px solid #e9ecef");
 		}
 		console.log($(this))
-		$("#QAheader").text($($(this)[0]).text());
+		$("#QAheader").text("문의 사항: "+$($(this)[0]).text());
 		$("#QAContent").text($($(this).siblings()[2]).text())
 	})
 	// 문의 사항 보기

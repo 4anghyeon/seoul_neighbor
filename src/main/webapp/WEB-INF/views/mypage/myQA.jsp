@@ -12,13 +12,14 @@
 <html>
 <head>
 <title>1:1 문의</title>
-<link rel="stylesheet" type="text/css" href="/resources/css/mypage/myQA.css">
+<link rel="stylesheet" href="/resources/css/common/basic.css">
+<link rel="stylesheet" href="/resources/css/mypage/profile-basic.css">
+<link rel="stylesheet" href="/resources/css/mypage/profile-tablepage.css">
 </head>
 <body>
 	<!-- header include ------------>
 	<%@include file="../common/header.jsp"%>
 	<!-- header include -->
-	<div style="position:fixed"><img src="/resources/img/mypage/left_background.png"></div>
 	<!-- 1. 메인 ------------------------------------------------->
 	<div class="container pt-0">
 		<div class="row">
@@ -86,8 +87,9 @@
 			</div>
 		</div>
 	</div>
+	<!-- 2. 문의하기 모달창 -------------------------------------->
 	<!-- 3. 문의내용 모달창 -->
-		<!-- 2. 문의하기 모달창 -------------------------------------->
+		
 	<div class="modal" id="readQA">
 		<div class="modal-dialog modal-lg modal-dialog-centered">
 			<div class="modal-content">
@@ -100,7 +102,7 @@
 				<div class="modal-body">
 					<h5 id="QAStatus">처리상태: </h5>
 					<h4>문의 내용</h4>
-					<p id="QAContent"></p>
+					<p id="QAContent" style="word-break: break-all;"></p>
 				</div>
 			</div>
 		</div>

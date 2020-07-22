@@ -102,7 +102,7 @@ $(document).ready(function(){
 	// 게시글 클릭 하면 상세페이지 이동 //////////////////////////////////
 	$(document).on("click",".boardTitle",function(){
 		var bno = $($(this).parents().siblings("td")[0]).text();
-		location.href = "/read?bno="+bno;
+		location.href = "/board/read/"+bno;
 		
 	})
 	// 게시글 클릭 하면 상세페이지 이동 //

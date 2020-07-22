@@ -23,7 +23,7 @@ public class LogoutHandler implements LogoutSuccessHandler {@Override
 			String previous_page = request.getHeader("referer"); // 이전 페이지 받아오기(a, form으로 진입시에만 사용 가능)
 			log.warn("logout handler - 현재 주소 : "+previous_page);
 			
-			String go_page = "/" + previous_page.replace("http://localhost:8181/", ""); //context path만 남김
+			String go_page = "/" + previous_page.replace("http://localhost:8081/", ""); //context path만 남김
 			log.warn("logout handler - 이동할 경로 : "+go_page);
 			
 			response.sendRedirect(go_page);

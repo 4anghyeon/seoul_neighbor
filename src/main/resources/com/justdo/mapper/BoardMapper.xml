@@ -12,6 +12,10 @@
 			<if test="type == 'N'.toString()">and userid LIKE CONCAT('%',#{keyword},'%')</if>
 			<if test="type == 'L'.toString()">and location LIKE CONCAT('%',#{keyword},'%')</if>
 		</if>
+		<if test="category == category">
+			<if test="category == null">and category LIKE CONCAT('%','','%')</if>
+			<if test="category != null">and category LIKE CONCAT('%',#{category},'%')</if>
+		</if>
 	</sql>
 	<!-- 검색기능을 위한 키워드 include 쿼리문 (end) -->
 	

@@ -28,4 +28,7 @@ public interface commonMapper {
 	
 	//안읽은 메시지 개수 가져오기
 	public int selectMessageReadCount(String userid);
+	
+	//날씨 정보 위한 구 가져오기
+	public String selectGuForWeather(String userid);
 }

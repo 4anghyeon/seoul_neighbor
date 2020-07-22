@@ -205,30 +205,6 @@ $(document).ready(function(){
 		}
 	}
 	// 쪽지 내용 길면 ...로 자르기 //
-	
-			// 쪽지 삭제 /////////////////////////////////////////////////////
-		$(document).on("click","#deleteMessageBtn",function(){
-			if(confirm("삭제하시겠습니까?")){
-		        var form = {
-		        		mno: parseInt($("#mno").val()),
-		        }
-		        $.ajax({
-		            url: "/deleteMessageAjax",
-		            type: "POST",
-		            data: form,
-		            beforeSend: function(xhr){
-		            	xhr.setRequestHeader("${_csrf.headerName}", "${_csrf.token}");
-		            },
-		            success: function(data){
-		            	alert("삭제했습니다!");
-		            	getMiniMessage();
-		            },
-		            error: function(){
-		                alert("simpleWithObject err");
-		            }
-		        });
-			}
-		})
-		// 쪽지 삭제 //
+
 })
 </script>

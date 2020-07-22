@@ -4,6 +4,7 @@ package com.justdo.controller;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.security.Principal;
 import java.util.HashMap;
 
@@ -31,6 +32,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.justdo.domain.BoardVO;
 import com.justdo.domain.MemberVO;
+import com.justdo.security.CustomUserDetailsService;
 import com.justdo.service.commonService;
 import com.justdo.service.myPageService;
 import com.justdo.util.JoinValidator;
@@ -43,6 +45,7 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class CommonController {
 	
+	 private CustomUserDetailsService loginService;
 	 private myPageService myPageService;
 	 private commonService service;
 	 private BCryptPasswordEncoder pwdEncoder;
@@ -51,8 +54,31 @@ public class CommonController {
 	// test //
 	// 메인 이동 //////////////////////////////////
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String home() throws IOException {
-		service.getWeather();
+	public String home(Model model,Principal principal) throws IOException {
+		
+		// 로그인 한 상태일 때는 principal 정보 담아서 board/list로 전송
+		if (principal != null) {
+			String username = principal.getName();
+			String gu = loginService.loadLocationByUsername(username);
+			String encodedGu = URLEncoder.encode(gu, "UTF-8");
+			model.addAttribute("member", myPageService.selectUser(username));
+			
+			//날씨 정보 불러오는 구문
+			String weatherData[]=null;
+			try {
+				weatherData = service.getWeather(service.selectGuForWeather(principal.getName()));
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			model.addAttribute("weather",weatherData[0]);
+			model.addAttribute("temperature",weatherData[1]);
+			model.addAttribute("weatherGu",weatherData[2]);
+			//
+			
+			return "redirect:/board/list?gu="+encodedGu;
+		}
+
+		
 		return "index";
 	}
 	// 메인 이동 //
@@ -61,16 +87,33 @@ public class CommonController {
 	// 프로필 페이지 이동 ////////////////////////
 	@GetMapping("profile")
 	public String profile(Model model, Principal principal) {
-		String username = principal.getName();
-		model.addAttribute("member", myPageService.selectUser(username));
-		return "mypage/profile";
+		//날씨 정보 불러오는 구문 /////////////////////
+		if(principal != null) {
+			String username = principal.getName();
+			model.addAttribute("member", myPageService.selectUser(username));
+			String weatherData[]=null;
+			try {
+				weatherData = service.getWeather(service.selectGuForWeather(principal.getName()));
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			model.addAttribute("weather",weatherData[0]);
+			model.addAttribute("temperature",weatherData[1]);
+			model.addAttribute("weatherGu",weatherData[2]);
+			
+			return "mypage/profile";
+		}else {
+			return "/index";
+		}
+		//날씨 정보 굴러오는 구문 //
+		
+		
 	}
 	// 프로필 페이지 이동 //
 	
 	//bno로 상세페이지 부르기   ---이 주석의 오른쪽 설명란은 볼 필요 없음.         board/read/*란 주소 board/read슬래쉬 뒤에 붙는 애들은 이녀석 적용이란 의미 -> httpServletRequest request는 clinet가 주소창에 입력한 요청을 담은 객체로 request.getRequestURI는 클라이언트가 친 주소창이고, 그걸 잘라서 http://localhost:8181/board/read/1의 bno인 1만 따로 bno라는 변수에 저장하고, vo에 bno=1담아서 jsp에 어트리뷰트 속성으로 보내서 jsp는 그 데이터로 클라이언트에게 보여줌/////////////////////
 	@GetMapping("board/read/*")
 	public String read(Model model, HttpServletRequest request) {
-		
 		
 		int bno =  Integer.parseInt(request.getRequestURI().substring(request.getRequestURI().lastIndexOf("/")+1));
 		BoardVO vo=service.read(bno);

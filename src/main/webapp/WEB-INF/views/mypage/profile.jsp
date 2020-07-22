@@ -16,14 +16,16 @@
 <head>
 <meta charset="UTF-8">
 <!-- profile.css -->
-<link rel="stylesheet" type="text/css" href="/resources/css/mypage/profile.css">
+<link rel="stylesheet" href="/resources/css/common/basic.css">
+<link rel="stylesheet" href="/resources/css/mypage/profile-basic.css">
+<link rel="stylesheet" href="/resources/css/mypage/profile-formpage.css">
 <title>프로필</title>
 </head>
 <body>
 	<!-- header include ------------>
 	<%@include file="../common/header.jsp"%>
 	<!-- header include -->
-	<div style="position:fixed"><img src="/resources/img/mypage/left_background.png"></div>
+	
 	<!-- 1. 메인 ------------------------------------------------->
 	<div class="container pt-0" >
 		<div class="row">
@@ -36,7 +38,7 @@
 		<!-- 1.1 왼쪽 메뉴 -->
 		<!-- 1.2 프로필 레이아웃 ---------------------------------->
 			<div id="rightDiv" class="col-lg-9 p-5">
-				<form class="form-group" method="post" action="updateUser" enctype="multipart/form-data">
+				<form id="profileForm" class="form-group" method="post" action="updateUser" enctype="multipart/form-data">
 				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 				<h1>프로필</h1>
 					<div id="rightDivContent" class="mt-5">
@@ -79,6 +81,10 @@
 									<div class="col-md-5">
 										<input id="nickName" name="nickname" type="text"
 											value="${member.nickname }" class="form-control">
+									</div>
+									<div class="col-md-5">
+										<p id="nickName-duplicated-text" style="color:#e03131">*중복된 닉네임입니다. 다른 닉네임을 입력하세요</p>
+										<p id="nickName-wrong-text" style="color:#e03131">*닉네임을 정확히 입력하세요.(2~10글자)</p>
 									</div>
 								</div>
 							</div>

@@ -16,7 +16,6 @@
 <meta charset="UTF-8">
 <!-- leftNav.css -->
 <link rel="stylesheet" type="text/css" href="/resources/css/mypage/left_nav.css">
-<link rel="stylesheet" type="text/css" href="/resources/css/mypage/right_div.css">
 </head>
 <body>
 <!-- 1.왼쪽 메뉴 ---------------------------------------------->

@@ -17,13 +17,14 @@
 <html>
 <head>
 <title>쪽지함</title>
-<link rel="stylesheet" type="text/css" href="/resources/css/mypage/myMessage.css">
+<link rel="stylesheet" href="/resources/css/common/basic.css">
+<link rel="stylesheet" href="/resources/css/mypage/profile-basic.css">
+<link rel="stylesheet" href="/resources/css/mypage/profile-tablepage.css">
 </head>
 <body>
 	<!-- header include ------------>
 	<%@include file="../common/header.jsp"%>
 	<!-- header include -->
-	<div style="position:fixed"><img src="/resources/img/mypage/left_background.png"></div>
 	<!-- 1. 메인 ------------------------------------------------->
 	<div class="container pt-0">
 		<div class="row">
@@ -43,9 +44,9 @@
 					<table class="table text-center table-hover">
 						<thead class="thead">
 							<tr>
-								<th style="width:25%">보낸사람</th>
+								<th style="width:20%">보낸사람</th>
 								<th style="width:55%">쪽지 내용</th>
-								<th style="width:10%">수신 날짜</th>
+								<th style="width:15%">수신 날짜</th>
 							</tr>
 						</thead>
 						<tbody id="messageList">

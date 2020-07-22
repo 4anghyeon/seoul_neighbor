@@ -102,10 +102,12 @@ public class commonServiceImpl implements commonService {
 	}
 
 	@Override
-	public String getWeather() throws IOException {
+	public String[] getWeather(String gu) throws IOException {
 		Date date = new Date();
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyMMdd");
+		SimpleDateFormat hourFormat = new SimpleDateFormat("HH");
 		String today = dateFormat.format(date);
+		String todayHour = hourFormat.format(date);
 		String apiUrl = "http://apis.data.go.kr/1360000/VilageFcstInfoService/getVilageFcst";
 		// 홈페이지에서 받은 키
 		String serviceKey = "0a%2BsATcqfSi69BN%2Fz4gXhd%2BVbPgLPenFhWceGZGW5KImNgeyJ%2Bv27NhAOEqNXRHEvmBPLXzDaZ0sBTDHNplZIQ%3D%3D";
@@ -113,9 +115,136 @@ public class commonServiceImpl implements commonService {
 		String ny = "125";	//경도
 
 		String baseDate = today;	//조회하고싶은 날짜
-		String baseTime = "1100";	//조회하고싶은 시간
+		String baseTime = "0500";	//조회하고싶은 시간
 		String type = "json";	//타입 xml, json 등등 ..
 		
+		if(Integer.parseInt(todayHour) >=2 && Integer.parseInt(todayHour) <5) {
+			baseTime = "0200";
+		}
+		else if(Integer.parseInt(todayHour) >=5 && Integer.parseInt(todayHour) <8) {
+			baseTime = "0500";
+		}
+		else if(Integer.parseInt(todayHour) >=8 && Integer.parseInt(todayHour) <11) {
+			baseTime = "0800";
+		}
+		else if(Integer.parseInt(todayHour) >=11 && Integer.parseInt(todayHour) <14) {
+			baseTime = "1100";
+		}
+		else if(Integer.parseInt(todayHour) >=14 && Integer.parseInt(todayHour) <17) {
+			baseTime = "1400";
+		}
+		else if(Integer.parseInt(todayHour) >=17 && Integer.parseInt(todayHour) <20) {
+			baseTime = "1700";
+		}
+		else if(Integer.parseInt(todayHour) >=20 && Integer.parseInt(todayHour) <23) {
+			baseTime = "2000";
+		}
+		else if(Integer.parseInt(todayHour) >=23 && Integer.parseInt(todayHour) <2) {
+			baseTime = "2300";
+		}
+		else {
+			baseTime ="0500";
+		}
+		if(gu == null) {
+			nx = "60"; //중구
+			ny = "127";
+		}
+		else if(gu.equals("양천구")) {
+			nx = "58";
+			ny = "126";
+		}
+		else if(gu.equals("종로구")) {
+			nx = "50";
+			ny = "127";
+		}
+		else if(gu.equals("용산구")) {
+			nx = "60";
+			ny = "126";
+		}
+		else if(gu.equals("성동구")) {
+			nx = "61";
+			ny = "127";
+		}
+		else if(gu.equals("광진구")) {
+			nx = "52";
+			ny = "126";
+		}
+		else if(gu.equals("동대문구")) {
+			nx = "61";
+			ny = "127";
+		}
+		else if(gu.equals("중랑구")) {
+			nx = "62";
+			ny = "128";
+		}
+		else if(gu.equals("성북구")) {
+			nx = "61";
+			ny = "127";
+		}
+		else if(gu.equals("강북구")) {
+			nx = "61";
+			ny = "128";
+		}
+		else if(gu.equals("도봉구")) {
+			nx = "61";
+			ny = "129";
+		}
+		else if(gu.equals("노원구")) {
+			nx = "61";
+			ny = "129";
+		}
+		else if(gu.equals("은평구")) {
+			nx = "59";
+			ny = "127";
+		}
+		else if(gu.equals("서대문구")) {
+			nx = "59";
+			ny = "127";
+		}
+		else if(gu.equals("마포구")) {
+			nx = "59";
+			ny = "127";
+		}
+		else if(gu.equals("강서구")) {
+			nx = "58";
+			ny = "126";
+		}
+		else if(gu.equals("구로구")) {
+			nx = "58";
+			ny = "125";
+		}
+		else if(gu.equals("금천구")) {
+			nx = "59";
+			ny = "124";
+		}
+		else if(gu.equals("영등포구")) {
+			nx = "58";
+			ny = "126";
+		}
+		else if(gu.equals("동작구")) {
+			nx = "59";
+			ny = "125";
+		}
+		else if(gu.equals("관악구")) {
+			nx = "59";
+			ny = "125";
+		}
+		else if(gu.equals("서초구")) {
+			nx = "61";
+			ny = "125";
+		}
+		else if(gu.equals("강남구")) {
+			nx = "61";
+			ny = "126";
+		}
+		else if(gu.equals("송파구")) {
+			nx = "62";
+			ny = "126";
+		}
+		else if(gu.equals("강동구")) {
+			nx = "62";
+			ny = "126";
+		}
 		
         StringBuilder urlBuilder = new StringBuilder(apiUrl);
         urlBuilder.append("?" + URLEncoder.encode("serviceKey","UTF-8") + "="+serviceKey);
@@ -162,31 +291,74 @@ public class commonServiceImpl implements commonService {
         //items에서 item 배열로 받아옴
         JsonArray parseItem = (JsonArray) parseItems.get("item");
         
+        JsonObject weather=null;
+        JsonObject temperature=null;
+        JsonObject isRain=null;
         
-        JsonObject weather = (JsonObject) parseItem.get(3);
-        JsonObject temperature = (JsonObject) parseItem.get(4);
+        for(int i=0; i<parseItem.size(); i++) {
+        	JsonObject temp = (JsonObject) parseItem.get(i);
+        	if(temp.get("category").getAsString().equals("SKY")) {
+        		weather = (JsonObject) parseItem.get(i);
+        	}
+        	else if(temp.get("category").getAsString().equals("T3H")) {
+        		temperature = (JsonObject) parseItem.get(i);
+        	}
+        	else if(temp.get("category").getAsString().equals("PTY")) {
+        		isRain = (JsonObject) parseItem.get(i);
+        	}
+        }
+
         
-        int[] weatherData = {1,2};
-        /*
-         * POP	강수확률	 %
-         * PTY	강수형태	코드값
-         * R06	6시간 강수량	범주 (1 mm)
-         * REH	습도	 %
-         * S06	6시간 신적설	범주(1 cm)
-         * SKY	하늘상태	코드값
-         * T3H	3시간 기온	 ℃
-         * TMN	아침 최저기온	 ℃
-         * TMX	낮 최고기온	 ℃
-         * UUU	풍속(동서성분)	 m/s
-         * VVV	풍속(남북성분)	 m/s
-         */
+		String nowWeather=""; 
+		String nowTemperature=temperature.get("fcstValue").getAsString();
+		
+		
+		if(isRain.get("fcstValue").getAsInt()==0) {
+			if(weather.get("fcstValue").getAsInt()==1) {
+				nowWeather = "맑음";
+			}
+			else if(weather.get("fcstValue").getAsInt()==3) {
+				nowWeather = "구름많음";
+			}
+			else if(weather.get("fcstValue").getAsInt()==4) {
+				nowWeather = "흐림";
+			}
+		}
+		else if(isRain.get("fcstValue").getAsInt()==1){
+			if(isRain.get("fcstValue").getAsInt()==1) {
+				nowWeather = "비";
+			}
+			else if(isRain.get("fcstValue").getAsInt()==2) {
+				nowWeather = "비/눈";
+			}
+			else if(isRain.get("fcstValue").getAsInt()==3) {
+				nowWeather = "눈";
+			}
+			else if(isRain.get("fcstValue").getAsInt()==4) {
+				nowWeather = "소나기";
+			}
+			else if(isRain.get("fcstValue").getAsInt()==6) {
+				nowWeather = "진눈개비";
+			}
+			else{
+				nowWeather = "눈날림";
+			}
+		}
+
+
+		String[] weatherData = {nowWeather,nowTemperature,gu};
         
-        return result;
+        return weatherData;
 	}
 	
 	@Override
 	public boolean remove(int bno) {
 		return boardMapper.delete(bno)==1;
+	}
+
+	@Override
+	public String selectGuForWeather(String userid) {
+		return mapper.selectGuForWeather(userid);
 	}
 
 }

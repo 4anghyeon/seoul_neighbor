@@ -6,7 +6,7 @@
 
 .sidebar {
   height: 30vh;
-  font-size: 0.9rem;
+  font-size: 0.65em;
 }
 
 .nav {
@@ -36,6 +36,7 @@
 
 #hello{
 	font-family: 'HangeulNuri-Bold';
+	font-size:1.1rem;
 }
 
 #leftNav{
@@ -61,7 +62,6 @@
 	border-right:solid 1px #E6E6E6;
 	height: 150%;
 	width: 300px;
-	background:white;
 	margin:0 auto;
 }
 
@@ -103,7 +103,3 @@ textarea:focus, input:focus, .form-control:focus, input[type]:focus, .uneditable
 }
 /* input border focus 변경 */
 
-.page-item.active .page-link{
-	background:#534fd6 !important;
-	border-color:#534fd6 !important;
-}

@@ -40,6 +40,54 @@
         }
 		// 프로필 이미지 미리보기 //
 		
+		// 닉네임 중복 검증 //////////////////////////
+		$("#nickName-duplicated-text").hide();
+		$("#nickName-wrong-text").hide();
+		var orginalNickName = $("#nickName").val();
+		var nickNameValid = true;
+		var regExp = /^[\wㄱ-ㅎㅏ-ㅣ가-힣0-9a-zA-Z]{2,10}$/;
+		
+		
+		$("#nickName").on("propertychange change keyup paste",function(){
+	    	var nameStatus;
+	    	var nickNameVal = $("#nickName").val();
+	    	
+		    if (nickNameVal.match(regExp) != null) {
+		        nickNameValid = true;
+		        $("#nickName-wrong-text").hide();
+		    }
+		    else {
+		        nickNameValid = false;
+		        $("#nickName-wrong-text").show();
+		    }
+		    if(orginalNickName == nickNameVal){
+		    	$("#nickName-duplicated-text").hide();
+		    	nickNameValid = true;
+		    }
+		    
+	    	if(orginalNickName != nickNameVal){
+		    	$.ajax({
+		    		url: "/checkNickName/" + nickNameVal,
+		    		type: "GET",
+		    		dataType: "text",
+		    		success: function(result, status, xhr){
+		    			console.log(result);
+		    			nameStatus = result;
+		    			if(nameStatus == 'duplicated'){
+		    	    		console.log("nameStatus : " + nameStatus);
+		    	    		$("#nickName-duplicated-text").show();
+		    	    		nickNameValid = false;
+		    	    	} else {
+		    	    		$("#nickName-duplicated-text").hide();
+		    	    		nickNameValid = true;
+		    	    	}
+		    		}
+		    	});
+	    	}
+		})
+		
+		// 닉네임 중복 검증 //
+		
 		// 구 -> 동 선택하기 /////////////////////////////////////
 		function changeDong(gu){ //구가 바뀔때 동 옵션값 바뀌는 함수
 			var dong = $("#selectDong");
@@ -426,7 +474,18 @@
 	            }
 	        }).open();
 		})
-		
 		// 카카오 주소 검색 //
+		
+		// 변경사항 저장 버튼 클릭 /////////////////////////////////
+		$("#saveChangeBtn").on("click",function(e){
+			e.preventDefault();
+			if(nickNameValid == true){
+				profileForm.submit();
+			}
+			else{
+				alert("닉네임을 확인해주세요");
+			}
+		})
+		// 변경사항 저장 버튼 클릭 //
 	});
 </script>

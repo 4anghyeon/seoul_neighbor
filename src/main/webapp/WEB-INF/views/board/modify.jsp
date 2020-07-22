@@ -22,6 +22,8 @@
 <!-- customStyle ------------>
 <link rel="stylesheet" type="text/css" href="/resources/css/map/style.css">
 <link rel="stylesheet" type="text/css" href="/resources/css/board/style.css">
+<!-- include summernote css -->
+<link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote-bs4.css" rel="stylesheet">
 </head>
 <body>
 <!-- header include ------------>
@@ -77,7 +79,8 @@
 					<!-- 1.1.1.2 동선택 ------------->
 					<div class="dropdown">
 					    <button class="btn btn-primary dropdown-toggle" type="button" id="selectDong" data-toggle="dropdown">동
-					    <span class="caret"></span></button>
+					    	<span class="caret"></span>
+					    </button>
 				    	<div id="dong" class="dropdown-menu" aria-labelledby="dropdownMenuButton">
 						</div>
 					</div>
@@ -88,12 +91,13 @@
 			<div class="col-md-8">
 				<!-- 1.2 수정 폼 ------------------>
 		        <form name="frm" role="form" action="/board/modify" method="Post">
-    			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+            	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 		        	<p id="writer">글쓰기</p>
 		        	<!-- 1.2.1 카테고리 선택 -------->
 		        	<div class="dropdown" id="category_wrap">
 					    <button class="btn btn-primary dropdown-toggle" type="button" id="selectcategory" data-toggle="dropdown"><c:out value='${board.category}'/>
-					    <span class="caret"></span></button>
+					   		<span class="caret"></span>
+					    </button>
 					    <input type="hidden" id="category" name="category" value="<c:out value='${board.category}'/>">
 				    	<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
 					    	<a class="dropdown-item" href="#">소통해요</a>
@@ -102,13 +106,12 @@
 						</div>
 					</div>
 					<!-- 1.2.1 카테고리 선택 -->
-					<input type="hidden" id="bno" name="bno" value="<c:out value='${board.bno}'/>">		<!-- 글번호 -->
-		            <input type="text" id="title" name="title" value="<c:out value='${board.title}'/>" placeholder="제목"><br>	<!-- 글제목 -->      
-		            <input type="hidden" name="userid" value="<c:out value='${board.userid}'/>">	<!-- 유저아이디 -->
-		            <textarea name="content" id="content" cols="80" rows="15" style="width:100%; resize: none;"><c:out value='${board.content}'/></textarea><br><!-- 글내용 -->
-					<input type="hidden" id="location" name="location" value="<c:out value='${board.location}'/>">		<!-- 지역 -->
-					
-					<button type="submit" class="btn btn-primary bottomButton" onclick="return boardCheck()">수정</button>	<!-- 수정버튼 -->
+					<input type="hidden" id="bno" name="bno" value="<c:out value='${board.bno}'/>"><!-- 글번호 -->
+		            <input type="text" id="title" name="title" value="<c:out value='${board.title}'/>"><br><!-- 글제목 -->      
+		            <input type="hidden" name="userid" value="<c:out value='${board.userid}'/>"><!-- 유저아이디 -->
+		            <textarea name="content" id="content" class="summernote" cols="80" rows="15"><c:out value='${board.content}'/></textarea><br><!-- 글내용 -->
+					<input type="hidden" id="location" name="location" value="<c:out value='${board.location}'/>"><!-- 지역 -->
+					<button type="submit" class="btn btn-primary bottomButton" onclick="return boardCheck()">수정</button><!-- 수정버튼 -->
 		        </form>
 		        <!-- 1.2 수정 폼 -->
 		        <!-- 1.3 취소버튼 ----------->
@@ -124,5 +127,9 @@
 <!-- 2. javaScript ------------------------------>
 <%@include file="/resources/js/map/map_js.jsp"%>
 <%@include file="/resources/js/board/board_js.jsp"%>
+<!-- include summernote js-->
+<script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote-bs4.js"></script>
+<!-- include summernote-ko-KR -->
+<script src="/resources/js/board/summernote-ko-KR.js"></script>
 <!-- 2. javaScirpt -->
 </html>

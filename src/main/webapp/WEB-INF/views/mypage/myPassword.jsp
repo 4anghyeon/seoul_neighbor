@@ -13,13 +13,15 @@
 <head>
 <title>비밀번호 변경</title>
 <!-- myPassword.css -->
-<link rel="stylesheet" type="text/css" href="/resources/css/mypage/myPassword.css">
+<link rel="stylesheet" href="/resources/css/common/basic.css">
+<link rel="stylesheet" href="/resources/css/mypage/profile-basic.css">
+<link rel="stylesheet" href="/resources/css/mypage/profile-formpage.css">
 </head>
 <body>
 	<!-- header include ------------>
 	<%@include file="../common/header.jsp"%>
 	<!-- header include -->
-	<div style="position:fixed"><img src="/resources/img/mypage/left_background.png"></div>
+	
 	<!-- 1. 메인 ------------------------------------------------->
 	<div class="container pt-0">
 		<div class="row">
@@ -34,7 +36,6 @@
 			<div id="rightDiv" class="col-lg-9 p-5">
 				<h1>비밀번호 변경</h1>
 				<div id="rightDivContent" class="container mt-5">
-				<div class="content-box">
 					<form id="changePasswordForm" method="post" action="changePassword">
 						<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 						<input type="hidden" name="userid" value="${member.userid }">
@@ -65,7 +66,6 @@
 							</div>
 						</div>
 					</form>
-				</div>
 				</div>
 			</div>
 		<!-- 1.2 비밀번호 변경 레이아웃 -->
