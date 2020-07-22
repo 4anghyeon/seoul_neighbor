@@ -1,0 +1,62 @@
+/* table 설정 */
+
+.table {
+	font-size: 15px !important;
+    color: #808080 !important;
+	
+}
+
+.page-item{
+	cursor:pointer;
+}
+
+th {
+  font-size: 16px;
+  color: #827FFE;
+  line-height: 1.4;
+
+  background-color: transparent;
+  border-bottom: 2px solid #f2f2f2;
+}
+
+tbody > tr:hover {
+  background-color: #ececff;
+  cursor: pointer;
+}
+
+tbody > tr:active {
+  color: #827FFE;
+  cursor: pointer;
+}
+
+
+.page-item.active .page-link {
+	background: #827FFE !important;
+	border-color: #827FFE !important;
+}
+
+/* myMessage.jsp */
+.warn{
+	border-color:red !important;
+	box-shadow:inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(255, 0, 0, 0.6) !important;
+}
+
+/* myQA.css */
+
+#QABtn{
+	margin-bottom:20px;
+}
+
+#writeQAContent{
+	margin-top:20px;
+}
+
+#insertQABtn{
+	background-color:#534fd6;
+	color:white
+}
+
+#QABtn{
+	background-color:#534fd6;
+	color:white
+}
