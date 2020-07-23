@@ -41,14 +41,21 @@ public class BoardController {
 		
 		model.addAttribute("locationlist",service.getLocationList(cri));
 		model.addAttribute("list",service.getList(cri));
-		System.out.println("count Test......");
-		System.out.println(cri.getCategory());
 		model.addAttribute("pageMaker",new PageDTO(cri,service.getTotal(cri)));
 
+		try {
+			String[] cultureInfo = commonService.getCulture();
+			model.addAttribute("cultureTitle",cultureInfo[0]);
+			model.addAttribute("cultureDate",cultureInfo[1]);
+			model.addAttribute("culturePlace",cultureInfo[2]);
+			model.addAttribute("cultureLink",cultureInfo[3]);
+			model.addAttribute("cultureImg",cultureInfo[4]);
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
 		// 로그인 확인 후 닉네임 넘기기
 		if (principal != null) {
 			String username = principal.getName();
-			log.warn("로그인 했음!" + username);
 			model.addAttribute("member", loginService.loadInfoByUsername(username));
 			
 			//날씨 정보 불러오는 구문 /////////////////////
@@ -56,7 +63,6 @@ public class BoardController {
 			try {
 				weatherData = commonService.getWeather(commonService.selectGuForWeather(principal.getName()));
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			model.addAttribute("weather",weatherData[0]);

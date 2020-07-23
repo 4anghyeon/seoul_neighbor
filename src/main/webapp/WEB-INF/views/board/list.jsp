@@ -17,7 +17,7 @@
 .collapsing-parallax {
 	height: 350px;
 	width: 100%;
-	background: url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/565097/background.png")
+	background: url("/resources/img/common/list_background.png")
 		center center no-repeat;
 	background-color: rgb(33,14,61);
 	background-size: cover;
@@ -49,13 +49,12 @@
 	<div id="page-wrapper" class="container" style="margin-top:60px">
 		<!-- 상단 영역(추천 및 인기글 목록 테이블) ---------------------------------------------------------------------------------------------->
 		<div class="row pb-3 pt-5">
-			<div class="col-lg-12">
+			<div class="col-lg-5">
 				<div class="page-header">
 					<!-- 상단 영역(추천 및 인기글 목록 테이블) ---------------------------------------------------------------------------------------------->
-					
 						<div class="form-row">
 						<span class="mr-4" style="text-align: center;"><b>지역선택 : </b></span>
-									<select id="selectGu" style="Width:20%" name="gu" class="form-control selectBox" 
+									<select id="selectGu" style="Width:150px" name="gu" class="form-control selectBox" 
 									onchange="document.location='list?amount=<c:out value="${pageMaker.cri.amount}"/>&gu='+this.value;">
 										<option selected><c:out value="${criteria.gu}"/></option>
 										<option value="강남구">강남구</option>
@@ -88,6 +87,17 @@
 					<!-- 지역선택 -->
       			</div>
      		 </div>
+     		 <div class="col-lg-7">
+     		 	<div style="float:left; width:fit-content; margin:0">
+ 		 	    	<h5>서울의 문화공연 소식</h5>
+     		 		<h6>${cultureTitle}</h6>
+     		 		<h6><i class="fas fa-map-marker-alt"></i> 장소: ${culturePlace }</h6>
+     		 		<h6><i class="far fa-calendar-alt"></i> 기간: ${cultureDate}</h6>
+     		 	</div>
+     		 	<div style="float:left; margin-left:30px">
+     		 	    <a href=${cultureLink }><img src=${cultureImg } style="width:100px;"></a>
+     		 	</div>
+     		 </div>
 		</div>
 		<div class="row">
 			<div class="col-xl-8">
@@ -108,8 +118,7 @@
 									<c:forEach items="${locationlist}" var="board" begin="0" end="5" step="1" varStatus="i">
 										<tr>
 											<td>[<c:out value="${board.location}"/>]</td>
-											<td><a class='move' href='<c:out value="${board.bno}"/>'>
-												<c:out value="${board.title}"/></a>
+											<td><a class='move smallList' href='<c:out value="${board.bno}"/>'><c:out value="${board.title}"/></a>
 												<b>[<c:out value="${board.reply_count}"/>]</b>
 											</td>
 											<td><c:out value="${board.like_count}"/></td>
@@ -131,8 +140,7 @@
 									<c:forEach items="${locationlist}" var="board" begin="6" end="11" step="1" varStatus="i">
 										<tr>
 											<td>[<c:out value="${board.location}"/>]</td>
-											<td><a class='move' href='<c:out value="${board.bno}" />'>
-												<c:out value="${board.title}"/></a>
+											<td><a class='move smallList' href='<c:out value="${board.bno}" />'><c:out value="${board.title}"/></a>
 												<b>[<c:out value="${board.reply_count}"/>]</b>
 											</td>
 											<td><c:out value="${board.like_count}"/></td>
@@ -158,8 +166,7 @@
 									<c:forEach items="${locationlist}" var="board" begin="12" end="18" step="1" varStatus="i">
 										<tr>
 											<td>[<c:out value="${board.location}"/>]</td>
-											<td><a class='move' href='<c:out value="${board.bno}" />'>
-												<c:out value="${board.title}"/></a>
+											<td><a class='move smallList' href='<c:out value="${board.bno}" />'><c:out value="${board.title}"/></a>
 												<b>[<c:out value="${board.reply_count}"/>]</b>
 											</td>
 											<td><c:out value="${board.like_count}"/></td>
@@ -228,11 +235,14 @@
 											<td><c:out value="${board.bno}"/></td>
 											<td><c:out value="${board.location}"/></td>
 											<td><c:out value="${board.category}" /></td>
-											<td><a class='move' href='<c:out value="${board.bno}" />'>
-												<c:out value="${board.title}"/></a>
+											<td><a class='move bigList' href='<c:out value="${board.bno}" />'><c:out value="${board.title}"/></a>
 												<b>[<c:out value="${board.reply_count}"/>]</b>
 											</td>
-											<td><c:out value="${board.userid}"/></td>
+											<td><span class="userNickname" data-toggle="dropdown"><c:out value="${board.nickname}"/></span>
+												<div class="dropdown-menu">
+												<a class="dropdown-item" id="sendMessageToUser" data-toggle='modal' data-target='#sendMessageUser'>쪽지 보내기</a>
+												</div>
+											</td>
 											<td><c:out value="${board.view_count}"/></td>
 											<td><c:out value="${board.like_count}"/></td>
 										</tr>
@@ -362,16 +372,31 @@
 	</div>
 	<!--page-wrapper end  -->
 	</main>
+	<!--  자바 스크립트 ------------->
+	<%@include file="/resources/js/board/userClick_js.jsp"%>
+	<!-- 자바 스크립트 -->
 </body>
 
 <script type="text/javascript">
 $(document).ready(function(){
 	//제목 길이 길면 자르는 함수 ///////
-	var tempTitle = $(".move");
-	console.log(tempTitle);
+	var tempTitle = $(".smallList");
+	var tempLongTitle = $(".bigList");
+	var tempCutTitle;
+	
  	for(var i=0 ; i<tempTitle.length ; i++){
-		console.log("text:"+$(tempTitle[i]).text());
-	} 
+		if($(tempTitle[i]).text().length > 15){
+			tempCutTitle = $(tempTitle[i]).text().substring(0,16) + "...";
+			$(tempTitle[i]).text(tempCutTitle);
+		}
+	}
+ 	
+ 	for(var i=0 ; i<tempLongTitle.length ; i++){
+		if($(tempLongTitle[i]).text().length > 25){
+			tempCutTitle = $(tempLongTitle[i]).text().substring(0,25) + "...";
+			$(tempLongTitle[i]).text(tempCutTitle);
+		}
+	}
 	//제목 길이 길면 자르는 함수 //
 	
     var actionForm = $("#actionForm");
@@ -428,7 +453,6 @@ $('a[data-toggle="tab"]').on('show.bs.tab',function(e){
             gu:'${criteria.gu}'
     }
     
-    console.log(form);
     if(temp=='소통해요'){
     $.ajax({
         url: "/board/BoardTabListAjax",
@@ -588,7 +612,6 @@ if(activeTab){
 	 scale =
 			1 - 0.20 * st / 350;
         maxHeight =350 - 280 * ((st - 0)) / 350;
-        console.log(maxHeight);
     }
 	 $pToolbar.css("background", "rgba(33,14,61," + alpha + ")");
     $pMain.css({

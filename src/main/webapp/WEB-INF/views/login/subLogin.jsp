@@ -24,7 +24,8 @@ sub login page
 <!-- Latest compiled JavaScript ------------>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 <!-- fontawesome -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css"/>
+<link rel="stylesheet" href="/resources/css/common/fontawesome.min.css"/>
+<script src="/resources/js/all.min.js"></script>
 </head>
 
 <body>
@@ -123,6 +124,6 @@ sub login page
 </body>
 
 <!-- 2. javaScript ------------------------------>
-<%@include file="/resources/js/index_js.jsp"%>
+<script src="/resources/js/index.js"></script>
 <!-- 2. javaScirpt -->
 </html>

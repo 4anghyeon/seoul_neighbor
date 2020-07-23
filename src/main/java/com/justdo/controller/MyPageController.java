@@ -123,13 +123,21 @@ public class MyPageController {
 	}
 	//쪽지 Ajax로 불러오기 //
 
-	// 쪽지 Ajax로 보내기 ///////////////////////////////////////////////////
+	// 쪽지 Ajax로 답장하기 ///////////////////////////////////////////////////
 	@PostMapping("myMessageSendAjax")
 	@ResponseBody public void myMessageSendAjax(MessageVO vo){
 		vo.setReceiver(myPageService.selectFindReceiver(vo.getMno()));
 		myPageService.sendMessage(vo); 
 	}
-	// 쪽지 보내기 //
+	// 쪽지 답장하기 //
+	
+	// 쪽지 Ajax로 유저 선택해서 보내기 ///////////////////////////////////////////////////
+	@PostMapping("myMessageSendToUserAjax")
+	@ResponseBody public void myMessageSendToUserAjax(MessageVO vo){
+		System.out.println(vo.getReceiver());
+		myPageService.sendMessageToUser(vo);
+	}
+	// 쪽지 유저 선택해서 보내기 //
 	
 	// 쪽지 삭제 Ajax ///////////////////////////////////////////////////
 	@PostMapping("deleteMessageAjax")

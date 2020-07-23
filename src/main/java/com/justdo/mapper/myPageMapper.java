@@ -32,8 +32,11 @@ public interface myPageMapper {
 	//쪽지 총 개수
 	public int selectCountMessage(String userid);
 	
-	//쪽지 보내기
+	//쪽지 답장하기
 	public void sendMessage(MessageVO vo);
+	
+	//쪽지 사람 선택해서 보내기
+	public void sendMessageToUser(MessageVO vo);
 	
 	//쪽지 받는 사람 아이디 가져오기
 	public String selectFindReceiver(int mno);

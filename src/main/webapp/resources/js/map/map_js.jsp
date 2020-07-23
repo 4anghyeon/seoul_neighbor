@@ -19,6 +19,7 @@ kakao.maps.event.addListener(map, 'click', function(mouseEvent) {
         	        	
             var detailAddr = !!result[0].road_address ? '<div>도로명주소 : ' + result[0].road_address.address_name + '</div>' : '';
             detailAddr += '<div>지번 주소 : ' + result[0].address.address_name + '</div>';
+            console.log("h동: "+result[0].address.address_name);
             
             var content = '<div class="bAddr">' + 
                             detailAddr + 
@@ -44,6 +45,7 @@ var callback = function(result, status) {
                var choice = ((result[i].address_name).replace(result[i].region_1depth_name+" ","").replace(" ","_"))
                console.log(choice);
                //주소정보를 전달
+               console.log("셀렉트구: "+$(this).text())
                $("#selectGu").text($(this).text());
                $("#selectDong").text($(this).text());
                $("#location").val(choice);
@@ -58,6 +60,7 @@ var callback = function(result, status) {
 	           	//자른글자 대입
 	           	$("#selectGu").text(before_gu);
 	           	$("#selectDong").text(before_dong);	
+	           	changeDong(before_gu);
                 break;
             }
         }

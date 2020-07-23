@@ -53,7 +53,11 @@ public class myPageServiceImpl implements myPageService {
 	public void sendMessage(MessageVO vo) {
 		mapper.sendMessage(vo);
 	}
-
+	
+	@Override
+	public void sendMessageToUser(MessageVO vo) {
+		mapper.sendMessageToUser(vo);
+	}
 	@Override
 	public String selectFindReceiver(int mno) {
 		return mapper.selectFindReceiver(mno);
@@ -103,5 +107,7 @@ public class myPageServiceImpl implements myPageService {
 	public String selectUserPw(String userid) {
 		return mapper.selectUserPw(userid);
 	}
+
+
 
 }

@@ -20,7 +20,8 @@
 <!-- customStyle ------------>
 <link rel="stylesheet" type="text/css" href="/resources/css/common/style.css">
 <!-- fontawesome -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css"/>
+<link rel="stylesheet" href="/resources/css/common/fontawesome.min.css"/>
+<script src="/resources/js/all.min.js"></script>
 </head>
 <body>
 	<!-- nav -------------------------------------------------------------------------------->
@@ -83,9 +84,6 @@
 			      	<div class="dropdown">
 			      		<a id="showMiniMessageBtn" class="nav-link" data-toggle="dropdown"><i class="far fa-comments" style="font-size:1.4rem; line-height:51px"></i><span id="noReadCount" class="badge badge-light"></span></a>
 						<div id="subMessageDiv" class="dropdown-menu">
-							<a class="dropdown-item" href="#">Link 1</a>
-							<a class="dropdown-item" href="#">Link 2</a>
-							<a class="dropdown-item" href="#">Link 3</a>
 						</div>
 			      	</div>
 			      	</li>
@@ -166,7 +164,59 @@
 </div>
 <!-- 3. 쪽지내용 모달창 -->
 
+<!-- 4. 쪽지 보내기 모달창 -------------------------------------->
+<div class="modal" id="sendMessageUser">
+	<div class="modal-dialog modal-dialog-centered">
+		<div class="modal-content">
+       <!-- Modal Header -->
+			<div class="modal-header">
+			<h4 id="messageReplyHeaderToUser" class="modal-title">님에게 보내기</h4>
+			<button type="button" class="close" data-dismiss="modal">&times;</button>
+			</div>
+       
+       <!-- Modal body -->
+			<div class="modal-body">
+			<textarea class="form-control" rows="5" id="messageReplyContentToUser" placeholder="내용을 입력하세요 (100자 미만)"></textarea>
+			</div>
+       <!-- Modal footer -->
+			<div class="modal-footer">
+			<span id="warnToUser">(0/100)글자</span><button type="button" id="messageReplySendToUserBtn" class="btn btn-info" data-dismiss="modal">보내기</button>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- 4. 쪽지 보내기 모달창 -->
 
+<!-- 5. 신고하기 모달창 -------------------------------------->
+<div class="modal" id="reportUserModal">
+	<div class="modal-dialog modal-dialog-centered">
+		<div class="modal-content">
+       <!-- Modal Header -->
+			<div class="modal-header">
+			<h4 id="reportUserHeader" class="modal-title">님신고하기</h4>
+			<button type="button" class="close" data-dismiss="modal">&times;</button>
+			</div>
+       
+       <!-- Modal body -->
+       		<select class="form-control">
+       			<option value="none">-- 신고 사유를 선택해주세요 --</option>
+       			<option value="badWord">욕설/비속어</option>
+       			<option value="annoying">불쾌감 조성</option>
+       			<option value="fakeNews">허위사실 유포</option>
+       			<option value="illigalAd">무단광고/홍보</option>
+       			<option value="etc">기타</option>
+       		</select>
+			<div class="modal-body">
+			<textarea class="form-control" rows="5" id="reportContent" placeholder="내용을 입력하세요 (100자 미만)"></textarea>
+			</div>
+       <!-- Modal footer -->
+			<div class="modal-footer">
+			<span id="warnReport">(0/100)글자</span><button type="button" id="reportUserBtn" class="btn btn-warning" data-dismiss="modal">신고</button>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- 5. 신고하기 모달창 -->
 
 <!-- 자바스크립트------------------------>
 <%@include file="/resources/js/messageAlert_js.jsp"%>

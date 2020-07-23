@@ -34,13 +34,15 @@ public interface commonService {
 	//안읽은 메시지 개수 가져오기
 	public int selectMessageReadCount(String userid);
 
-	//날씨 불러오기
-	public String[] getWeather(String Gu) throws IOException;
-	
     //해당 bno의 board 삭제.
 	public boolean remove(int bno);
 	
 	//날씨 정보 위한 구 가져오기
 	public String selectGuForWeather(String userid);
-
+	
+	//날씨 불러오기
+	public String[] getWeather(String Gu) throws IOException;
+	
+	//문화 정보 불러오기
+	public String[] getCulture() throws IOException;
 }

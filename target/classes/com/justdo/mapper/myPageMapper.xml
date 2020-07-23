@@ -52,9 +52,14 @@
 		select count(*) from tbl_message where receiver = #{userid}
 	</select>
 	
-	<!-- 쪽지 보내기 -->
+	<!-- 쪽지 답장하기 -->
 	<insert id="sendMessage">
 		insert into tbl_message (sender,receiver,message_content) values(#{sender},#{receiver},#{message_content})
+	</insert>
+	
+	<!-- 쪽지 사람 선택해서 보내기 -->
+	<insert id="sendMessageToUser">
+		insert into tbl_message (sender,receiver,message_content) values(#{sender},(select userid from tbl_member where nickname = #{receiver}),#{message_content})
 	</insert>
 	
 	<!-- 쪽지 받는 사람 아이디 불러오기 -->

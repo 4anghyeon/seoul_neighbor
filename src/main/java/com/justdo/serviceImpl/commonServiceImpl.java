@@ -3,6 +3,7 @@ package com.justdo.serviceImpl;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
@@ -99,6 +100,16 @@ public class commonServiceImpl implements commonService {
 	@Override
 	public int selectMessageReadCount(String userid) {
 		return mapper.selectMessageReadCount(userid);
+	}
+
+	@Override
+	public boolean remove(int bno) {
+		return boardMapper.delete(bno)==1;
+	}
+
+	@Override
+	public String selectGuForWeather(String userid) {
+		return mapper.selectGuForWeather(userid);
 	}
 
 	@Override
@@ -350,15 +361,45 @@ public class commonServiceImpl implements commonService {
         
         return weatherData;
 	}
-	
 	@Override
-	public boolean remove(int bno) {
-		return boardMapper.delete(bno)==1;
-	}
+	public String[] getCulture() throws IOException {
+		String apiUrl = "http://openapi.seoul.go.kr:8088/706c7563486767613930667662646c/json/culturalEventInfo/1/10";        
+        /*
+         * GET방식으로 전송해서 파라미터 받아오기
+         */
+        URL url = new URL(apiUrl);
+        //어떻게 넘어가는지 확인하고 싶으면 아래 출력분 주석 해제
+        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+        conn.setRequestMethod("GET");
+        conn.setRequestProperty("Content-type", "application/json");
+        BufferedReader rd;
+        if(conn.getResponseCode() >= 200 && conn.getResponseCode() <= 300) {
+            rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+        } else {
+            rd = new BufferedReader(new InputStreamReader(conn.getErrorStream()));
+        }
+        StringBuilder sb = new StringBuilder();
+        String line;
+        while ((line = rd.readLine()) != null) {
+            sb.append(line);
+        }
+        rd.close();
+        conn.disconnect();
+        String result= sb.toString();
+        System.out.println(result);
+        
+        //jsonparser로 문자열 객체화
+        JsonParser parser = new JsonParser();
+        JsonObject obj = (JsonObject) parser.parse(result);
+        
+        JsonObject parseResponse = (JsonObject) obj.get("culturalEventInfo");
+        JsonArray parseItems = (JsonArray) parseResponse.get("row");
+        int randInt = (int)((Math.random())*9);
 
-	@Override
-	public String selectGuForWeather(String userid) {
-		return mapper.selectGuForWeather(userid);
+        JsonObject tempCultureInfo = (JsonObject)parseItems.get(randInt);
+        String[] culutreInfo = {tempCultureInfo.get("TITLE").getAsString(),tempCultureInfo.get("DATE").getAsString(),tempCultureInfo.get("PLACE").getAsString(),tempCultureInfo.get("ORG_LINK").getAsString(),tempCultureInfo.get("MAIN_IMG").getAsString()};
+		return culutreInfo;
+        
 	}
 
 }
