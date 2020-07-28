@@ -206,5 +206,68 @@ $(document).ready(function(){
 	}
 	// 쪽지 내용 길면 ...로 자르기 //
 
+	// 쪽지 삭제 /////////////////////////////////////////////////////
+	$("#deleteMessageBtn").on("click",function(){
+		if(confirm("삭제하시겠습니까?")){
+	        var form = {
+	        		mno: parseInt($("#mno").val()),
+	        }
+	        $.ajax({
+	            url: "/deleteMessageAjax",
+	            type: "POST",
+	            data: form,
+	            beforeSend: function(xhr){
+	            	xhr.setRequestHeader("${_csrf.headerName}", "${_csrf.token}");
+	            },
+	            success: function(data){
+	            	alert("삭제했습니다!");
+	    	        var form = {
+	    	                userid: '${member.userid}',
+	    	                pageNum: pageNum
+	    	        }
+	    	        $.ajax({
+	    	            url: "/myMessageAjax",
+	    	            type: "GET",
+	    	            data: form,
+	    	            success: function(data){ //리스트 다시 불러옴
+	    	                $("#messageList").empty();
+	    	                $(data).each(function(i,message){
+	    	                	if(message.read_check == 'Y'){
+	        		                $("#messageList").append(
+	        								"<tr>"+
+	        								"<td style='display:none'><input type='hidden' value='"+message.mno+"' /></td>"+
+	        								"<td>"+message.nickname+"</td>"+
+	        								"<td class='messageContent' data-toggle='modal' data-target='#readMessage'>"+message.message_content+"</td>"+
+	        								"<td>"+message.writedate+"</td>"+
+	        								"<td style='display:none'><input type='hidden' value='"+message.message_content+"' /></td>"+
+	        								"</tr>"
+	        			             )
+	    	                	}
+	    	                	else if(message.read_check == 'N'){
+	        		                $("#messageList").append(
+	        								"<tr>"+
+	        								"<td style='display:none'><input type='hidden' value='"+message.mno+"' /></td>"+
+	        								"<td>"+message.nickname+"</td>"+
+	        								"<td class='messageContent' data-toggle='modal' data-target='#readMessage'>"+"[읽지 않음] "+message.message_content+"</td>"+
+	        								"<td>"+message.writedate+"</td>"+
+	        								"<td style='display:none'><input type='hidden' value='"+message.message_content+"' /></td>"+
+	        								"</tr>"
+	        			             )
+	    	                	}
+	    	                });
+	    	                cutContent();
+	    	            },
+	    	            error: function(){
+	    	                alert("simpleWithObject err");
+	    	            }
+	    	        });
+	            },
+	            error: function(){
+	                alert("simpleWithObject err");
+	            }
+	        });
+		}
+	})
+	// 쪽지 삭제 //
 })
 </script>

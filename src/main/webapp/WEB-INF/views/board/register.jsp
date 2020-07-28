@@ -20,10 +20,13 @@
 <meta charset="UTF-8">
 <title>게시글 작성</title>
 <!-- customStyle ------------>
-<link rel="stylesheet" type="text/css" href="/resources/css/map/style.css">
-<link rel="stylesheet" type="text/css" href="/resources/css/board/style.css">
+<link rel="stylesheet" href="/resources/css/mypage/profile-basic.css">
+<link rel="stylesheet" href="/resources/css/mypage/profile-formpage.css">
+<link rel="stylesheet" href="/resources/css/common/basic.css">
+<link rel="stylesheet" href="/resources/css/map/style.css">
+<link rel="stylesheet" href="/resources/css/board/register.css">
 <!-- include summernote css -->
-<link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote-bs4.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="/resources/css/summernote/summernote-lite.css">
 
 </head>
 <body>
@@ -49,7 +52,7 @@
 					    <button class="btn btn-primary dropdown-toggle" type="button" id="selectGu" data-toggle="dropdown">구
 					    <span class="caret"></span></button>
 				    	<div id="gu" class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-					    	<a class="dropdown-item" href="#">강남구</a>
+							<a class="dropdown-item" href="#">강남구</a>
 							<a class="dropdown-item" href="#">강동구</a>
 							<a class="dropdown-item" href="#">강북구</a>
 							<a class="dropdown-item" href="#">강서구</a>
@@ -107,10 +110,11 @@
 						</div>
 					</div>
 					<!-- 1.2.1 카테고리 선택 -->
-		            <input type="text" id="title" name="title" placeholder="제목"><br><!-- 글제목 -->      
-		            <input type="hidden" name="userid" value="<c:out value='${userid}'/>"><!-- 유저아이디 -->
+		            <input type="text" id="title" name="title" placeholder="제목"><br><!-- 글제목 -->  
+		            <input type="hidden" name="userid" value="<c:out value='${member.userid}'/>"><!-- 유저아이디 -->
+		            <input type="hidden" name="nickname" value="<c:out value='${member.nickname}'/>"><!-- 유저아이디 -->
 					<textarea name="content" id="content" class="summernote" cols="80" rows="15"></textarea><br><!-- 글내용 -->
-					<input type="hidden" id="location" name="location" value="<c:out value='${board.location}'/>"><!-- 지역 -->
+					<input type="hidden" id="location" name="location" value="<c:out value='${member.member_location}'/>"><!-- 지역 -->
 					<button type="submit" class="btn btn-primary bottomButton" onclick="return boardCheck()">작성</button><!-- 작성버튼 -->
 		        </form>
 		        <!-- 1.2 수정 폼 -->
@@ -128,8 +132,8 @@
 <%@include file="/resources/js/map/map_js.jsp"%>
 <%@include file="/resources/js/board/board_js.jsp"%>
 <!-- include summernote js-->
-<script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote-bs4.js"></script>
+<script src="/resources/js/summernote/summernote-lite.js"></script>
 <!-- include summernote-ko-KR -->
-<script src="/resources/js/board/summernote-ko-KR.js"></script>
+<script src="/resources/js/summernote/lang/summernote-ko-KR.js"></script>
 <!-- 2. javaScirpt -->
 </html>

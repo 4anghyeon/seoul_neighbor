@@ -8,10 +8,25 @@
    <meta charset="UTF-8">
    
    <style>
+
    body {
      font-family: "Lato", sans-serif;
+      position: relative; 		/* body에 투명도를 주면 컨텐츠도 같이 투명해지기 때문에.. */
    }
-   
+   body:after {				/* background-image opacity */
+    content : "";
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-image: url('/resources/img/common/index_background.jpg');  
+    width: 100%;
+    height: 100%;
+    opacity : 0.4;
+    z-index: -1;
+	}						/* background-image opacity */
+
+
    .sidenav {
    margin-left : 30px;
      width: 300px;
@@ -79,7 +94,7 @@
    }
    
    #sideMenu{
-      height:90vh;
+      height:100%;						/* side menu(왼쪽)와 본문(오른쪽)의 구분선 */
       border-right:1px solid black;
       padding:2rem;
    }
@@ -124,10 +139,13 @@
    #commentInsertDiv{
       margin:10px;
    }
-   
+   .chat li{
+  	  word-break:break-all;				/* 댓글 겁나 길게 쓰면 등록된 댓글이  한줄로 가로로 쭉 늘어나서 가로 스크롤바 생기는데 이거 넣으면 width가 컨테이너 만큼 차면서 그 다음줄로 댓글이 이어 써진다. */
+   }
    </style>
    
    <title>상세 보기</title>
+   
        
 </head>
 
@@ -222,14 +240,18 @@
             <!-- 좋아요, 싫어요 부분 -->
             
             <!-- 댓글 창 부분 ----------------------------------->
-            <div id="commentDiv   " class="row">
-               
+            <div id="commentDiv" class="row">
+                <ul class="chat">
+		
+		        </ul>
+		        <!-- ./ end ul -->
             </div>
             <!-- 댓글 창 부분 -->
             
             <!-- 댓글 입력 창 ----------------------------------->
             <div id="commentInsertDiv" class="row">
-               <input type="text" class="form-control" placeholder="댓글을 입력하세요" style="width:80%"><input type="button" class="form-control" value="등록" style="width:20%">
+               <input id="replyContent" type="text" class="form-control" placeholder="댓글을 입력하세요" style="width:80%">
+               <input id="replyButton" type="button" class="form-control" value="등록" style="width:20%">
             </div>
             <!-- 댓글 입력 창 -->
             
@@ -274,7 +296,30 @@
 	      </div>
 	    </div>
 	  </div>
-      
+    
+    <div class="modal" id="replyModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">Modal Heading</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+        Modal body..
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+      </div>
+
+    </div>
+  </div>
+</div>
    </div>
    
    
@@ -283,8 +328,66 @@
 			   
 			   let bno=${board.bno}
 			   let likeCount=${board.like_count}
-/* 			   $(".likeCount").html(likeCount); */
-			   
+		  	   let replyUL = $(".chat");
+		  	 
+/* 			   댓글 목록 불러오는 ajax 함수를 getReplyList라는 변수에 넣음.*/
+				let getReplyList=function(){  
+   					$.ajax({
+	    		    url:"/replies/replyList/"+bno,
+	    		  	type:"GET",
+	    		  	global: false,
+		  			  success:function(result, status, xhr){
+		  				let str = "";
+		  				$(result).each(function(i, repl){
+						
+   			  				str +="<li  class='left clearfix'>";
+		   			  	    str +="  <div><div class='header'><strong class='primary-font'>["
+		   			  	    	   +repl.rno+"] "+repl.replyer+"</strong>"; 
+	   			  	        str +="    <small class='pull-right text-muted'>"
+		   			  	           +repl.updatedate+"</small><button data-toggle='modal' data-target='#replyModal'>수정</button><button id='deleteReplyButton'>삭제</button>";
+			   			  	        str +="<input type='hidden' value="+repl.rno+" /></div>";
+	   			  	        str +="    <p>"+repl.reply+"</p></div></li>";
+
+   			  				})
+			 			replyUL.empty();
+		  				replyUL.html(str);
+	    		  }
+	    	  })};
+/* 			   댓글 목록 불러오는 ajax 함수를 getReplyList라는 변수에 넣음.*/
+
+
+
+				/* 댓글 삭제 */				   			 
+				 
+				
+   			    $(".chat").on("click","#deleteReplyButton", function(e){
+   			  		let rno = $(this).next().val();
+			         $.ajax({
+				            url: "/replies/board/removereply/" + rno, 
+				            type: "POST",
+				            dataType: "text",
+				            success: function(result, status, xhr){
+				               console.log(result);
+				               getReplyList();
+				            }
+				         });
+   			  	 })
+   			  	 
+   			  	 
+   			  	 
+				
+				
+				/* 댓글 삭제 */
+
+   			  	 //getReplyList/////////////////////////////////////////////////
+
+			      $(window).on('load',function(){
+			    	  getReplyList();
+			      })
+
+   			  	 //getReplyList/////////////////////////////////////////////////
+
+
 			      $("#likeButton").click(function(){
 			         $.ajax({
 			            url: "/read/plusLike/" + bno, 
@@ -328,8 +431,33 @@
 			    	  metaForm.attr("action", "/board/remove/" + bno);
 			    	  metaForm.submit();
    			  	 }) 
-		   })
-		   
+   			  	 
+   			  	 $("#replyButton").click(function(){
+
+   			  		 let replyObject = {
+   			  				 "bno":bno,
+   			  				 "reply":$("#replyContent").val(),
+   			  				 "replyer":"testUser"
+   			  		 }
+   			  		  $.ajax({
+   			  			 url:"/replies/new",
+   			  			 type:"POST",
+   			  			 data: JSON.stringify(replyObject),
+   			  			 dataType:"text", //서버에서 오는 데이터형식, 클라이언트가 받는거
+   			  			 contentType:"application/json", //서버로 보내는 데이터 형식 = data의 형식을 표시, 클라이언트가 보내는거 
+   			  			 success:function(result, status, xhr){
+   				    	  getReplyList();
+
+   			  			 }
+   			  		 })  	
+   			 
+
+   			  	 })
+   			  	 
+
+   			  	 
+   			  	  
+   	})
 		</script>	
 
 </body> 

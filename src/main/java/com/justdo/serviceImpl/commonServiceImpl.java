@@ -3,7 +3,6 @@ package com.justdo.serviceImpl;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
@@ -361,6 +360,8 @@ public class commonServiceImpl implements commonService {
         
         return weatherData;
 	}
+	
+	//문화정보 받아오기 ////////////////////////////////
 	@Override
 	public String[] getCulture() throws IOException {
 		String apiUrl = "http://openapi.seoul.go.kr:8088/706c7563486767613930667662646c/json/culturalEventInfo/1/10";        
@@ -368,7 +369,6 @@ public class commonServiceImpl implements commonService {
          * GET방식으로 전송해서 파라미터 받아오기
          */
         URL url = new URL(apiUrl);
-        //어떻게 넘어가는지 확인하고 싶으면 아래 출력분 주석 해제
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
         conn.setRequestMethod("GET");
         conn.setRequestProperty("Content-type", "application/json");
@@ -386,7 +386,6 @@ public class commonServiceImpl implements commonService {
         rd.close();
         conn.disconnect();
         String result= sb.toString();
-        System.out.println(result);
         
         //jsonparser로 문자열 객체화
         JsonParser parser = new JsonParser();
@@ -400,6 +399,56 @@ public class commonServiceImpl implements commonService {
         String[] culutreInfo = {tempCultureInfo.get("TITLE").getAsString(),tempCultureInfo.get("DATE").getAsString(),tempCultureInfo.get("PLACE").getAsString(),tempCultureInfo.get("ORG_LINK").getAsString(),tempCultureInfo.get("MAIN_IMG").getAsString()};
 		return culutreInfo;
         
+	}
+	//문화 정보 받아오기//
+
+	//새소식 받아오기 /////////////////////////
+	@Override
+	public JsonArray getNews() throws IOException {
+		String apiUrl = "http://openapi.seoul.go.kr:8088/706c7563486767613930667662646c/json/SeoulNewsList/1/5/";        
+        /*
+         * GET방식으로 전송해서 파라미터 받아오기
+         */
+        URL url = new URL(apiUrl);
+        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+        conn.setRequestMethod("GET");
+        conn.setRequestProperty("Content-type", "application/json");
+        BufferedReader rd;
+        if(conn.getResponseCode() >= 200 && conn.getResponseCode() <= 300) {
+            rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+        } else {
+            rd = new BufferedReader(new InputStreamReader(conn.getErrorStream()));
+        }
+        StringBuilder sb = new StringBuilder();
+        String line;
+        while ((line = rd.readLine()) != null) {
+            sb.append(line);
+        }
+        rd.close();
+        conn.disconnect();
+        String result= sb.toString();
+        
+        //jsonparser로 문자열 객체화
+        JsonParser parser = new JsonParser();
+        JsonObject obj = (JsonObject) parser.parse(result);
+        
+        JsonObject parseResponse = (JsonObject) obj.get("SeoulNewsList");
+        JsonArray parseItems = (JsonArray) parseResponse.get("row");
+
+		return parseItems;
+	}
+	//새소식 받아오기//
+	
+	//이메일로 회원 아이디 찾기
+	@Override
+	public String findIdByEmail(String email) {
+		return mapper.findID(email);
+	}
+
+	@Override
+	public String changePassword(String userid, String email, String userpw) {
+		mapper.updateNewPassword(userid, email, userpw);
+		return "true";
 	}
 
 }

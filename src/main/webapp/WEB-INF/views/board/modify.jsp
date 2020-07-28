@@ -23,7 +23,7 @@
 <link rel="stylesheet" type="text/css" href="/resources/css/map/style.css">
 <link rel="stylesheet" type="text/css" href="/resources/css/board/style.css">
 <!-- include summernote css -->
-<link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote-bs4.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="/resources/css/summernote/summernote-lite.css">
 </head>
 <body>
 <!-- header include ------------>
@@ -128,8 +128,8 @@
 <%@include file="/resources/js/map/map_js.jsp"%>
 <%@include file="/resources/js/board/board_js.jsp"%>
 <!-- include summernote js-->
-<script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote-bs4.js"></script>
+<script src="/resources/js/summernote/summernote-lite.js"></script>
 <!-- include summernote-ko-KR -->
-<script src="/resources/js/board/summernote-ko-KR.js"></script>
+<script src="/resources/js/summernote/lang/summernote-ko-KR.js"></script>
 <!-- 2. javaScirpt -->
 </html>

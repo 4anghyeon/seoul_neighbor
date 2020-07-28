@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.justdo.mapper.replyMapper">
+
+	<insert id="insertReply">
+		insert into tbl_reply(bno, reply, replyer)
+		values(
+			#{bno},#{reply},#{replyer}
+		) 
+	</insert>
+	
+	<update id="plusCountOfReply">
+ 		UPDATE tbl_board
+		SET reply_count = reply_count+1
+		where bno=#{bno}
+		
+<!-- 		update tbl_board as a, tbl_reply as b 
+		set 
+		a.reply_count=b.COUNT(#{bno})
+		where 
+		a.#{bno}=b.#{bno} 							위에 주석 없는 건 댓글 등록시마다 tbl_board의 reply_count++하는 거고(대신 새로고침해야지만 댓글수 증가한거 보임., 
+													위를 보안하고자 여기 주석처리 된거는 tbl_board의 reply_count에 tbl_reply의 COUNT(#{bno})를 업데이트 하는 로직 처리중임.-->
+	</update>
+	
+	<select id="getReplyList" resultType="com.justdo.domain.ReplyVO">
+		select * from tbl_reply
+		where bno=#{bno}
+		order by rno desc
+	</select>
+	
+	
+	<delete id="deleteReply">
+
+		delete from tbl_reply where rno = #{rno}
+
+	</delete>
+
+	<update id="updateReply">
+
+		update tbl_reply set reply = #{reply}, updatedate = sysdate 
+		where rno = #{rno}
+
+	</update>	
+	
+	
+	
+</mapper>

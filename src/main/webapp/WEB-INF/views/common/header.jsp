@@ -40,28 +40,28 @@
 				<span id="guWeatherText">${weatherGu} </span>
 				<c:choose>
 					<c:when test="${weather eq '비' }">
-					<i class="fas fa-cloud-rain"></i><span> 비 </span><span> ${temperature} °C</span>
+					<i class="fas fa-cloud-rain" style="color:#a5d8ff"></i><span> 비 </span><span> ${temperature} °C</span>
 					</c:when>
 					<c:when test="${weather eq '비/눈' }">
-					<i class="fas fa-cloud-meatball"></i><span> 비/눈 </span><span> ${temperature} °C</span>
+					<i class="fas fa-cloud-meatball" style="color:#a5d8ff"></i><span> 비/눈 </span><span> ${temperature} °C</span>
 					</c:when>
 					<c:when test="${weather eq '눈' }">
-					<i class="far fa-snowflake"></i><span> 눈 </span><span> ${temperature} °C</span>
+					<i class="far fa-snowflake" style="color:#d0ebff"></i><span> 눈 </span><span> ${temperature} °C</span>
 					</c:when>
 					<c:when test="${weather eq '소나기' }">
-					<i class="fas fa-cloud-showers-heavy"></i><span> 소나기 </span><span> ${temperature} °C</span>
+					<i class="fas fa-cloud-showers-heavy" style="color:#1c7ed6"></i><span> 소나기 </span><span> ${temperature} °C</span>
 					</c:when>
 					<c:when test="${weather eq '진눈개비' }">
-					<i class="fas fa-wind"></i><span> 진눈개비 </span><span> ${temperature} °C</span>
+					<i class="fas fa-wind" style="color:#1c7ed6"></i><span> 진눈개비 </span><span> ${temperature} °C</span>
 					</c:when>
 					<c:when test="${weather eq '맑음' }">
-					<i class="fas fa-sun"></i><span> 맑음 </span><span> ${temperature} °C</span>
+					<i class="fas fa-sun" style="color:#fab005"></i><span> 맑음 </span><span> ${temperature} °C</span>
 					</c:when>
 					<c:when test="${weather eq '구름많음' }">
-					<i class="fas fa-cloud-sun"></i><span> 구름많음 </span><span> ${temperature} °C</span>
+					<i class="fas fa-cloud-sun" style="color:#868e96"></i><span> 구름많음 </span><span> ${temperature} °C</span>
 					</c:when>
 					<c:when test="${weather eq '흐림' }">
-					<i class="fas fa-cloud"></i><span> 흐림 </span><span> ${temperature} °C</span>
+					<i class="fas fa-cloud" style="color:#343a40"></i><span> 흐림 </span><span> ${temperature} °C</span>
 					</c:when>
 				</c:choose>
 			</div>
@@ -83,8 +83,7 @@
 			      	<li class="nav-item">
 			      	<div class="dropdown">
 			      		<a id="showMiniMessageBtn" class="nav-link" data-toggle="dropdown"><i class="far fa-comments" style="font-size:1.4rem; line-height:51px"></i><span id="noReadCount" class="badge badge-light"></span></a>
-						<div id="subMessageDiv" class="dropdown-menu">
-						</div>
+						<div id="subMessageDiv" class="dropdown-menu"></div>
 			      	</div>
 			      	</li>
 			      	<!-- 메시지 알림 창 -->				

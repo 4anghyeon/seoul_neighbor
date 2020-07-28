@@ -47,11 +47,23 @@
 	border-top:solid 1px #e6e6e6;
 }
 
+#rightDivContent thead{
+	font-family:"ImcreSoojin";
+}
+
+#rightDivContent tbody{
+	font-family:"IBM";
+}
+
+#rightDivContent h5{
+	font-family:"IBM";
+}
+
 h1{
-	font-family: 'ImcreSoojin'
+	font-family:"PayBook";
 }
 
 h3{
-	font-family: 'ImcreSoojin';
+	font-family:"PayBook";
 	font-size: 1.45rem;
 }

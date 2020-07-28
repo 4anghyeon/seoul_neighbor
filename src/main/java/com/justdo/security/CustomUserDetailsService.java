@@ -49,6 +49,16 @@ public class CustomUserDetailsService implements UserDetailsService{
 		return vo;
 	}
 	
+	// 이메일을 넣으면 VO가 나오는 메소드
+	public MemberVO loadInfoByEmail(String email) throws UsernameNotFoundException {
+		// 아이디가 없을 시 예외 발생시킴
+		if (email == null) {
+			throw new UsernameNotFoundException(email);
+		}
+		MemberVO vo = memberMapper.read_userinfo(email);
+		return vo;
+	}
+	
 	// 아이디를 넣으면 닉네임이 나오는 메소드
 	public String loadNicknameByUsername(String username) throws UsernameNotFoundException {
 		if (username == null) {

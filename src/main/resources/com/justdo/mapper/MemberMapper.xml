@@ -24,4 +24,10 @@
 		from tbl_member mem left outer join tbl_member_auth auth on mem.userid=auth.userid
 		where mem.userid=#{userid}
 	</select>
+	
+	<select id="read_userinfo" resultMap="memberMap">
+		select mem.userid, userpw, nickname, email, member_location, member_filename, auth
+		from tbl_member mem left outer join tbl_member_auth auth on mem.userid=auth.userid
+		where mem.email=#{email}
+	</select>
 </mapper>

@@ -13,8 +13,8 @@
 			<if test="type == 'L'.toString()">and location LIKE CONCAT('%',#{keyword},'%')</if>
 		</if>
 		<if test="category == category">
-			<if test="category == null">and category LIKE CONCAT('%','','%')</if>
-			<if test="category != null">and category LIKE CONCAT('%',#{category},'%')</if>
+			<if test="category == null or (category eq '전체'.toString())">and category LIKE CONCAT('%','','%')</if>
+			<if test="category != null and (category != '전체'.toString())">and category LIKE CONCAT('%',#{category},'%')</if>
 		</if>
 	</sql>
 	<!-- 검색기능을 위한 키워드 include 쿼리문 (end) -->
@@ -36,7 +36,6 @@
 	<select id="getListWithPaging" resultType="com.justdo.domain.BoardVO">
 		select * from tbl_board
 		where (location LIKE CONCAT('%',#{gu},'%'))
-		<include refid="criteria"></include>
 		order by bno desc
 		limit #{startIndex}, #{amount}
 	</select>
@@ -45,7 +44,8 @@
 	<!-- 탭부분 글 리스트 불러오기 -->
 	<select id="getListWithPagingTabs" resultType="com.justdo.domain.BoardVO">
 		select * from tbl_board
-		where (location LIKE CONCAT('%',#{gu},'%')) and category LIKE CONCAT('%',#{category},'%')
+		where (location LIKE CONCAT('%',#{gu},'%'))
+		<include refid="criteria"></include>
 		order by bno desc
 		limit #{startIndex}, #{amount}
 	</select>
@@ -69,8 +69,8 @@
 	
 	<!-- 입력 -->
 	<insert id="insert">
-		insert into tbl_board (userid, title, content, regdate, category, location )
-		values (#{userid}, #{title}, #{content}, sysdate(), #{category}, #{location})
+		insert into tbl_board (userid,nickname, title, content, regdate, category, location )
+		values (#{userid},#{nickname}, #{title}, #{content}, sysdate(), #{category}, #{location})
 	</insert>
 
 	<!-- 조회 -->

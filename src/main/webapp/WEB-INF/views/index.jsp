@@ -50,7 +50,7 @@
 							<label class="label-checkbox" for="remember-me-checkbox">로그인 상태 유지</label>
 						</div>
 						<div class="col-md-6 text-right">
-							<a href="#" class="text-colored"> 비밀번호 찾기 </a>
+							<a href="/find_id_pw" class="text-colored"> 비밀번호 찾기 </a>
 						</div>
 					</div>
 					<!-- 자동로그인/비밀번호 찾기  -->
