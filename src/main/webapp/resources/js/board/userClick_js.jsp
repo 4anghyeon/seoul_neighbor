@@ -2,11 +2,11 @@
     pageEncoding="UTF-8"%>
 <script>
 $(document).ready(function(){
-	
 	// 유저한테 쪽지 보내기 ///////////////////////////////////////////////////////////////////
 	var tempUserNickname;
-	$(document).on("click","#sendMessageToUser",function(){
+	$(document).on("click",".sendMessageToUser",function(){
 		tempUserNickname = $($(this).parents().prev()[0]).text();
+		console.log(tempUserNickname)
 		$("#messageReplyContentToUser").val("");
 		$("#warnToUser").empty();
 		$("#warnToUser").append("(0/100) 글자");
@@ -109,5 +109,6 @@ $(document).ready(function(){
         });
 	
 	// 유저 신고하기 //
-})
+});
+});
 </script>

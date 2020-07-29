@@ -217,7 +217,7 @@
                   <div id="userDiv" class="card text-center">
                      <img class="card-img-top" src="/resources/img/mypage/profile_sample.png" alt="프로필 사진">
                   </div>
-                  <span id="userId">${board.userid}</span>
+                  <span id="userId">${board.nickname}</span>
                </div>
             </div>
             <!-- 게시글 상세 제목, 아이디 부분 -->

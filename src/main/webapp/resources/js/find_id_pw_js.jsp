@@ -5,12 +5,13 @@ $(document).ready(function () {
     var csrfHeaderName = "${_csrf.headerName}";
     var csrfTokenValue = "${_csrf.token}";
     
+    var tempIdForm = $("#id-fieldset").html();
     $("a[href='#find-id']").click(function name() {
-        
+    	$("#id-fieldset").html(tempIdForm);
     });
     
     /* 아이디 찾기 버튼을 눌렀을 때! //////////////////////////////////*/
-    $("#id-find-button").click(function (e) {
+    $(document).on("click","#id-find-button",function (e) {
         var raw_email = $("#email").val();
         console.log("작성한 이메일 주소"+raw_email);
         

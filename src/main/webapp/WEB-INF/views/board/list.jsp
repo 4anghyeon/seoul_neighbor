@@ -48,6 +48,14 @@ tbody{
 	font-size:0.8rem;
 }
 
+.userNickname{
+	cursor:pointer;
+}
+
+.sendMessageToUser{
+	cursor:pointer;
+}
+
 /* 서울 소식 */
 #seoulNews{
 	height:100px;
@@ -103,7 +111,6 @@ tbody{
 	#listLeft{
 		order:2;
 	}
-	#se
 }
 </STYLE>
 
@@ -183,7 +190,22 @@ tbody{
 		<div class="row">
 			<div class="col-xl-8">
 				<div class="panel panel-default ">
-					<div class="panel-heading pb-3">김서울님, <c:out value="${criteria.gu}"/>의 이야기를 들어보세요!</div>
+					<div class="panel-heading pb-3">
+					     <!-- 로그인 하지 않은 상태에서 노출 ::: 목록  -------------------------------------------------->
+		                 <sec:authorize access="isAnonymous()">
+		                    <div><p>서울이웃에 방문해주셔서 감사합니다.</p></div>
+		                 </sec:authorize>
+		                 <!-- 로그인 하지 않은 상태에서 노출 ::: 목z록  -->
+		
+		                 <!-- 로그인 한 상태에서 노출 ::: 목록  -------------------------------------------------->
+		                 <sec:authorize access="isAuthenticated()">
+		                    <div>
+		                       <c:out value="${member.nickname}"/>님,
+		                       <c:out value="${criteria.gu}"/>의 이야기를 들어보세요!
+		                    </div>
+		                 </sec:authorize>
+		                 <!-- 로그인 한 상태에서 노출 ::: 목록  -->
+					</div>
 				</div>
 				<div class="panel panel-body">
 					<div class="row">
@@ -202,7 +224,7 @@ tbody{
 											<td><a class='move smallList' href='<c:out value="${board.bno}"/>'><c:out value="${board.title}"/></a>
 												<b>[<c:out value="${board.reply_count}"/>]</b>
 											</td>
-											<td><c:out value="${board.like_count}"/></td>
+											<td><i class="far fa-thumbs-up"></i> <c:out value="${board.like_count}"/></td>
 										</tr>
 									</c:forEach>
 								</tbody>
@@ -224,7 +246,7 @@ tbody{
 											<td><a class='move smallList' href='<c:out value="${board.bno}" />'><c:out value="${board.title}"/></a>
 												<b>[<c:out value="${board.reply_count}"/>]</b>
 											</td>
-											<td><c:out value="${board.like_count}"/></td>
+											<td><i class="far fa-thumbs-up"></i> <c:out value="${board.like_count}"/></td>
 										</tr>
 									</c:forEach>
 								</tbody>
@@ -250,7 +272,7 @@ tbody{
 											<td><a class='move smallList' href='<c:out value="${board.bno}" />'><c:out value="${board.title}"/></a>
 												<b>[<c:out value="${board.reply_count}"/>]</b>
 											</td>
-											<td><c:out value="${board.like_count}"/></td>
+											<td><i class="far fa-thumbs-up"></i> <c:out value="${board.like_count}"/></td>
 										</tr>
 									</c:forEach>
 								</tbody>
@@ -319,9 +341,18 @@ tbody{
 											<td><a class='move bigList' href='<c:out value="${board.bno}" />'><c:out value="${board.title}"/></a>
 												<b>[<c:out value="${board.reply_count}"/>]</b>
 											</td>
-											<td><c:out value="${board.nickname}"/></td>
+											<sec:authorize access="isAnonymous()">
+		                    				<td><c:out value="${board.nickname}"/></td> <!-- 로그인 안하면 닉네임만 -->
+		                 					</sec:authorize>
+		                 					<sec:authorize access="isAuthenticated()"> <!-- 로그인 하면 닉네임 클릭시 쪽지보내기 가능 -->
+		                 					<td><span class="userNickname" data-toggle="dropdown"><c:out value="${board.nickname}"/></span>
+												<div class="dropdown-menu">
+												<a class="dropdown-item sendMessageToUser" data-toggle='modal' data-target='#sendMessageUser'>쪽지 보내기</a>
+												</div>
+											</td>
+		                 					</sec:authorize>
 											<td><c:out value="${board.view_count}"/></td>
-											<td><c:out value="${board.like_count}"/></td>
+											<td><i class="far fa-thumbs-up"></i> <c:out value="${board.like_count}"/></td>
 										</tr>
 									</c:forEach>
 								</tbody>
@@ -400,7 +431,7 @@ tbody{
 							<li class="paginate_button previous"><a class="page-link" href="${pageMaker.startPage -1}">Previous</a></li>
 						</c:if>
 						<c:forEach var="num" begin="${pageMaker.startPage}" end="${pageMaker.endPage}">
-							<li class="paginate_button" ${pageMaker.cri.pageNum==num? "active":""}><a class="page-link" href="${num}">${num}</a></li>
+							<li class="paginate_button page-item ${pageMaker.cri.pageNum==num ? "active":""}"><a class="page-link" href="${num}">${num}</a></li>
 						</c:forEach>
 						<c:if test="${pageMaker.next}">
 							<li class="paginate_button"><a class="page-link" href="${pageMaker.endPage +1}">Next</a></li>
@@ -433,7 +464,7 @@ tbody{
 						<option value="L" <c:out value="${pageMaker.cri.type eq 'L'?'selected':''}"/>>지역</option>
 					</select> 
 					
-					<input type='text' name='keyword' /> 
+					<input type='text' name='keyword' id='keyword' /> 
 					<input type='hidden' name='pageNum' value='${pageMaker.cri.pageNum}'> 
 					<input type='hidden' name='amount' value='${pageMaker.cri.amount}'>
 					<input type='hidden' name='gu' value='<c:out value="${criteria.gu}"/>'>
@@ -475,529 +506,8 @@ tbody{
 	</div>
 	<!--  자바 스크립트 ------------->
 	<%@include file="/resources/js/board/userClick_js.jsp"%>
+	<%@include file="/resources/js/board/list_js.jsp" %>
 	<!-- 자바 스크립트 -->
 </body>
 
-<script type="text/javascript">
-$(document).ready(function(){
-	//제목 길이 길면 자르는 함수 ////////////////////////////
-	var tempTitle = $(".smallList");
-	var tempLongTitle = $(".bigList");
-	var tempCutTitle;
-	
- 	for(var i=0 ; i<tempTitle.length ; i++){
-		if($(tempTitle[i]).text().length > 15){
-			tempCutTitle = $(tempTitle[i]).text().substring(0,16) + "...";
-			$(tempTitle[i]).text(tempCutTitle);
-		}
-	}
- 	
- 	for(var i=0 ; i<tempLongTitle.length ; i++){
-		if($(tempLongTitle[i]).text().length > 25){
-			tempCutTitle = $(tempLongTitle[i]).text().substring(0,25) + "...";
-			$(tempLongTitle[i]).text(tempCutTitle);
-		}
-	}
-	//제목 길이 길면 자르는 함수 //
-	
-	//서울 새소식 json 파싱 //////////////////////////////////
-	var newsInfo = ${newsInfo};
-	var newsHeader;
-	var newsContent;
-	for(var i = 0; i < 5 ; i++){
-		newsHeader = newsInfo[i].POST_TITLE;
-		newsContent = newsInfo[i].POST_CONTENT;
-		$("#seoulNews").append("<div class='newsDiv'><p data-toggle='modal' data-target='#newsModal'>"+newsInfo[i].POST_TITLE+"</p><div style='display:none'>"+newsInfo[i].POST_CONTENT+"</div>")
-	}
-	
-	$(document).on("click",".newsDiv p",function(){
-		$("#newsHeader").text($(this).text());
-		$("#newsContent").html($(this).next().html());
-	})
-	// 서울 새소식 json 파싱 //
-	
-	//서울 새소식 애니메이션/////////////////////////////
-	$(".newsDiv").hide();
-	$(".newsDiv:nth-child(2)").show();
-	function newsAnimation(){
-		setTimeout(function(){
-			$(".newsDiv:nth-child(2)").slideUp();
-			$(".newsDiv:nth-child(3)").slideDown(1000);
-			setTimeout(function(){
-				$(".newsDiv:nth-child(3)").slideUp();
-				$(".newsDiv:nth-child(4)").slideDown(1000);
-				setTimeout(function(){
-					$(".newsDiv:nth-child(4)").slideUp();
-					$(".newsDiv:nth-child(5)").slideDown(1000);
-					setTimeout(function(){
-						$(".newsDiv:nth-child(5)").slideUp();
-						$(".newsDiv:nth-child(6)").slideDown(1000);
-						setTimeout(function(){
-							$(".newsDiv:nth-child(6)").slideUp();
-							$(".newsDiv:nth-child(2)").slideDown(1000);
-							setTimeout(5000);
-						},5000)
-					},5000)
-				},5000)
-			},5000)
-		},5000)
-	}
-	
-	function startNewsAnimation(){
-		newsAnimation();
-		setInterval(newsAnimation,29000);
-	}
-	startNewsAnimation();
-	//서울 새소식 애니메이션//
-	
-    var actionForm = $("#actionForm");
-    
-    $(".paginate_button a").on("click", function(e){
-  	  e.preventDefault();
-  	  
-  	  actionForm.find("input[name='pageNum']").val($(this).attr("href"));
-  	  actionForm.submit();
-    });	
-    
-    
-    $(".pagination").on("click",".page-link", function(e){
-  	  e.preventDefault();
-  	  	var pageNumber = $(this).html();
-  	  	var lastNumber;
-  	  	if(pageNumber == "Next"){
-  	  		console.log($($(this).parents().prev()[0]).text());
-  	  		lastNumber = $($(this).parents().prev()[0]).text();
-  	  		lastNumber = Number(lastNumber) + 1;
-  	  		pageNumber = lastNumber;
-  	  	} 
-  	  	if(pageNumber == "Previous"){
-  	  		console.log($($(this).parents().next()[0]).text());
-  	  		lastNumber = $($(this).parents().next()[0]).text();
-  	  		lastNumber = Number(lastNumber) - 1;
-  	  		pageNumber = lastNumber;
-  	  	}
-  	  	
-  		var str="";
-  	    var form = {
-  	            category:temp,
-  	            gu:'${criteria.gu}',
-  	            pageNum:pageNumber
-  	    }
-  	    console.log(form);
-  	  
-  	    if(temp=='소통해요'){
-  	        $.ajax({
-  	            url: "/board/BoardTabListAjax",
-  	            type: "GET",
-  	            data: form,
-  	            success: function(data){
-  	            	
-  	                $("#menu1 tbody").empty();
-  	                
-  	                $(data.voList).each(function(i,board){
-  	                     $("#menu1 tbody").append( 
-  	                    			"<tr>"+
-  	    							"<td>"+board.bno+"</td>"+
-  	    							"<td>"+board.location+"</td>"+
-  	    							"<td>"+board.category+"</td>"+
-  	    							"<td><a class='move' href='"+board.bno+"'>"+board.title+"</a>"+
-  	    							"<b>["+board.reply_count+"]</b>"+
-  	    							"</td>"+
-  	    							"<td>"+board.userid+"</td>"+
-  	    							"<td>"+board.view_count+"</td>"+
-  	    							"<td>"+board.like_count+"</td>"+
-  	    							"</tr>" 
-  	                    )                                                                        
-  	                });
-  	                if(data.pagedto.prev){
-  	                    str += '<li class="paginate_button previous"><a class="page-link" href="${data.pagedto.startPage -1}">Previous</a></li>';
-  	                 }
-  	                 
-  	                 for(var i = data.pagedto.startPage; i<=data.pagedto.endPage; i++){
-  	                    str += '<li class="paginate_button"><a class="page-link" href="'+i+'">'+i+'</a></li>';
-  	                    
-  	                 }
-  	                 
-  	                 if(data.pagedto.next){
-  	                    str += '<li class="paginate_button"><a class="page-link" href="${data.pagedto.endPage +1}">Next</a></li>';
-  	                 }
-  	                 
-  	                 
-  	                $(".pagination").html(str);
-  	            },
-  	            error: function(){
-  	                alert("simpleWithObject err");
-  	            }
-  	        });
-  	        
-  	        
-  	        }else if(temp=='불만있어요'){
-  	            $.ajax({
-  	                url: "/board/BoardTabListAjax",
-  	                type: "GET",
-  	                data: form,
-  	                success: function(data){
-  	                	
-  	                    $("#menu2 tbody").empty();
-  	                    $(data.voList).each(function(i,board){
-  	                         $("#menu2 tbody").append(
-  	                     			"<tr>"+
-  	    							"<td>"+board.bno+"</td>"+
-  	    							"<td>"+board.location+"</td>"+
-  	    							"<td>"+board.category+"</td>"+
-  	    							"<td><a class='move' href='"+board.bno+"'>"+board.title+"</a>"+
-  	    							"<b>["+board.reply_count+"]</b>"+
-  	    							"</td>"+
-  	    							"<td>"+board.userid+"</td>"+
-  	    							"<td>"+board.view_count+"</td>"+
-  	    							"<td>"+board.like_count+"</td>"+
-  	    							"</tr>" 	
-  	                        )    
-  	                    });
-  	                    if(data.pagedto.prev){
-  	                        str += '<li class="paginate_button previous"><a class="page-link" href="${data.pagedto.startPage -1}">Previous</a></li>';
-  	                     }
-  	                     
-  	                     for(var i = data.pagedto.startPage; i<=data.pagedto.endPage; i++){
-  	                        str += '<li class="paginate_button"><a class="page-link" href="'+i+'">'+i+'</a></li>';
-  	                        
-  	                     }
-  	                     
-  	                     if(data.pagedto.next){
-  	                        str += '<li class="paginate_button"><a class="page-link" href="${data.pagedto.endPage +1}">Next</a></li>';
-  	                     }
-  	                     
-  	                     
-  	                    $(".pagination").html(str);
-  	                    
-  	                },
-  	                error: function(){
-  	                    alert("simpleWithObject err");
-  	                }
-  	            });
-  	        }else if(temp=='모여요'){
-  	            $.ajax({
-  	                url: "/board/BoardTabListAjax",
-  	                type: "GET",
-  	                data: form,
-  	                success: function(data){
-  	                	
-  	                    $("#menu3 tbody").empty();
-  	                    $(data.voList).each(function(i,board){
-  	                         $("#menu3 tbody").append(
-  	                     			"<tr>"+
-  	    							"<td>"+board.bno+"</td>"+
-  	    							"<td>"+board.location+"</td>"+
-  	    							"<td>"+board.category+"</td>"+
-  	    							"<td><a class='move' href='"+board.bno+"'>"+board.title+"</a>"+
-  	    							"<b>["+board.reply_count+"]</b>"+
-  	    							"</td>"+
-  	    							"<td>"+board.userid+"</td>"+
-  	    							"<td>"+board.view_count+"</td>"+
-  	    							"<td>"+board.like_count+"</td>"+
-  	    							"</tr>" 	
-  	                        )    
-  	                    });
-  	                    if(data.pagedto.prev){
-  	                        str += '<li class="paginate_button previous"><a class="page-link" href="${data.pagedto.startPage -1}">Previous</a></li>';
-  	                     }
-  	                     
-  	                     for(var i = data.pagedto.startPage; i<=data.pagedto.endPage; i++){
-  	                        str += '<li class="paginate_button"><a class="page-link" href="'+i+'">'+i+'</a></li>';
-  	                        
-  	                     }
-  	                     
-  	                     if(data.pagedto.next){
-  	                        str += '<li class="paginate_button"><a class="page-link" href="${data.pagedto.endPage +1}">Next</a></li>';
-  	                     }
-  	                     
-  	                    
-  	                    $(".pagination").html(str);
-  	                    
-  	                },
-  	                error: function(){
-  	                    alert("simpleWithObject err");
-  	                }
-  	            });
-  	        }else if(temp=='전체'){
-  	            $.ajax({
-  	                url: "/board/BoardTabListAjax",
-  	                type: "GET",
-  	                data: form,
-  	                success: function(data){
-  	                	
-  	                    $("#all tbody").empty();
-  	                    $(data.voList).each(function(i,board){
-  	                         $("#all tbody").append(
-  	                     			"<tr>"+
-  	    							"<td>"+board.bno+"</td>"+
-  	    							"<td>"+board.location+"</td>"+
-  	    							"<td>"+board.category+"</td>"+
-  	    							"<td><a class='move' href='"+board.bno+"'>"+board.title+"</a>"+
-  	    							"<b>["+board.reply_count+"]</b>"+
-  	    							"</td>"+
-  	    							"<td>"+board.userid+"</td>"+
-  	    							"<td>"+board.view_count+"</td>"+
-  	    							"<td>"+board.like_count+"</td>"+
-  	    							"</tr>" 
-  	                        )    
-  	                    });
-  	                    if(data.pagedto.prev){
-  	                        str += '<li class="paginate_button previous"><a class="page-link" href="${data.pagedto.startPage -1}">Previous</a></li>';
-  	                     }
-  	                     
-  	                     for(var i = data.pagedto.startPage; i<=data.pagedto.endPage; i++){
-  	                        str += '<li class="paginate_button"><a class="page-link" href="'+i+'">'+i+'</a></li>';
-  	                        
-  	                     }
-  	                     
-  	                     if(data.pagedto.next){
-  	                        str += '<li class="paginate_button"><a class="page-link" href="${data.pagedto.endPage +1}">Next</a></li>';
-  	                     }
-  	                     
-  	                     
-  	                    $(".pagination").html(str);
-  	                },
-  	                error: function(){
-  	                    alert("simpleWithObject err");
-  	                }
-  	            });
-  	        }
-    });
-    
-    var searchForm = $("#searchForm");
-    $("#searchForm button").on("click", function(e){
-  	  if(!searchForm.find("option:selected").val()){
-  		  alert("검색종류를 선택하세요");
-  		  return false;
-  	  }
-  	  if(!searchForm.find("input[name='keyword']").val()){
-  		  alert("키워드를 입력하세요");
-  		  return false;
-  	  }
-  	  searchForm.find("input[name='pageNum']").val("1");
-  	  e.preventDefault();
-  	  
-  	  searchForm.submit();
-  	  
-    });
-    
-    $("#regBtn").on("click", function(){
-        self.location = "/board/register?userid=test";
-     });
-    
-    $("tbody").on('click', '.move',function(e){
-	   	 e.preventDefault();
-	   	 actionForm.append("<input type='hidden' name='bno' value='"+$(this).attr("href")+"'>");
-	   	 actionForm.attr("action","/board/get");
-	   	 actionForm.submit();
-	    
-   });
-    
-    var searchFormNum = $("#searchFormNum");
-    
-    $("#searchFormNum").on("change", function(e){
-  	  e.preventDefault();
-  	  
-  	  searchFormNum.submit();
-  	  
-    });
-    $('a[data-toggle="tab"]').on('show.bs.tab',function(e){
-    	var str="";
-    	temp = $(this).html();
-        var form = {
-                category :temp,
-                gu:'${criteria.gu}'
-        }
-    
-    if(temp=='소통해요'){
-        $.ajax({
-            url: "/board/BoardTabListAjax",
-            type: "GET",
-            data: form,
-            success: function(data){
-            	
-                $("#menu1 tbody").empty();
-                
-                console.log(data);
-                $(data.voList).each(function(i,board){
-                     $("#menu1 tbody").append( 
-                    			"<tr>"+
-    							"<td>"+board.bno+"</td>"+
-    							"<td>"+board.location+"</td>"+
-    							"<td>"+board.category+"</td>"+
-    							"<td><a class='move smallList' href='"+board.bno+"'>"+board.title+" </a>"+
-    							"<b>["+board.reply_count+"]</b>"+
-    							"</td>"+
-    							"<td>"+board.userid+"</td>"+
-    							"<td>"+board.view_count+"</td>"+
-    							"<td>"+board.like_count+"</td>"+
-    							"</tr>" 
-                    )                                                                        
-                });
-                if(data.pagedto.prev){
-                    str += '<li class="paginate_button previous"><a class="page-link" href="${data.pagedto.startPage -1}">Previous</a></li>';
-                 }
-                 
-                 for(var i = data.pagedto.startPage; i<=data.pagedto.endPage; i++){
-                    str += '<li class="paginate_button"><a class="page-link" href="'+i+'">'+i+'</a></li>';
-                    
-                 }
-                 
-                 if(data.pagedto.next){
-                    str += '<li class="paginate_button"><a class="page-link" href="${data.pagedto.endPage +1}">Next</a></li>';
-                 }
-                 
-                 console.log(str);
-                $(".pagination").html(str);
-            },
-            error: function(){
-                alert("simpleWithObject err");
-            }
-        });
-    }else if(temp=='불만있어요'){
-        $.ajax({
-            url: "/board/BoardTabListAjax",
-            type: "GET",
-            data: form,
-            success: function(data){
-            	
-                $("#menu2 tbody").empty();
-                $(data.voList).each(function(i,board){
-                     $("#menu2 tbody").append(
-                 			"<tr>"+
-							"<td>"+board.bno+"</td>"+
-							"<td>"+board.location+"</td>"+
-							"<td>"+board.category+"</td>"+
-							"<td><a class='move smallList' href='"+board.bno+"'>"+board.title+" </a>"+
-							"<b>["+board.reply_count+"]</b>"+
-							"</td>"+
-							"<td>"+board.userid+"</td>"+
-							"<td>"+board.view_count+"</td>"+
-							"<td>"+board.like_count+"</td>"+
-							"</tr>" 	
-                    )    
-                });
-                if(data.pagedto.prev){
-                    str += '<li class="paginate_button previous"><a class="page-link" href="${data.pagedto.startPage -1}">Previous</a></li>';
-                 }
-                 
-                 for(var i = data.pagedto.startPage; i<=data.pagedto.endPage; i++){
-                    str += '<li class="paginate_button"><a class="page-link" href="'+i+'">'+i+'</a></li>';
-                    
-                 }
-                 
-                 if(data.pagedto.next){
-                    str += '<li class="paginate_button"><a class="page-link" href="${data.pagedto.endPage +1}">Next</a></li>';
-                 }
-                 
-                 console.log(str);
-                $(".pagination").html(str);
-                
-            },
-            error: function(){
-                alert("simpleWithObject err");
-            }
-        });
-    }else if(temp=='모여요'){
-        $.ajax({
-            url: "/board/BoardTabListAjax",
-            type: "GET",
-            data: form,
-            success: function(data){
-            	
-                $("#menu3 tbody").empty();
-                $(data.voList).each(function(i,board){
-                     $("#menu3 tbody").append(
-                 			"<tr>"+
-							"<td>"+board.bno+"</td>"+
-							"<td>"+board.location+"</td>"+
-							"<td>"+board.category+"</td>"+
-							"<td><a class='move smallList' href='"+board.bno+"'>"+board.title+" </a>"+
-							"<b>["+board.reply_count+"]</b>"+
-							"</td>"+
-							"<td>"+board.userid+"</td>"+
-							"<td>"+board.view_count+"</td>"+
-							"<td>"+board.like_count+"</td>"+
-							"</tr>" 	
-                    )    
-                });
-                if(data.pagedto.prev){
-                    str += '<li class="paginate_button previous"><a class="page-link" href="${data.pagedto.startPage -1}">Previous</a></li>';
-                 }
-                 
-                 for(var i = data.pagedto.startPage; i<=data.pagedto.endPage; i++){
-                    str += '<li class="paginate_button"><a class="page-link" href="'+i+'">'+i+'</a></li>';
-                    
-                 }
-                 
-                 if(data.pagedto.next){
-                    str += '<li class="paginate_button"><a class="page-link" href="${data.pagedto.endPage +1}">Next</a></li>';
-                 }
-                 
-                 console.log(str);
-                $(".pagination").html(str);
-                
-            },
-            error: function(){
-                alert("simpleWithObject err");
-            }
-        });
-    }else if(temp=='전체'){
-        $.ajax({
-            url: "/board/BoardTabListAjax",
-            type: "GET",
-            data: form,
-            success: function(data){
-            	
-                $("#all tbody").empty();
-                console.log(data);
-                $(data.voList).each(function(i,board){
-                     $("#all tbody").append(
-                 			"<tr>"+
-							"<td>"+board.bno+"</td>"+
-							"<td>"+board.location+"</td>"+
-							"<td>"+board.category+"</td>"+
-							"<td><a class='move bigList' href='"+board.bno+"'>"+board.title+" </a>"+
-							"<b>["+board.reply_count+"]</b>"+
-							"</td>"+
-							"<td>"+board.userid+"</td>"+
-							"<td>"+board.view_count+"</td>"+
-							"<td>"+board.like_count+"</td>"+
-							"</tr>" 
-                    )    
-                });
-                if(data.pagedto.prev){
-                    str += '<li class="paginate_button previous"><a class="page-link" href="${data.pagedto.startPage -1}">Previous</a></li>';
-                 }
-                 
-                 for(var i = data.pagedto.startPage; i<=data.pagedto.endPage; i++){
-                    str += '<li class="paginate_button"><a class="page-link" href="'+i+'">'+i+'</a></li>';
-                    
-                 }
-                 
-                 if(data.pagedto.next){
-                    str += '<li class="paginate_button"><a class="page-link" href="${data.pagedto.endPage +1}">Next</a></li>';
-                 }
-                 
-                 console.log(str);
-                $(".pagination").html(str);
-            },
-            error: function(){
-                alert("simpleWithObject err");
-            }
-        });
-    }
-	
-});
-$('a[data-toggle="tab"]').on('show.bs.tab', function(e) {
-	localStorage.setItem('activeTab', $(e.target).attr('href'));
-});
-var activeTab = localStorage.getItem('activeTab');
-if(activeTab){
-	$('#mytab a[href="' + activeTab + '"]').tab('show');
-}
-});
-
-</script>
 </html>

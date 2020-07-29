@@ -21,13 +21,13 @@
 	
 	<select id="read_auth" resultMap="memberMap">
 		select mem.userid, userpw, nickname, email, member_location, member_filename, auth
-		from tbl_member mem left outer join tbl_member_auth auth on mem.userid=auth.userid
+		from TBL_MEMBER mem left outer join TBL_MEMBER_AUTH auth on mem.userid=auth.userid
 		where mem.userid=#{userid}
 	</select>
 	
 	<select id="read_userinfo" resultMap="memberMap">
 		select mem.userid, userpw, nickname, email, member_location, member_filename, auth
-		from tbl_member mem left outer join tbl_member_auth auth on mem.userid=auth.userid
+		from TBL_MEMBER mem left outer join TBL_MEMBER_AUTH auth on mem.userid=auth.userid
 		where mem.email=#{email}
 	</select>
 </mapper>

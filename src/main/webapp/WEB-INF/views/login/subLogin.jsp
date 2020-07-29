@@ -1,7 +1,6 @@
 <!-- subLogin.jsp ---------------->
 <!-- 
 sub login page 
-
 수정해야할 것
 1) 로그인 실패시 main으로 돌아감
 2) 주석 정리 X
@@ -16,6 +15,8 @@ sub login page
 
 <head>
 <title>서울이웃 :: I SEOUL U</title>
+<!-- jQuery library ------------>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <!-- 3. CSS ------------------------------>
 <link rel="stylesheet" href="/resources/css/common/index.css">
 <!-- 3. CSS -->
@@ -24,8 +25,7 @@ sub login page
 <!-- Latest compiled JavaScript ------------>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 <!-- fontawesome -->
-<link rel="stylesheet" href="/resources/css/common/fontawesome.min.css"/>
-<script src="/resources/js/all.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css"/>
 </head>
 
 <body>
@@ -60,7 +60,7 @@ sub login page
 							<label class="label-checkbox" for="remember-me-checkbox">로그인 상태 유지</label>
 						</div>
 						<div class="col-md-6 text-right">
-							<a href="#" class="text-colored"> 비밀번호 찾기 </a>
+							<a href="/find_id_pw" class="text-colored"> 비밀번호 찾기 </a>
 						</div>
 					</div>
 				</div>
@@ -124,6 +124,6 @@ sub login page
 </body>
 
 <!-- 2. javaScript ------------------------------>
-<script src="/resources/js/index.js"></script>
+<%@include file="/resources/js/index_js.jsp"%>
 <!-- 2. javaScirpt -->
 </html>
