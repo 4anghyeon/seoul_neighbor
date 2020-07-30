@@ -4,10 +4,10 @@ import lombok.Data;
 
 @Data
 public class QAVO {
-	int qno;
-	String userid;
-	String q_content;
-	String q_title;
-	String q_regdate;
-	String q_check;
+	private int qno;
+	private String userid;
+	private String q_content;
+	private String q_title;
+	private String q_regdate;
+	private String q_check;
 }

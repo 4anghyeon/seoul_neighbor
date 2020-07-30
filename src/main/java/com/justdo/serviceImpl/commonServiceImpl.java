@@ -111,6 +111,7 @@ public class commonServiceImpl implements commonService {
 		return mapper.selectGuForWeather(userid);
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public String[] getWeather(String gu) throws IOException {
 		Date date = new Date();
@@ -362,6 +363,7 @@ public class commonServiceImpl implements commonService {
 	}
 	
 	//문화정보 받아오기 ////////////////////////////////
+	@SuppressWarnings("deprecation")
 	@Override
 	public String[] getCulture() throws IOException {
 		String apiUrl = "http://openapi.seoul.go.kr:8088/706c7563486767613930667662646c/json/culturalEventInfo/1/10";        
@@ -403,6 +405,7 @@ public class commonServiceImpl implements commonService {
 	//문화 정보 받아오기//
 
 	//새소식 받아오기 /////////////////////////
+	@SuppressWarnings("deprecation")
 	@Override
 	public JsonArray getNews() throws IOException {
 		String apiUrl = "http://openapi.seoul.go.kr:8088/706c7563486767613930667662646c/json/SeoulNewsList/1/5/";        

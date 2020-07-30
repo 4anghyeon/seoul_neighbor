@@ -197,7 +197,7 @@
 			</div>
        
        <!-- Modal body -->
-       		<select class="form-control">
+       		<select id="reportType" class="form-control">
        			<option value="none">-- 신고 사유를 선택해주세요 --</option>
        			<option value="badWord">욕설/비속어</option>
        			<option value="annoying">불쾌감 조성</option>
@@ -210,8 +210,9 @@
 			</div>
        <!-- Modal footer -->
 			<div class="modal-footer">
-			<span id="warnReport">(0/100)글자</span><button type="button" id="reportUserBtn" class="btn btn-warning" data-dismiss="modal">신고</button>
+			<span id="warnReport">(0/100)글자</span><button type="button" id="reportUserBtn" class="btn btn-warning">신고</button>
 			</div>
+			<div id="reportInfo"></div>
 		</div>
 	</div>
 </div>

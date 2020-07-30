@@ -5,12 +5,19 @@ $(document).ready(function(){
 	// 유저한테 쪽지 보내기 ///////////////////////////////////////////////////////////////////
 	var tempUserNickname;
 	$(document).on("click",".sendMessageToUser",function(){
-		tempUserNickname = $($(this).parents().prev()[0]).text();
-		console.log(tempUserNickname)
-		$("#messageReplyContentToUser").val("");
-		$("#warnToUser").empty();
-		$("#warnToUser").append("(0/100) 글자");
-		$("#messageReplyHeaderToUser").text($($(this).parents().prev()[0]).text()+" 님에게 보내기");
+		if('${member.userid}' ==""){
+			alert("로그인을 해주세요")
+		}
+		else{
+			$("#sendMessageUser").modal("show");
+			tempUserNickname = $($(this).parents().prev()[0]).text();
+			console.log(tempUserNickname)
+			$("#messageReplyContentToUser").val("");
+			$("#warnToUser").empty();
+			$("#warnToUser").append("(0/100) 글자");
+			$("#messageReplyHeaderToUser").text($($(this).parents().prev()[0]).text()+" 님에게 보내기");
+		}
+
 	})
 	
 	$("#messageReplyContentToUser").on("propertychange change keyup keypress paste",function(){ //쪽지 내용 길이 바이트 검증

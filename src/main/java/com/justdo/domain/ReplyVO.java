@@ -4,12 +4,12 @@ import lombok.Data;
 
 @Data
 public class ReplyVO {
-	
 	private int rno;
 	private int bno;
 	private String reply;
 	private String replyer;
-	private String replydate;
-	private String updatedate;
+	private String replyDate;
+	private String updateDate;
+	private String member_filename;
 	}
 

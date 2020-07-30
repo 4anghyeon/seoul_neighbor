@@ -114,5 +114,55 @@
    <select id="selectUnlikeCount" resultType="int">
       select UNLIKE_COUNT from TBL_BOARD where bno = #{bno}
    </select> 
+   
+   <!-- 조회수 증가 -->
+   <update id="updateViewCount">
+		update tbl_board set view_count = view_count + 1 where bno = #{bno}
+   </update>
+   
+   <!-- 글쓴이 프로필 사진 가져오기 -->
+   <select id="selectWriterProfile" resultType="String">
+   select member_filename from TBL_MEMBER where nickname = #{nickname};
+   </select>
+   
+   <!-- 글 신고 -->
+   <insert id="reportBoard">
+		insert into TBL_REPORT (userid,rp_content,rp_type,rp_group,rp_target) values(#{userid},#{rp_content},#{rp_type},#{rp_group},#{rp_target})
+   </insert>
+   
+   <!-- 상세보기 인기글 -->
+   <select id="selectHotListFromRead" resultType="com.justdo.domain.BoardVO">
+   		(select substring_index(location,'_',-1) as location, bno, title, reply_count,like_count 
+		from TBL_BOARD where location like concat('%',#{gu},'%') order by like_count desc limit 0,3)
+		UNION ALL
+		(select substring_index(location,'_',-1) as location, bno, title, reply_count,like_count 
+		from TBL_BOARD where location like concat('%',#{gu},'%') order by reply_count desc limit 0,3)
+   </select>
+   
+   <!-- 좋아요 테이블 추가 -->
+   <insert id="insertLike">
+		insert into tbl_like(bno,userid,type) values(#{bno},#{userid},#{type})
+   </insert>
+   
+   <!-- 좋아요 눌렀는지 확인 -->
+   <select id="likeCheck" resultType = "String">
+		select type from tbl_like where userid = #{userid} and bno = #{bno}
+   </select>
+   
+   <!-- 좋아요 취소 -->
+   <delete id="cancelLike">
+		delete from tbl_like where userid = #{userid} and bno = #{bno}
+   </delete>
+   
+   <!-- 좋아요 감소 -->
+   <update id="downLike">
+		update tbl_board set like_count = like_count - 1 where bno = #{bno}
+   </update>
+   
+   <!-- 싫어요 감소 -->
+   <update id="downUnLike">
+		update tbl_board set unlike_count = unlike_count - 1 where bno = #{bno}
+   </update>
+   
 	
 </mapper>

@@ -25,7 +25,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.google.gson.JsonObject;
 import com.justdo.domain.BoardVO;
 import com.justdo.domain.Criteria;
+import com.justdo.domain.LikeVO;
 import com.justdo.domain.PageDTO;
+import com.justdo.domain.ReportVO;
 import com.justdo.security.CustomUserDetailsService;
 import com.justdo.service.BoardService;
 import com.justdo.service.commonService;
@@ -200,4 +202,39 @@ public class BoardController {
 		
 		return jsonObject.toString();
 	}
+	
+	// 글신고하기 ///////////////////////////////////
+	@PostMapping("reportAjax")
+	@ResponseBody public void reportAjax(ReportVO rvo){
+		service.reportBoard(rvo);
+	}
+	// 글신고하기 //
+	
+	// 좋아요 테이블 넣기/////////////////////////
+	@PostMapping("insertLikeAjax")
+	@ResponseBody public void insertLikeAjax(LikeVO vo){
+		service.insertLike(vo);
+	}
+	// 좋아요 테이블 넣기 //
+	
+	// 좋아요한지 체크/////////////////////////
+	@GetMapping("likeCheck")
+	@ResponseBody public String likeCheck(LikeVO vo){
+		return service.likeCheck(vo);
+	}
+	// 좋아요한지 체크//
+	
+	// 좋아요 취소 /////////////////////////
+	@PostMapping("cancelLike")
+	@ResponseBody void likeCancel(LikeVO vo){
+		service.cancelLike(vo);
+		if(vo.getType() == 'L') {
+			service.downLike(vo.getBno());
+		}
+		else if(vo.getType() == 'U') {
+			service.downUnLike(vo.getBno());
+		}
+	}
+	// 좋아요한지 체크//
+	
 }

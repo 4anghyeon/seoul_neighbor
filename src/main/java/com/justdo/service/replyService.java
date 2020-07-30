@@ -2,22 +2,20 @@ package com.justdo.service;
 
 import java.util.List;
 
+import com.justdo.domain.Criteria;
 import com.justdo.domain.ReplyVO;
 
-public interface replyService {
+public interface ReplyService {
 	
-	//댓글 insert
-		public int insertReply(ReplyVO vo);
-		
-	//댓글 select
-		public List<ReplyVO> getReplyList(int bno);
-
-
-		public int modifyReply(ReplyVO vo);
-
-		public int removeReply(int rno);		
-		
-		
-		
-		
+	public int register(ReplyVO vo);
+	
+	public ReplyVO get(int bno);
+	
+	public int modify(ReplyVO vo);
+	
+	public int remove(int rno);
+	
+	public List<ReplyVO> getList(Criteria cri, int bno);
+	
+	public int getReplyCount(int bno);
 }

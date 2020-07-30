@@ -86,7 +86,8 @@ public class LoginController {
     }
     // 아이디 찾기 form //
     
-    // 비밀번호 찾기 form //////////////////////////////
+    @SuppressWarnings("unused")
+	// 비밀번호 찾기 form //////////////////////////////
 	@RequestMapping(value = "find_pw_form", method = RequestMethod.POST, produces = "application/text; charset=utf-8")
     @ResponseBody
     public String find_pw_form(String username, String email, Model model) throws Exception {
@@ -168,7 +169,7 @@ public class LoginController {
 				}
 			}
 		}
-		return "end"; 
+		return "end";
     }
     // 비밀번호 찾기 form //
 }

@@ -5,13 +5,21 @@ $(document).ready(function () {
     var csrfHeaderName = "${_csrf.headerName}";
     var csrfTokenValue = "${_csrf.token}";
     
+    /* 아이디, 비밀번호 탭을 누를 때마다 원래의 form 불러오기 /////////////////////////////////////////////*/
     var tempIdForm = $("#id-fieldset").html();
+    var tempPwForm = $("#pw-fieldset").html();
+    
     $("a[href='#find-id']").click(function name() {
-    	$("#id-fieldset").html(tempIdForm);
+       $("#id-fieldset").html(tempIdForm);
     });
+    $("a[href='#find-pw']").click(function name() {
+       $("#pw-fieldset").html(tempPwForm);
+    });
+    /* 아이디, 비밀번호 탭을 누를 때마다 원래의 form 불러오기 */
     
     /* 아이디 찾기 버튼을 눌렀을 때! //////////////////////////////////*/
     $(document).on("click","#id-find-button",function (e) {
+    	
         var raw_email = $("#email").val();
         console.log("작성한 이메일 주소"+raw_email);
         
@@ -50,7 +58,7 @@ $(document).ready(function () {
     });
     
     /* 비밀번호 찾기 버튼을 눌렀을 때! //////////////////////////////////*/
-    $("#pw-find-button").click(function (e) {
+    $(document).on("click","#pw-find-button",function (e) {
         
         var raw_username = $("#username").val();
         var raw_email = $("#pwemail").val();
@@ -90,11 +98,9 @@ $(document).ready(function () {
                     
                     if (result == "success_send") {
                         console.log("메일 전송 성공");
-                        alert("입력하신 이메일로 메일이 발송되었습니다.");
                         
                     } else {
                         console.log("메일 전송 실패");
-                        alert("메일 전송이 실패하였습니다. 다시 시도해주세요.");
                     }
                 } 
             },	

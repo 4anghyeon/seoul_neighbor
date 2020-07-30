@@ -5,11 +5,11 @@ import lombok.Data;
 
 @Data
 public class MessageVO {
-	int mno;
-	String sender;
-	String receiver;
-	String writedate;
-	String message_content;
-	String nickname;
-	char read_check;
+	private int mno;
+	private String sender;
+	private String receiver;
+	private String writedate;
+	private String message_content;
+	private String nickname;
+	private char read_check;
 }

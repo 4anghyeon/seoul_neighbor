@@ -99,6 +99,7 @@ $(document).ready(function(){
 		$($(".pageNumber")[0]).addClass("page-item").addClass("active");
 	}
 	//페이징 액티브 효과 주기//
+	
 	var pageNumber;
     $(".pagination").on("click",".page-link", function(e){
   	  e.preventDefault();

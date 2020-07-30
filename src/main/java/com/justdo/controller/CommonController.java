@@ -9,7 +9,9 @@ import java.security.Principal;
 import java.util.HashMap;
 
 import javax.mail.internet.MimeMessage;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -31,8 +33,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.justdo.domain.BoardVO;
+import com.justdo.domain.Criteria;
 import com.justdo.domain.MemberVO;
 import com.justdo.security.CustomUserDetailsService;
+import com.justdo.service.BoardService;
 import com.justdo.service.commonService;
 import com.justdo.service.myPageService;
 import com.justdo.util.JoinValidator;
@@ -50,6 +54,7 @@ public class CommonController {
 	 private commonService service;
 	 private BCryptPasswordEncoder pwdEncoder;
 	 private JavaMailSender mailSender;
+	 private BoardService boardService;
 	 
 	// test //
 	// 메인 이동 //////////////////////////////////
@@ -61,20 +66,6 @@ public class CommonController {
 			String username = principal.getName();
 			String gu = loginService.loadLocationByUsername(username);
 			String encodedGu = URLEncoder.encode(gu, "UTF-8");
-			model.addAttribute("member", myPageService.selectUser(username));
-			
-			//날씨 정보 불러오는 구문
-			String weatherData[]=null;
-			try {
-				weatherData = service.getWeather(service.selectGuForWeather(principal.getName()));
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-			model.addAttribute("weather",weatherData[0]);
-			model.addAttribute("temperature",weatherData[1]);
-			model.addAttribute("weatherGu",weatherData[2]);
-			//
-			
 			return "redirect:/board/list?gu="+encodedGu;
 		}
 
@@ -113,20 +104,68 @@ public class CommonController {
 	
 	//bno로 상세페이지 부르기   ---이 주석의 오른쪽 설명란은 볼 필요 없음.         board/read/*란 주소 board/read슬래쉬 뒤에 붙는 애들은 이녀석 적용이란 의미 -> httpServletRequest request는 clinet가 주소창에 입력한 요청을 담은 객체로 request.getRequestURI는 클라이언트가 친 주소창이고, 그걸 잘라서 http://localhost:8181/board/read/1의 bno인 1만 따로 bno라는 변수에 저장하고, vo에 bno=1담아서 jsp에 어트리뷰트 속성으로 보내서 jsp는 그 데이터로 클라이언트에게 보여줌/////////////////////
 	@GetMapping("board/read/*")
-	public String read(Model model, HttpServletRequest request) {
+	public String read(Model model, HttpServletRequest request,HttpServletResponse response,Principal principal,Criteria cri) {
 		
 		int bno =  Integer.parseInt(request.getRequestURI().substring(request.getRequestURI().lastIndexOf("/")+1));
-		BoardVO vo=service.read(bno);
+		BoardVO vo = service.read(bno);
 		
-		if(vo != null) {										//client가 주소창에 board/read/3해서 bno가 3짜리인 boardVO를 부르면 bno가 3짜리인 vo 데이터를 받는데 만약 삭제를해서 없다면 데이터가 null인 상세페이지 말고, list 페이지로 보낸다.
-		      System.out.println(vo);
+		Cookie[] cookies = request.getCookies();
+		
+        // 비교하기 위해 새로운 쿠키
+        Cookie viewCookie = null;
+
+        
+        // 쿠키가 있을 경우 
+        if (cookies != null && cookies.length > 0) {
+            for (int i = 0; i < cookies.length; i++)
+            {
+                // Cookie의 name이 cookie + reviewNo와 일치하는 쿠키를 viewCookie에 넣어줌 
+                if (cookies[i].getName().equals("readCookie"+vo.getBno()))
+                { 
+                    System.out.println("처음 쿠키가 생성한 뒤 들어옴.");
+                    viewCookie = cookies[i];
+                }
+            }
+        }
+		
+		if(vo != null) {
 		      model.addAttribute("board",vo);
-		      System.out.println(vo);
+		      model.addAttribute("fileName",boardService.selectWriterProfile(vo.getNickname()));
+		      model.addAttribute("hotList",boardService.selectHotListFromRead(cri));
+		      System.out.println(boardService.selectHotListFromRead(cri));
+				if(principal != null) {
+					String username = principal.getName();
+					model.addAttribute("member", myPageService.selectUser(username));
+					String weatherData[]=null;
+					try {
+						weatherData = service.getWeather(service.selectGuForWeather(principal.getName()));
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+					model.addAttribute("weather",weatherData[0]);
+					model.addAttribute("temperature",weatherData[1]);
+					model.addAttribute("weatherGu",weatherData[2]);
+					
+					System.out.println("cookie");
+					System.out.println(viewCookie);
+					  // 만일 viewCookie가 null일 경우 쿠키를 생성해서 조회수 증가 로직을 처리함.
+					if (viewCookie == null) {
+					  System.out.println("cookie 없음");
+					  
+					  // 쿠키 생성(이름, 값) 
+					  Cookie newCookie = new Cookie("readCookie"+vo.getBno(), "|" + vo.getBno() + "|");
+					  
+					  // 쿠키 추가 
+					  response.addCookie(newCookie);
+					  
+					  // 쿠키를 추가 시키고 조회수 증가시킴 
+					  boardService.updateViewCount(vo.getBno());
+					  }
+				}
 		      return "board/read";  
 		}else {
 			return "redirect:/board/list";
 		}
-		      
 	}
 	//bno로 상세페이지 부르기 
 	

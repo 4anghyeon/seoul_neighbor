@@ -7,7 +7,6 @@
 
 	<bean id="loginFailure" class="com.justdo.security.LoginFailureHandler"></bean>
 	<bean id="loginSuccess" class="com.justdo.security.LoginSuccessHandler"></bean>
-	<bean id="logoutSuccess" class="com.justdo.security.LogoutHandler"></bean>
 	<bean id="bcryptPasswordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"></bean>
 	<bean id="customUserDetailsService" class="com.justdo.security.CustomUserDetailsService"></bean>
 	
@@ -22,8 +21,7 @@
 		<security:remember-me data-source-ref="dataSource" token-validity-seconds="2419200"/>
 		<!-- 로그아웃 처리  -->
 		<security:logout 
-			logout-url="/logout"
-			success-handler-ref="logoutSuccess" 
+			logout-success-url="/"
 			delete-cookies="remember-me, JSESSION_ID" 
 			invalidate-session="true"/>
 	</security:http>
