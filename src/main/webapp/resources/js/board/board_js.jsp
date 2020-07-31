@@ -31,7 +31,8 @@ $("#selectcategory ~ div a").on("click", function() {
 // 구 -> 동 선택하기 /////////////////////////////////////
 var gu = "";
 var dong = "";
-function changeDong(gu){ //구가 바뀔때 동 옵션값 바뀌는 함수	
+//구가 바뀔때 동 옵션값 바뀌는 함수
+function changeDong(gu){	
 	var dong = $("#dong");
 	
 	dong.empty();
@@ -395,10 +396,10 @@ function changeDong(gu){ //구가 바뀔때 동 옵션값 바뀌는 함수
 		)
 	}
 }
-/* 이름으로 지역선택 */
+/* 드롭다운으로 지역선택 */
 //구
 $("#gu a").on("click", function() {
-    // 버튼에 선택된 항목 텍스트 넣기 
+    // 드롭다운에 선택된 항목 텍스트 넣기 
     $("#selectGu").text($(this).text());
     console.log($(this).text());
     gu = $(this).text()
@@ -407,27 +408,32 @@ $("#gu a").on("click", function() {
     changeDong($(this).text());
     //구선택시 첫번째 클릭
     $("#dong a")[0].click();
+    //구선택시 지도변경
+    gu_coordinate($(this).text());
+	//알림글 변경
+	console.log("동알림글");
+	$("#gu_notice").css("display","none");
+	$("#dong_notice").css("display","block");
 });
 //동
 $("#dong").on("click",".dropdown-item", function() {
-    // 버튼에 선택된 항목 텍스트 넣기 
+    // 드롭다운에 선택된 항목 텍스트 넣기 
     $("#selectDong").text($(this).text());
    console.log($(this).text());
    dong = $(this).text()
    console.log(gu+"_"+dong);
    
 	//주소정보를 전달
-   $("#location").val(gu+"_"+dong);
+	$("#location").val(gu+"_"+dong);
+	//알림글 변경
+	console.log("구알림글");
+	$("#gu_notice").css("display","block");
+	$("#dong_notice").css("display","none");
 });
-function changeGu(gu,selectdong){
-	$("#selectGu").val(gu);
-	$("#selectselectDong").val(dong);
-}
-// 작성/수정시 지역정보 자동선택
+// 작성/수정 페이지 진입시 지역정보 자동선택
 var before_location = document.getElementById("location").value
 if(before_location == ""){
-	//작성
-	console.log("작성페이지");
+	console.log("지역정보 오류");
 }else{
 	//수정
 	console.log(before_location);
@@ -444,6 +450,32 @@ if(before_location == ""){
 	
 	//구선택시 동추가
     changeDong($("#selectGu").text());
+	//지도에도 표시한다
+	gu_coordinate(before_gu)
+};
+//구선택시 지도변경 함수
+function gu_coordinate(gu){
+	$.ajax({
+		url:"/resources/js/board/gu_coordinate.json",
+		dataType:"json",
+		beforeSend: function(xhr){
+			xhr.setRequestHeader("${_csrf.headerName}", "${_csrf.token}");
+		},
+		success:function (data){
+			console.log("json 연동성공");
+			console.log("gu = "+ gu);
+			for(var i in data.DATA){
+				if(data.DATA[i].sig_kor_nm.toString() == gu){
+					console.log("sig_kor_nm = " + data.DATA[i].sig_kor_nm.toString());
+					console.log(data.DATA[i].lat);
+					console.log(data.DATA[i].lng);
+					//지도 위치 재설정
+					centerChange(data.DATA[i].lat,data.DATA[i].lng);
+					break;
+				}
+			}
+		}
+	});
 };
 // 구 -> 동 선택하기 //
 //스마트에디터 summernote
@@ -451,7 +483,6 @@ $(function() {
   $("#content").summernote({
 	    placeholder: "내용을 입력하세요",
         height: 400,
-        disableResizeEditor: true,
         focus: true,
         lang : "ko-KR",
         toolbar: [
@@ -474,30 +505,26 @@ $(function() {
 				}
 			}
 	});
-/**
-* 이미지 파일 업로드
-*/
-function uploadSummernoteImageFile(file, editor) {
-	data = new FormData();
-	data.append("file", file);
-	$.ajax({
-		data : data,
-		type : "POST",
-        beforeSend: function(xhr){
-        	xhr.setRequestHeader("${_csrf.headerName}", "${_csrf.token}");
-        },
-		url : "/board/uploadSummernoteImageFile",
-		contentType : false,
-		processData : false,
-		success : function(data) {
-        	//항상 업로드된 파일의 url이 있어야 한다.
-        	console.log(data.url);
-			$(editor).summernote("insertImage", data.url);
-		}
-	});
-}
-  
-  //서머노트 쓰기 비활성화
-  $(".summernote_readonly").summernote("disable");
+	/**
+	* 이미지 파일 업로드
+	*/
+	function uploadSummernoteImageFile(file, editor) {
+		data = new FormData();
+		data.append("file", file);
+		$.ajax({
+			data : data,
+			type : "POST",
+			beforeSend: function(xhr){
+				xhr.setRequestHeader("${_csrf.headerName}", "${_csrf.token}");
+			},
+			url : "/board/uploadSummernoteImageFile",
+			contentType : false,
+			processData : false,
+			success : function(data) {
+	        	//항상 업로드된 파일의 url이 있어야 한다.
+				$(editor).summernote("insertImage", data.url);
+			}
+		});
+	}
 });
 </script>

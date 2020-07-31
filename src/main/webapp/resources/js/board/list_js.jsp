@@ -80,7 +80,7 @@ $(document).ready(function(){
 	//서울 새소식 애니메이션//
 	
 
-	
+	//하단 지역별 전체 소식 페이징/////////////////////////////
     var actionForm = $("#actionForm");
     
     $(".paginate_button a").on("click", function(e){
@@ -89,7 +89,7 @@ $(document).ready(function(){
   	  actionForm.find("input[name='pageNum']").val($(this).attr("href"));
   	  actionForm.submit();
     });	
-    
+    //하단 지역별 전체 소식 페이징//
     
 	//페이징 액티브 효과 주기 ///////////////
 	function activePage(){
@@ -100,6 +100,7 @@ $(document).ready(function(){
 	}
 	//페이징 액티브 효과 주기//
 	
+	//하단 지역별 소식 카테고리별 페이징(Ajax)/////////////////////////////
 	var pageNumber;
     $(".pagination").on("click",".page-link", function(e){
   	  e.preventDefault();
@@ -390,7 +391,9 @@ $(document).ready(function(){
   	        });
   	    }
     });
-    
+  //하단 지역별 소식 카테고리별 페이징(Ajax)//
+  
+  //키워드 검색(Ajax)/////////////////////////////
     var searchForm = $("#searchForm");
     $("#searchForm button").on("click", function(e){
     	
@@ -681,18 +684,23 @@ $(document).ready(function(){
     }
     
     });
+  //키워드 검색(Ajax)//
     
+  //글쓰기 버튼 링크연결/////////////////////////////
     $("#regBtn").on("click", function(){
-        self.location = "/board/register";
+        self.location = "/board/register?gu="+'${criteria.gu}';
      });
+  //글쓰기 버튼 링크연결//
     
+  //지역별 전체 소식 글 상세보기 링크연결/////////////////////////////
     $("tbody").on('click', '.move',function(e){
         e.preventDefault();
         actionForm.attr("action","/board/read/"+$(this).attr('href'));
         actionForm.submit();
-     
- });
+	 });
+  //지역별 전체 소식 글 상세보기 링크연결//
     
+  //게시판 에서 보여질 글 갯수 설정/////////////////////////////
     var searchFormNum = $("#searchFormNum");
     
     $("#searchFormNum").on("change", function(e){
@@ -701,6 +709,9 @@ $(document).ready(function(){
   	  searchFormNum.submit();
   	  
     });
+  //게시판 에서 보여질 글 갯수 설정//
+  
+  //카테고리별 게시판 탭(Ajax)/////////////////////////////
     $('a[data-toggle="tab"]').on('show.bs.tab',function(e){
     	typeoption = null;
       	keywordtext = null;
@@ -922,6 +933,9 @@ $(document).ready(function(){
     }
 	
 });
+  //카테고리별 게시판 탭(Ajax)//
+  
+  //새로고침 시 기존 선택 카테고리별 탭 유지/////////////////////////////
 $('a[data-toggle="tab"]').on('show.bs.tab', function(e) {
 	localStorage.setItem('activeTab', $(e.target).attr('href'));
 });
@@ -929,5 +943,6 @@ var activeTab = localStorage.getItem('activeTab');
 if(activeTab){
 	$('#mytab a[href="' + activeTab + '"]').tab('show');
 }
+	//새로고침 시 기존 선택 카테고리별 탭 유지//
 });
 </script>

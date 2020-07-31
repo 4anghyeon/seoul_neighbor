@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.justdo.domain.Criteria;
+import com.justdo.domain.ReReplyVO;
 import com.justdo.domain.ReplyVO;
 import com.justdo.service.ReplyService;
 
@@ -40,37 +41,74 @@ public class ReplyController {
 				new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 	
+	//대댓글 등록
+	@PostMapping(value = "/newRe", consumes = "application/json", produces= {MediaType.TEXT_PLAIN_VALUE})
+	public ResponseEntity<String> createRe(@RequestBody ReReplyVO vo) {
+		int insertCount = service.reRegister(vo);
+		System.out.println(vo);
+		
+		return insertCount == 1 ? 
+				new ResponseEntity<String>("success", HttpStatus.OK) :
+				new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);
+	}
+	
 	//댓글 한개 조회
-	@SuppressWarnings("deprecation")
 	@GetMapping(value="/{rno}" , produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
 	public ResponseEntity<ReplyVO> get(@PathVariable("rno") int rno) {
 		return new ResponseEntity<ReplyVO>(service.get(rno), HttpStatus.OK);
 	}
 	
 	//댓글 삭제
-	@SuppressWarnings("deprecation")
-	@DeleteMapping(value="/{rno}", produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
-	public ResponseEntity<String> remove(@PathVariable("rno") int rno) {
-		return service.remove(rno) == 1 
-				? new ResponseEntity<>("success", HttpStatus.OK)
-						: new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+	@DeleteMapping(value="/delete/{no}/{type}", produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
+	public ResponseEntity<String> remove(@PathVariable("no") int no, @PathVariable("type") int type) {
+		
+		System.out.println("댓글 삭제를 진행합니다.");
+		System.out.println(no);
+		System.out.println(type);
+		
+		int result = 0;
+		
+		if(type == 1) {
+			System.out.println("대댓글입니다. 대댓글 삭제 진행....");
+			result = service.removeRe(no); 
+			System.out.println(result);
+		} else if(type == 0) {
+			System.out.println("댓글입니다. 댓글 삭제 진행....");
+			result = service.remove(no);
+			System.out.println(result);
+		}
+		return result == 1 ?
+				new ResponseEntity<>("success", HttpStatus.OK) :
+				new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 	
 	//댓글 수정
 	@RequestMapping(method= {RequestMethod.PUT, RequestMethod.PATCH}, 
-			value = "/{rno}",
+			value = "/update/{no}/{type}",
 			consumes = "application/json",
 			produces = {MediaType.TEXT_PLAIN_VALUE})
-	public ResponseEntity<String> modify(@RequestBody ReplyVO vo, @PathVariable("rno") int rno){
-		vo.setRno(rno);
+	public ResponseEntity<String> modify(@RequestBody ReplyVO vo, @PathVariable("no") int no, @PathVariable("type") int type){
+		vo.setRno(no);
 		
-		return service.modify(vo) == 1 
+		int result = 0;
+		
+		if(type == 1) {
+			System.out.println("대댓글입니다. 대댓글 수정 진행....");
+			result = service.modifyRe(vo);
+			System.out.println(result);
+		} else if(type == 0) {
+			System.out.println("댓글입니다. 댓글 수정 진행....");
+			result = service.modify(vo);
+			System.out.println(result);
+		}
+		
+		
+		return result == 1 
 				? new ResponseEntity<>("success", HttpStatus.OK)
 				: new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 	
 	//댓글 목록 조회
-	@SuppressWarnings("deprecation")
 	@GetMapping(value = "/pages/{bno}/{page}",
 			produces = {
 					MediaType.APPLICATION_JSON_UTF8_VALUE})
@@ -80,6 +118,11 @@ public class ReplyController {
 		
 		Map<String, Object> map = new HashMap<>();
 		
+		if(page <0) {
+			map.put("replyCount", service.getReplyCount(bno));
+			return new ResponseEntity<>(map, HttpStatus.OK);
+		}
+		
 		Criteria cri = new Criteria();
 		cri.setAmount(10);
 		cri.setPageNum(page);
@@ -88,10 +131,19 @@ public class ReplyController {
 		System.out.println(cri);
 		
 		map.put("replyCount", service.getReplyCount(bno));
-		map.put("list", service.getList(cri, bno));
-		
+		map.put("replyList", service.getList(cri, bno));
+		map.put("reReplyList", service.getReList(cri, bno));
 		
 		return new ResponseEntity<>(map, HttpStatus.OK);
 	}
+	
+	//댓글 총 개수 구하기 (tbl_reply 에서만 rno 개수를 셈, 페이징을 위한 갯수)
+	@GetMapping(value = "/getCount/{bno}")
+	public ResponseEntity<String> getCount(@PathVariable("bno") int bno) {
+		int replyCount = service.getReplyCount(bno);
 		
+		return new ResponseEntity<>(Integer.toString(replyCount), HttpStatus.OK);
+	}
+	
+	
 }

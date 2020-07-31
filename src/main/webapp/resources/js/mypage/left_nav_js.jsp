@@ -89,5 +89,11 @@ $(document).ready(function(){
 		$(".flex-column").children().eq(4).css("border-left","solid 5px #827FFE").css("font-weight","bold");
 	}
 	// 무슨 페이지인지 읽어오기 //
+	
+	// 프로필 사진 모닫창 z-index ///////////////////////////
+	$("#changePicture").on("click",function(){
+		$("#changePicture").css("z-index","1500");
+	})
+	// 프로필 사진 모달창 z-index //
 })
 </script>

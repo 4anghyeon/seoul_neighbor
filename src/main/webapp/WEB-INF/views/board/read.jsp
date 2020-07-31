@@ -128,52 +128,12 @@
                         <i class="unLikeButton likeIcon far fa-thumbs-down"></i>
                     </div>
                 </div>
-
-                <!-- 댓글창 ----------------------------------------------------->
+                
+				<!-- 댓글창 ----------------------------------------------------->
                 <div id="commentDiv">
                      
                     <!--댓글 목록--------------------------------------->
                     <div id="commentList">
-
-                        <div class="reply-container container">
-                            <div class="d-flex row">
-                                <div class="col-md-12">
-                                    <div class="d-flex flex-column comment-section" id="myGroup">
-                                        <div class="bg-white p-2">
-                                            <div class="d-flex flex-row user-info">
-                                                <div class="re-reply ml-auto mt-2">
-                                                    <span>댓글달기</span>
-                                                    <sec:authorize access="isAuthenticated()">
-                                                    	<span>수정</span>
-                                                    	<span>삭제</span>
-                                                    </sec:authorize>
-                                                    <sec:authorize access="isAnonymous()">
-														<span>신고하기</span>
-													</sec:authorize>
-                                                </div>
-                                            </div>    
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                       <div class="reply-container container">
-                            <div class="d-flex row">
-                                <div class="col-md-12">
-                                    <div class="d-flex flex-column comment-section" id="myGroup">
-                                        <div class="bg-white p-2">
-                                            <div class="d-flex flex-row user-info">
-                                                <div class="re-reply ml-auto mt-2">
-                                                    <span>댓글달기</span>
-                                                    <span>신고하기</span>
-                                                </div>
-                                            </div>    
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
 
                     </div>
                     <!--댓글목록-->
@@ -222,9 +182,15 @@
 <%@include file="/resources/js/board/userClick_js.jsp"%>
 
 <script>
+
+var csrfHeaderName = "${_csrf.headerName}";
+var csrfTokenValue="${_csrf.token}";
+//ajax요청시 마다 csrf 토큰 자동 적용
+$(document).ajaxSend(function(e, xhr, options){
+	xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
+});
+
 var replyService = (function(){
-	var csrfHeaderName = "${_csrf.headerName}";
-	var csrfTokenValue = "${_csrf.token}";
 
 	
 	// 빠른 게시판 이동 ////////////////////////////////
@@ -269,51 +235,81 @@ var replyService = (function(){
 	
 
 	
-	//댓글 추가
+//댓글 등록
 	function add(reply, callback, error) {
-		console.log("add함수 실행")
+		console.log("reply......");
+		
 		$.ajax({
-			type: "POST",
-			url: '/reply/new',
-			data: JSON.stringify(reply),
-			beforeSend: function(xhr){
-				xhr.setRequestHeader(csrfHeaderName, csrfTokenValue)
-			},
+			type: "post",
+			url : "/reply/new",
+			data : JSON.stringify(reply),
 			contentType : "application/json; charset=utf-8",
 			success : function(result, status, xhr) {
 				if(callback){
 					callback(result);
 				}
 			},
-			error : function(xhr, status, er){
-				if(error){
+			error : function(xhr, status, er) {
+				if(error) {
 					error(er);
 				}
 			}
 		});
 	}
 	
-	//댓글 목록가져오기
+	//대댓글 등록
+	function reAdd(reply, callback, error) {
+		console.log("reply......");
+		
+		$.ajax({
+			type: "post",
+			url : "/reply/newRe",
+			data : JSON.stringify(reply),
+			contentType : "application/json; charset=utf-8",
+			success : function(result, status, xhr) {
+				if(callback){
+					callback(result);
+				}
+			},
+			error : function(xhr, status, er) {
+				if(error) {
+					error(er);
+				}
+			}
+		});
+	}
+	
+	//댓글 목록 사져오기
 	function getList(param, callback, error) {
 		var bno = param.bno;
 		var page = param.page || 1;
 		
 		$.getJSON("/reply/pages/" + bno + "/" + page + ".json",
-			function(data) {
-				if(callback) {
-				callback(data.replyCount, data.list);
+				function(data) {
+			if(callback){
+				console.log(data);
+				callback(data);
 			}
-		}).fail(function(xhr, status, err){
-			if (error) {
+		}).fail(function(xhr, status, err) {
+			if(error){
 				error();
 			}
 		});
 	}
 	
-	function remove(rno, callback, error) {
+	//댓글 삭제
+	function remove(data, callback, error) {
+		
+		var no = data.no;
+		var type = data.type;
+		
+		console.log(no);
+		console.log(type);
+		
 		$.ajax({
-			type : 'delete',
-			url : '/reply/remove/' + rno,
+			type:"delete",
+			url:"/reply/delete/" + no + "/" + type,
+			dataType: "text",
 			success : function(deleteResult, status, xhr) {
 				if(callback) {
 					callback(deleteResult);
@@ -327,13 +323,11 @@ var replyService = (function(){
 		});
 	}
 	
-	function update(reply, callback, error) {
+	//댓글 수정
+	function update(reply, type, callback, error) {
 		$.ajax({
-			type : "put",
-			url : "/reply" + reply.rno,
-			beforeSend: function(xhr){
-				xhr.setRequestHeader(csrfHeaderName, csrfTokenValue)
-			},
+			type : 'put',
+			url : '/reply/update/' + reply.no +"/" + type,
 			data : JSON.stringify(reply),
 			contentType : "application/json; charset=utf-8",
 			success : function(result, status, xhr) {
@@ -342,7 +336,7 @@ var replyService = (function(){
 				}
 			},
 			error : function(xhr, status, er) {
-				if(error) {
+				if(error){
 					error(er);
 				}
 			}
@@ -351,6 +345,7 @@ var replyService = (function(){
 		
 	return {
 		add : add,
+		reAdd : reAdd,
 		getList : getList,
 		remove : remove,
 		update : update
@@ -505,65 +500,131 @@ var replyService = (function(){
 		var bnoValue = <c:out value="${board.bno}"/>;
 		var replyList = $("#commentList");
 		
+		//댓글 기능은 기본적으로 로그인한 유저만 작성이 가능하므로 로그인된 정보 중 닉네임을 replyer로 기본 설정
+		var replyer = null;
+		<sec:authorize access="isAuthenticated()">
+			replyer = '${member.nickname}'
+		</sec:authorize>
+			
+		//대댓글 입력칸 토글 변수, true : 생성이 안됬으니 생성해라, false : 생성되었으니 없애라
+		var reReplyToggle = true;
+		
 		showList(1);
 		
 		//댓글목록 불러오기 함수
 		function showList(page) {
 			
-			console.log("show list : " + page);
+			console.log("show list " + page);
 			
+			var dataObj = {
+				bno : bnoValue, 
+				page : page || 1,
+			}
 			
+			console.log(dataObj);
 			
-			replyService.getList({bno : bnoValue, page : page || 1}, 
-			function(replyCnt, list) {
-			
-				console.log("showList의 getList 호출");
-				console.log("replyCnt : " + replyCnt);
-				console.log("replyCnt : " + replyCnt);
-				console.log("replyCnt : " + replyCnt);
+			replyService.getList(dataObj, 
+			function(result) {
 				
+				console.log("replyCnt " + result.replyCount);
+				console.log("replyList " + result.replyList);
+				console.log("reReplyList : " +result.reReplyList);
 				
-				if(page==-1){
-					pageNum=Math.ceil(replyCnt/10.0);
-					showList(PageNum);
+				if(page == -1) {
+					pageNum = Math.ceil(result.replyCount/10.0);
+					showList(pageNum);
 					return;
 				}
 				
-				console.log("page가 -1이 아니므로 진행합니다.");
 				
-				var str = "";
-				console.log("받아온데이터");
-				console.log(list);
-				console.log(replyCnt);
+				var str = "";	
 				
-				if(list == null || list.length == 0) {
+				
+				if(result.replyList == null || result.replyList.length == 0) {
 					replyList.html("");
 					return;
 				}
-				
-				for(var i = 0, len = list.length || 0; i<len; i++) {
+				replyList.html("");
+				//먼저 댓글들을 생성해주고
+				for(var i = 0, len = result.replyList.length || 0; i<len; i++) {
 					str += '<div class="reply-container container">';
 					str += '	<div class="d-flex row">';
 					str += '		<div class="col-md-12">';
-					str += '			<div class="d-flex flex-column comment-section" id="reply'+list[i].rno+'">';
+					str += '			<div class="d-flex flex-column comment-section">';
 					str += '				<div class="bg-white p-2">';
 					str += '					<div class="d-flex flex-row user-info">';
-					str += '						<img class="rounded-circle" src="/resources/img/mypage/'+list[i].member_filename+'" width="40" height="40">';
+					str += '						<img class="rounded-circle" src="/resources/img/mypage/'+result.replyList[i].member_filename+'" width="40" height="40">';
 					str += '						<div class="d-flex flex-column justify-content-start ml-2">';
-					str += '							<span class="d-block font-weight-bold name">'+list[i].replyer+'</span>';
-					str += '							<span class="date text-black-50">'+list[i].replyDate+'</span>';
+					str += '							<span class="d-block font-weight-bold name">'+result.replyList[i].replyer+'</span>';
+					str += '							<span class="date text-black-50">'+result.replyList[i].replyDate+'</span>';
 					str += '						</div>';
 					str += '						<div class="reply-content mt-2">';
-					str += '							<p class="comment-text">'+list[i].reply+'</p>';
+					str += '							<p class="comment-text">'+result.replyList[i].reply+'</p>';
 					str += '						</div>';
-					str += '						<div class="re-reply ml-auto mt-2">';
-					str += '							<span>댓글달기</span>';
-					str += '							<span class="reportReply">신고하기</span>';
+					str += '						<div class="re-reply ml-auto mt-2" data-rno="'+result.replyList[i].rno+'" data-type="0">';
+					str += '							<sec:authorize access="isAuthenticated()">';
+					str += '								<span class="re-reply-create">댓글달기</span>';
+					if(replyer == result.replyList[i].replyer) {
+						str += '									<span class="reply-update">수정</span>';
+						str += '									<span class="reply-delete">삭제</span>';
+					} else {
+						str += '								<span class="reply-report">신고하기</span>';
+					}
+					str += '							</sec:authorize>';
 					str += '						</div>';
-					str += '</div></div></div></div></div></div>';
+					str += '					</div>';
+					str += '				</div>';
+					str += '				<div id="re-reply'+result.replyList[i].rno+'">';			
+					str += '				</div>';			
+					str += '				<div id="point'+result.replyList[i].rno+'">';		
+					str += '				</div>';		
+					str += '			</div>';
+					str += '		</div>';
+					str += '	</div>';
+					str += '</div>';
 				}
+				
 				replyList.html(str);
-				showReplyPage(replyCnt);
+				//대댓글을 만들어줍니다.
+				for(var i = 0, len = result.reReplyList.length || 0; i<len; i++) {
+					var re_str = "";
+					re_str += '<div class="reply-container container">';
+					re_str += '	<div class="d-flex row">';
+					re_str += '		<div class="col-md-12">';
+					re_str += '			<div class="d-flex flex-column comment-section">';
+					re_str += '				<div class="bg-white p-2">';
+					re_str += '					<div class="d-flex flex-row user-info">';
+					re_str += '						<img src="/resources/img/board/replyArrow.png" width="30" height="30">';
+					re_str += '						<img class="rounded-circle" src="/resources/img/mypage/'+result.reReplyList[i].member_filename+'" width="40" height="40">';
+					re_str += '						<div class="d-flex flex-column justify-content-start ml-2">';
+					re_str += '							<span class="d-block font-weight-bold name">'+result.reReplyList[i].r_replyer+'</span>';
+					re_str += '							<span class="date text-black-50">'+result.reReplyList[i].r_replyDate+'</span>';
+					re_str += '						</div>';
+					re_str += '						<div class="reply-content mt-2">';
+					re_str += '							<p class="comment-text">'+result.reReplyList[i].r_reply+'</p>';
+					re_str += '						</div>';
+					re_str += '						<div class="re-reply ml-auto mt-2" data-rno="'+result.reReplyList[i].r_rno+'" data-type="1">';
+					re_str += '							<sec:authorize access="isAuthenticated()">';
+					if(replyer == result.reReplyList[i].r_replyer) {
+						re_str += '									<span class="reply-update">수정</span>';
+						re_str += '									<span class="reply-delete">삭제</span>';
+					} else {
+						re_str += '								<span class="reply-report">신고하기</span>';
+					}
+					re_str += '							</sec:authorize>';
+					re_str += '						</div>';
+					re_str += '					</div>';
+					re_str += '				</div>';					
+					re_str += '			</div>';
+					re_str += '		</div>';
+					re_str += '	</div>';
+					re_str += '</div>';
+					
+					$("#re-reply" + result.reReplyList[i].rno).append(re_str);
+				}
+				
+				
+				showReplyPage(result.replyCount);
 			});
 		}
 		
@@ -572,6 +633,10 @@ var replyService = (function(){
 		
 		//페이징 부분 만드는 함수
 		function showReplyPage(replyCnt) {
+			if(replyCnt == 0) {
+				replyPaging.html("");
+				return;
+			}
 			var endNum = Math.ceil(pageNum / 10.0) * 10;
 			var startNum = endNum - 9;
 			
@@ -606,30 +671,145 @@ var replyService = (function(){
 			replyPaging.html(str);
 		}
 		
-		//댓글등록 버튼을 클릭했을 때 이벤트 (댓글등록)
+		//등록버튼을 눌렀을 시 (댓글 입력)
 		$("#replyBtn").on("click", function(e){
 			var reply = {
 					reply : $("#replyInput").val(),
-					replyer : '${member.nickname}',
+					replyer : replyer,
 					bno : bnoValue
 			};
 			
 			replyService.add(reply, function(result){
-				console.log(result);
-				showList(1);
+				$("#replyInput").val("");
+				showList(-1);
 			});
 		});
 		
-		//댓글 페이징 링크를 눌렀을 때
-		replyPaging.on("click", "ul li a", function(e){
-			e.preventDefault();
-			var targetPageNum = $(this).attr("href");
+		//등록버튼을 눌렀을 시 (대댓글 입력)
+		replyList.on("click", ".re-reply-submit", function(e){
+			var rno = $(this).data("what");
 			
-			pageNum = targetPageNum;
+			var re_reply = {
+				rno : rno,
+				r_reply : $("#re-replyInput"+rno).val(),
+				r_replyer : replyer
+			};
 			
-			showList(pageNum);
+			var rno = $(this).closest("div").data("rno");
+			var point = $("#point"+rno);
+			
+			replyService.reAdd(re_reply, function(result){
+				console.log("result");
+				showList(pageNum);
+				point.html("");
+				reReplyToggle = true;
+			});
 		});
 		
+		//페이징 링크 눌렀을 시
+		replyPaging.on("click", "ul li a", function(e){
+			e.preventDefault();
+			console.log("page click");
+			
+			var targetPageNum = $(this).attr("href");
+			
+			console.log("targetPageNum : " + targetPageNum);
+			pageNum = targetPageNum;
+			showList(pageNum);
+		});
+		//댓글달기 누를시 대댓글 입력 창 생성
+		replyList.on("click", ".re-reply-create", function(e){
+			var rno = $(this).closest("div").data("rno");
+			//var point = $(".re-reply-box");
+			var point = $("#point"+rno);
+			console.log(rno);
+			
+			var str = "";
+			str += '<div id="re-commentWrite">';
+			str += '	<div class="input-group mb-3">';
+			str += '		<textarea id="re-replyInput'+rno+'" class="form-control" placeholder="남에게 상처주는 말을 하지 맙시다."></textarea>';
+			str += '		<div class="input-group-append">';
+			str += '			<button id="re-replyBtn'+rno+'" class="re-reply-submit btn btn-outline-secondary" data-what="'+rno+'">댓글등록하기</button>';
+			str += '		</div>';
+			str += '	</div>';
+			str += '</div>';
+			
+			if(reReplyToggle){
+				point.html(str);
+				reReplyToggle = false;
+			} else {
+				point.html("");
+				reReplyToggle = true;
+			}
+			
+		});
+		
+		//삭제
+		replyList.on("click", ".reply-delete", function(e){
+			
+			//data.type이 0이면 댓글, 1이면 대댓글
+			var data = {
+					no : $(this).closest("div").data("rno"),
+					type : $(this).closest("div").data("type")
+			};
+			console.log(data);
+			
+			//삭제하는 녀석이 type = 0 (댓글) 이고 댓글에 대댓글이 달려있을때
+			if(data.type == 0 && $("#re-reply"+data.no).children().length != 0){
+				replyService.remove(data, function(deleteResult){
+					alert(deleteResult);
+					showList(pageNum);
+				});
+			}
+			
+			replyService.remove(data, function(deleteResult){
+				alert(deleteResult);
+				showList(pageNum);
+				console.log("댓글 목록 갱신");
+			});
+		});
+		
+		//수정
+		replyList.on("click", ".reply-update", function(e){
+			var rno = $(this).closest("div").data("rno");
+			var point = $(this).closest(".bg-white");
+			
+			var type = $(this).closest("div").data("type");
+			
+			var temp = $(this).parent().prev().children("p").text();
+			
+			console.log(temp);
+			var str = "";
+			str += '<div id="re-commentWrite">';
+			str += '	<div class="input-group mb-3">';
+			str += '		<textarea id="updateInput'+rno+'" class="form-control">'+temp+'</textarea>';
+			str += '		<div class="input-group-append">';
+			str += '			<button id="updateBtn'+rno+'" class="update-submit btn btn-outline-secondary" data-type="'+type+'" data-what="'+rno+'">댓글등록하기</button>';
+			str += '		</div>';
+			str += '	</div>';
+			str += '</div>';
+			point.html(str);
+		});
+		
+		replyList.on("click", ".update-submit", function(e){
+			e.preventDefault();
+			var rno = $(this).data("what");
+			var type = $(this).data("type");
+			
+			var point = $("#point"+rno);
+			
+			//보낼 데이터
+			var data = {
+					no : rno,
+					reply : $("#updateInput"+rno).val()
+			};
+			replyService.update(data, type, function(result){
+				alert(result);
+				showList(pageNum);
+				point.html("");
+				reReplyToggle = true;
+			});
+		});		
 		
 	});
 </script>

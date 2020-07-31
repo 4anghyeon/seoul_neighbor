@@ -36,6 +36,10 @@ ul{
 	display: none;
 }
 
+#writerProfile {
+	
+}
+
 #writerProfile>span>img {
 	width: 40px;
 	height: 40px;
@@ -66,6 +70,7 @@ ul{
 	font-size: 35px;
 	cursor: pointer;
 }
+
 
 /* 댓글창 css */
 #commentDiv {
@@ -101,7 +106,7 @@ ul{
 	cursor: pointer
 }
 
-#commentWrite textarea {
+#commentWrite textarea, .re-replyInput {
 	resize: none
 }
 
@@ -159,6 +164,11 @@ ul{
 
 #reportBoard:hover{
 	color:red;
+}
+
+.warn{
+	border-color:red !important;
+	box-shadow:inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(255, 0, 0, 0.6) !important;
 }
 
 /* 쪽지 */

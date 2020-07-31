@@ -35,5 +35,23 @@ $(document).ready(function(){
 		}
 
 	})
+	
+	$("#reportContent").on("propertychange change keyup keypress paste",function(){ //신고 내용 길이 바이트 검증
+		var messageContent = $("#reportContent").val();
+		stringLength = messageContent.length
+		if(stringLength>100){
+			$("#warnReport").empty();
+			messageContent = messageContent.substring(0,99);
+			$("#reportContent").val("");
+			$("#reportContent").val(messageContent);
+			$("#warnReport").append("100글자를 초과했습니다.");
+			$("#reportContent").addClass("warn");
+		}
+		else{
+			$("#reportContent").removeClass("warn");
+			$("#warnReport").empty();
+			$("#warnReport").append("("+stringLength+"/100) 글자");
+		}
+	})
 })
 </script>

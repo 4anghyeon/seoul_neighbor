@@ -12,6 +12,7 @@ import javax.mail.internet.MimeMessage;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -109,23 +110,18 @@ public class CommonController {
 		int bno =  Integer.parseInt(request.getRequestURI().substring(request.getRequestURI().lastIndexOf("/")+1));
 		BoardVO vo = service.read(bno);
 		
-		Cookie[] cookies = request.getCookies();
+		HttpSession sessions = request.getSession();
 		
         // 비교하기 위해 새로운 쿠키
-        Cookie viewCookie = null;
+        String viewSession = null;
 
         
         // 쿠키가 있을 경우 
-        if (cookies != null && cookies.length > 0) {
-            for (int i = 0; i < cookies.length; i++)
-            {
-                // Cookie의 name이 cookie + reviewNo와 일치하는 쿠키를 viewCookie에 넣어줌 
-                if (cookies[i].getName().equals("readCookie"+vo.getBno()))
-                { 
-                    System.out.println("처음 쿠키가 생성한 뒤 들어옴.");
-                    viewCookie = cookies[i];
-                }
-            }
+        if (sessions != null) {
+        	System.out.println("세션있음");
+        	if(sessions.getAttribute("readSession"+vo.getBno().toString()) != null) {
+        		viewSession = sessions.getAttribute("readSession"+vo.getBno()).toString();
+        	}
         }
 		
 		if(vo != null) {
@@ -146,19 +142,11 @@ public class CommonController {
 					model.addAttribute("temperature",weatherData[1]);
 					model.addAttribute("weatherGu",weatherData[2]);
 					
-					System.out.println("cookie");
-					System.out.println(viewCookie);
-					  // 만일 viewCookie가 null일 경우 쿠키를 생성해서 조회수 증가 로직을 처리함.
-					if (viewCookie == null) {
-					  System.out.println("cookie 없음");
-					  
-					  // 쿠키 생성(이름, 값) 
-					  Cookie newCookie = new Cookie("readCookie"+vo.getBno(), "|" + vo.getBno() + "|");
-					  
-					  // 쿠키 추가 
-					  response.addCookie(newCookie);
-					  
-					  // 쿠키를 추가 시키고 조회수 증가시킴 
+					  // 만일 viewCookie가 null일 경우 세션을 생성해서 조회수 증가 로직을 처리함.
+					if (viewSession == null) {
+					  // 세션 생성(이름, 값) 
+					  sessions.setAttribute("readSession"+vo.getBno(), "test");
+					  // 세션을 추가 시키고 조회수 증가시킴 
 					  boardService.updateViewCount(vo.getBno());
 					  }
 				}

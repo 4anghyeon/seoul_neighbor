@@ -18,7 +18,6 @@
 <!-- profile.css -->
 <link rel="stylesheet" href="/resources/css/common/basic.css">
 <link rel="stylesheet" href="/resources/css/mypage/profile-basic.css">
-<link rel="stylesheet" href="/resources/css/mypage/profile-formpage.css">
 <title>프로필</title>
 </head>
 <body>
@@ -38,38 +37,13 @@
 		<!-- 1.1 왼쪽 메뉴 -->
 		<!-- 1.2 프로필 레이아웃 ---------------------------------->
 			<div id="rightDiv" class="col-lg-9 p-5">
-				<form id="profileForm" class="form-group" method="post" action="updateUser" enctype="multipart/form-data">
+				<form id="profileForm" class="form-group" method="post" action="updateUser">
 				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 				<h1>프로필</h1>
 					<div id="rightDivContent" class="mt-5">
 					<!-- 1.3 프로필 이미지 업로드 부분 --------------------------------------------->
 				<div class="content-box">
-							<h3>프로필 이미지</h3>
-							<div id="profileChangeImgBox" class="card">
-								<c:choose>
-									<c:when test="${member.member_filename eq null }">
-										<img id="profileChangeImg"
-											class="card-img-top"
-											src="/resources/img/mypage/profile_sample.png" alt="프로필 사진">
-									</c:when>
-									<c:when test="${member.member_filename != null }">
-										<img id="profileChangeImg" class="card-img-top"
-											src="/resources/img/mypage/<c:out value="${member.member_filename}"/>"
-											alt="프로필 이미지">
-									</c:when>
-								</c:choose>
 
-								<div class="card-body filebox text-center">
-									<label id="uploadBtn" for="uploadFile">업로드</label> <input
-										type="file" id="uploadFile" name="uploadFile" /> <input
-										type="hidden" id="isFileChanged" name="isFileChanged"
-										value="false" />
-								</div>
-								<div id="fileNameContainer">
-									<input type="hidden" name="member_filename"
-										value="${member.member_filename }">
-								</div>
-							</div>
 							<!-- 1.3 프로필 이미지 업로드 부분 -->
 
 							<!-- 1.4 닉네임 수정 부분 ------------------------------------------->
@@ -161,9 +135,58 @@
 	</div>
 	<!-- 1. 메인 -->
 	
+	<!-- 3. 프로필 사진 바꾸기 모달 ----------------------->
+	<div class="modal" id="changePicture">
+		<div class="modal-dialog modal-sm modal-dialog-centered">
+			<div class="modal-content">
+        <!-- Modal Header -->
+				<div class="modal-header">
+				<h4 id="pictureHeader" class="modal-title">프로필 이미지 바꾸기</h4>
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				</div>
+        <!-- Modal body -->
+				<div class="modal-body">
+						<div id="profileChangeImgBox" class="card">
+						<form class="form-group" method="post" action="updateUser" enctype="multipart/form-data">
+							<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+							<c:choose>
+								<c:when test="${member.member_filename eq null }">
+									<img id="profileChangeImg"
+										class="card-img-top"
+										src="/resources/img/mypage/profile_sample.png" alt="프로필 사진">
+								</c:when>
+								<c:when test="${member.member_filename != null }">
+									<img id="profileChangeImg" class="card-img-top"
+										src="/resources/img/mypage/<c:out value="${member.member_filename}"/>"
+										alt="프로필 이미지">
+								</c:when>
+							</c:choose>
+	
+							<div class="card-body filebox text-center">
+								<label id="uploadBtn" for="uploadFile">업로드</label> <input
+									type="file" id="uploadFile" name="uploadFile" /> <input
+									type="hidden" id="isFileChanged" name="isFileChanged"
+									value="false" />
+							</div>
+							<div id="fileNameContainer">
+								<input type="hidden" name="member_filename"
+									value="${member.member_filename }">
+							</div>
+							<input type="hidden" name="userid" value="${member.userid }">
+							<input type="hidden" name="nickname" value="${member.nickname }">
+							<input type="hidden" name="email" value="${member.email }">
+							<input type="hidden" name="member_location" value="${member.member_location }">
+							<input type="submit" class="btn" value="프로필 저장" style="background-color:#827FFE; color:white">
+						</form>
+						</div>
+				</div>
+			</div>
+		</div>
+	</div>
+<!-- 3. 프로필 사진 바꾸기 모달 -->
+	
 </body>
 <!-- 2. javaScript ------------------------------>
-<%@include file="/resources/js/mypage/profile_js.jsp"%>
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <!-- 2. javaScirpt -->
 </html>

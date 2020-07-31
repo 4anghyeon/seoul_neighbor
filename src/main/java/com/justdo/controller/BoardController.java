@@ -98,8 +98,8 @@ public class BoardController {
 	@GetMapping("BoardTabListAjax")
 	@ResponseBody
 	public ResponseEntity<Map<String, Object>> BoardTabListAjax(Criteria cri) {
+		//카테고리 별 탭 선택 시 해당 글목록 및 페이징 정보 넘기기 
 		Map<String, Object> map = new HashMap<>();
-		
 		System.out.println(cri.getCategory());
 		
 		map.put("voList", service.getListWithPagingTabs(cri));

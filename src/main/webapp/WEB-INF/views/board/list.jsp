@@ -7,113 +7,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-
-<STYLE TYPE="text/css">
-.table {
-	font-size: 70%;
-	white-space: nowrap;
-}
-
-.collapsing-parallax {
-	height: 350px;
-	width: 100%;
-	background: url("/resources/img/common/list_background.png")
-		center center no-repeat;
-	background-color: rgb(33,14,61);
-	background-size: cover;
-	z-index: 99;
-}
-
-.navbar-default{
- background-color: rgba(255,255,255,0) !important;
- transition: 1s;
-}
-.cardview{
-	box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.18),
-		0px 4px 14px 0px rgba(0, 0, 0, 0.15);
-}
-
-/*게시글 리스트 */
-.panel-heading{
-	font-family:"Ridi";
-}
-
-.tab-content thead{
-	font-family:"ImcreSoojin";
-	font-size:0.9rem;
-}
-
-tbody{
-	font-family:"SC";
-	font-size:0.8rem;
-}
-
-.userNickname{
-	cursor:pointer;
-}
-
-.sendMessageToUser{
-	cursor:pointer;
-}
-
-/* 서울 소식 */
-#seoulNews{
-	height:100px;
-	overflow:hidden;
-	line-height:50px;
-	border: outset 1px #dee2e6;
-	border-radius:5px;
-	padding:10px;
-	margin-bottom:10px;
-}
-
-#seoulNews h5{
-	font-family: 'Mapo';
-}
-
-#seoulNews p{
-	font-family:"IBM";
-	margin:0;
-}
-
-#seoulNews div{
-	width:100%;
-}
-
-.newsDiv{
-	overflow:hidden;
-	border-radius:5px;
-	background-color:#edf2ff;
-}
-
-.newsDiv p{
-	cursor:pointer;
-}
-
-/* 서울 문화 */
-#seoulCulture{
-	border: outset 1px #dee2e6;
-	border-radius:5px;
-	padding:10px;
-	font-family:"IBM";
-}
-
-#seoulCulture h5{
-	font-family: 'Mapo';
-}
-
-/* 반응형 */
-@media screen and (max-width: 968px) {
-	#seoulCulture{
-		order:1;
-		margin-bottom:10px;
-	}
-	#listLeft{
-		order:2;
-	}
-}
-</STYLE>
-
+<link rel="stylesheet" href="/resources/css/board/list.css">
 <title>Insert title here</title>
 </head>
 <body>
@@ -193,7 +87,7 @@ tbody{
 					<div class="panel-heading pb-3">
 					     <!-- 로그인 하지 않은 상태에서 노출 ::: 목록  -------------------------------------------------->
 		                 <sec:authorize access="isAnonymous()">
-		                    <div><p>서울이웃에 방문해주셔서 감사합니다.</p></div>
+		                    <div>서울이웃에 방문해주셔서 감사합니다.</div>
 		                 </sec:authorize>
 		                 <!-- 로그인 하지 않은 상태에서 노출 ::: 목z록  -->
 		
@@ -456,7 +350,6 @@ tbody{
 				<!-- 검색---------------------------------------------------------------------------------------------->
 				<form id='searchForm' action="/board/list" method='get'>
 					<select name='type'>
-						<option value="" <c:out value="${pageMaker.cri.type == null?'selected':''}"/>>---</option>
 						<option value="A" <c:out value="${pageMaker.cri.type eq 'A'?'selected':''}"/>>전체</option>
 						<option value="T" <c:out value="${pageMaker.cri.type eq 'T'?'selected':''}"/>>제목</option>
 						<option value="C" <c:out value="${pageMaker.cri.type eq 'C'?'selected':''}"/>>내용</option>

@@ -234,15 +234,11 @@ public class MyPageController {
 		
 		String uploadFolder = "c://Project/seoulneighbor/seoulNeighbor/src/main/webapp/resources/img/mypage";
 		
-
-		
 		UUID uuid = UUID.randomUUID();
-		
 		
 		String uploadFileName = vo.getMember_filename();
 		
 		String fileChanged = isFileChanged;
-		
 	
 		for(MultipartFile multipartFile : uploadFile) {
 			File saveFile = new File(uploadFolder,uuid.toString()+"_"+multipartFile.getOriginalFilename());

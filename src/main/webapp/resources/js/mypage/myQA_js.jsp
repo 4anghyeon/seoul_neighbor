@@ -139,9 +139,9 @@ $(document).ready(function(){
 	function cutTitleLength(){
 		var forCutTitleLength = $("#writeQATitle")
 		
-		if($(forCutTitleLength).val().length >15){
+		if($(forCutTitleLength).val().length >30){
 			var tempMessageContent = $(forCutTitleLength).val();
-			$(forCutTitleLength).val(forCutTitleLength.val().substring(0,15));
+			$(forCutTitleLength).val(forCutTitleLength.val().substring(0,30));
 		}
 	}
 	
