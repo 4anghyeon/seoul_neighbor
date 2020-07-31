@@ -124,6 +124,9 @@
 							<!-- 1.6 이메일 표시 부분(수정불가) -->
 							<div class="content-box">
 								<input type="hidden" name="userid" value="${member.userid }">
+								<input type="hidden" name="member_filename" value="${member.member_filename }">
+								<input type="hidden" name="isFileChanged" value="false" />
+								<input type="hidden" name="uploadFile" value=" " />
 								<input id="saveChangeBtn" type="submit" class="btn" value="변경사항 저장">
 							</div>
 						</div>

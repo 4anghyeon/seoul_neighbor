@@ -150,12 +150,14 @@ public class commonServiceImpl implements commonService {
 		else if(Integer.parseInt(todayHour) >=20 && Integer.parseInt(todayHour) <23) {
 			baseTime = "2000";
 		}
-		else if(Integer.parseInt(todayHour) >=23 && Integer.parseInt(todayHour) <2) {
+		else if(Integer.parseInt(todayHour) >=23 || Integer.parseInt(todayHour) <2) {
 			baseTime = "2300";
 		}
 		else {
-			baseTime ="0500";
+			baseTime ="2300";
 		}
+		System.out.println(todayHour);
+		System.out.println(baseTime);
 		if(gu == null) {
 			nx = "60"; //중구
 			ny = "127";
@@ -269,6 +271,7 @@ public class commonServiceImpl implements commonService {
          * GET방식으로 전송해서 파라미터 받아오기
          */
         URL url = new URL(urlBuilder.toString());
+        System.out.println(url);
         //어떻게 넘어가는지 확인하고 싶으면 아래 출력분 주석 해제
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
         conn.setRequestMethod("GET");
@@ -290,7 +293,14 @@ public class commonServiceImpl implements commonService {
         String result= sb.toString();
         
 
+        JsonObject weather=null;
+        JsonObject temperature=null;
+        JsonObject isRain=null;
         
+        String nowWeather="";
+        String nowTemperature="";
+        
+        try {
         //jsonparser로 문자열 객체화
         JsonParser parser = new JsonParser();
         JsonObject obj = (JsonObject) parser.parse(result);
@@ -302,9 +312,7 @@ public class commonServiceImpl implements commonService {
         //items에서 item 배열로 받아옴
         JsonArray parseItem = (JsonArray) parseItems.get("item");
         
-        JsonObject weather=null;
-        JsonObject temperature=null;
-        JsonObject isRain=null;
+
         
         for(int i=0; i<parseItem.size(); i++) {
         	JsonObject temp = (JsonObject) parseItem.get(i);
@@ -320,8 +328,8 @@ public class commonServiceImpl implements commonService {
         }
 
         
-		String nowWeather=""; 
-		String nowTemperature=temperature.get("fcstValue").getAsString();
+		 
+		nowTemperature=temperature.get("fcstValue").getAsString();
 		
 		
 		if(isRain.get("fcstValue").getAsInt()==0) {
@@ -355,6 +363,9 @@ public class commonServiceImpl implements commonService {
 				nowWeather = "눈날림";
 			}
 		}
+        }catch(NullPointerException e) {
+        	e.printStackTrace();
+        }
 
 
 		String[] weatherData = {nowWeather,nowTemperature,gu};

@@ -240,30 +240,31 @@ public class MyPageController {
 		
 		String fileChanged = isFileChanged;
 	
-		for(MultipartFile multipartFile : uploadFile) {
-			File saveFile = new File(uploadFolder,uuid.toString()+"_"+multipartFile.getOriginalFilename());
-			
-			try {
-				if(fileChanged.equals("true")) { //프로필 이미지가 바뀌었을떼만
-					uploadFileName = uuid.toString()+"_"+multipartFile.getOriginalFilename();
-					try {
-						file = new File(uploadFolder,myPageService.getOriginalFileName(vo.getUserid())); //기존에 있던 파일 이름을 가져와서
-						file.delete(); //삭제
-					}catch(NullPointerException e) {
-						e.printStackTrace();
+		if(fileChanged.equals("true")) { //프로필 이미지가 바뀌었을떼만
+			for(MultipartFile multipartFile : uploadFile) {
+				File saveFile = new File(uploadFolder,uuid.toString()+"_"+multipartFile.getOriginalFilename());
+				try {
+						uploadFileName = uuid.toString()+"_"+multipartFile.getOriginalFilename();
+						try {
+							file = new File(uploadFolder,myPageService.getOriginalFileName(vo.getUserid())); //기존에 있던 파일 이름을 가져와서
+							file.delete(); //삭제
+						}catch(NullPointerException e) {
+							e.printStackTrace();
+						}
+						multipartFile.transferTo(saveFile); //새로운 파일 등록
+						vo.setMember_filename(uploadFileName);
+
+					if(vo.getMember_filename().equals("")) {
+						vo.setMember_filename(null);
 					}
-					multipartFile.transferTo(saveFile); //새로운 파일 등록
-					vo.setMember_filename(uploadFileName);
+					
+				}catch(Exception e) {
+					e.printStackTrace();
 				}
-				if(vo.getMember_filename().equals("")) {
-					vo.setMember_filename(null);
-				}
-				
-				myPageService.updateUser(vo); //데이터베이스 업데이트
-			}catch(Exception e) {
-				e.printStackTrace();
 			}
 		}
+
+		myPageService.updateUser(vo); //데이터베이스 업데이트
 		return "redirect:/profile";
 	}
 	//유저 정보 수정 //
