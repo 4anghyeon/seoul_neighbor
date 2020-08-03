@@ -31,9 +31,6 @@ public class ReplyController {
 	//댓글 등록
 	@PostMapping(value = "/new", consumes = "application/json", produces= {MediaType.TEXT_PLAIN_VALUE})
 	public ResponseEntity<String> create(@RequestBody ReplyVO vo) {
-		System.out.println("댓글 insert 컨트롤러 발동");
-		System.out.println(vo);
-		
 		int insertCount = service.register(vo);
 		
 		return insertCount == 1 ? 
@@ -45,7 +42,6 @@ public class ReplyController {
 	@PostMapping(value = "/newRe", consumes = "application/json", produces= {MediaType.TEXT_PLAIN_VALUE})
 	public ResponseEntity<String> createRe(@RequestBody ReReplyVO vo) {
 		int insertCount = service.reRegister(vo);
-		System.out.println(vo);
 		
 		return insertCount == 1 ? 
 				new ResponseEntity<String>("success", HttpStatus.OK) :
@@ -59,23 +55,22 @@ public class ReplyController {
 	}
 	
 	//댓글 삭제
-	@DeleteMapping(value="/delete/{no}/{type}", produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
-	public ResponseEntity<String> remove(@PathVariable("no") int no, @PathVariable("type") int type) {
-		
-		System.out.println("댓글 삭제를 진행합니다.");
-		System.out.println(no);
-		System.out.println(type);
+	@DeleteMapping(value="/delete/{no}/{type}/{exist}", produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
+	public ResponseEntity<String> remove(@PathVariable("no") int no,@PathVariable("exist") int exist, @PathVariable("type") int type) {
 		
 		int result = 0;
 		
 		if(type == 1) {
-			System.out.println("대댓글입니다. 대댓글 삭제 진행....");
 			result = service.removeRe(no); 
-			System.out.println(result);
 		} else if(type == 0) {
-			System.out.println("댓글입니다. 댓글 삭제 진행....");
-			result = service.remove(no);
-			System.out.println(result);
+			
+			if(exist == 0) {
+				result = service.remove(no);
+			} else if(exist == 1) {
+				result = service.removeExist(no);
+			}
+			
+
 		}
 		return result == 1 ?
 				new ResponseEntity<>("success", HttpStatus.OK) :
@@ -93,13 +88,9 @@ public class ReplyController {
 		int result = 0;
 		
 		if(type == 1) {
-			System.out.println("대댓글입니다. 대댓글 수정 진행....");
 			result = service.modifyRe(vo);
-			System.out.println(result);
 		} else if(type == 0) {
-			System.out.println("댓글입니다. 댓글 수정 진행....");
 			result = service.modify(vo);
-			System.out.println(result);
 		}
 		
 		
@@ -114,7 +105,6 @@ public class ReplyController {
 					MediaType.APPLICATION_JSON_UTF8_VALUE})
 	public ResponseEntity<Map<String, Object>> getList(@PathVariable("page") int page, @PathVariable("bno") int bno){
 		
-		System.out.println("받은 bno : " + bno + " 받은 page : " + page);
 		
 		Map<String, Object> map = new HashMap<>();
 		
@@ -126,9 +116,6 @@ public class ReplyController {
 		Criteria cri = new Criteria();
 		cri.setAmount(10);
 		cri.setPageNum(page);
-		
-		
-		System.out.println(cri);
 		
 		map.put("replyCount", service.getReplyCount(bno));
 		map.put("replyList", service.getList(cri, bno));

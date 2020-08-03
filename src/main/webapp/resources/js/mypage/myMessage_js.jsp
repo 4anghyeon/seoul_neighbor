@@ -187,7 +187,6 @@
 				"<input type='hidden' id='mno' name='mno' value='"+$($(messageInfo[0]).children().first()).val()+"'>"+
 				"<input type='hidden' name='nickname' value='"+$(messageInfo[1]).text()+"'>"		
 			)
-			console.log($($(messageInfo[0]).children().first()).val());
  			var form = {
 				mno: $($(messageInfo[0]).children().first()).val()
 		  		}

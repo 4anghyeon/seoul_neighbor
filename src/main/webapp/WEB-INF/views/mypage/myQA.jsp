@@ -31,12 +31,12 @@
 			</div>
 		<!-- 1.1 왼쪽 메뉴 -->
 		<!-- 1.2 1:1 문의 레이아웃 ---------------------------------->
-			<div id="rightDiv" class="col-lg-9 p-5">
-				<h1>1:1 문의</h1>
+			<div id="rightDiv" class="col-md-9 p-5">
+				<h3>1:1 문의</h3>
+				<p>서울이웃 서비스에 대해 궁금한 모든 것을 물어보세요!</p>
+				<button type="button" id="QABtn" class="btn form-control" data-toggle="modal" data-dismiss="modal" data-target="#sendQA">1:1 문의 하기</button>
 				<div id="rightDivContent" class="mt-5">
 				<div class="content-box">
-					<h5>도움이 필요하신가요?</h5>
-					<button type="button" id="QABtn" class="btn form-control" data-toggle="modal" data-dismiss="modal" data-target="#sendQA">1:1 문의 하기</button>
 					<table class="table text-center table-hover">
 						<thead class="thead">
 							<tr>

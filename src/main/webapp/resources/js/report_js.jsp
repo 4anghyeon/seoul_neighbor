@@ -2,6 +2,41 @@
     pageEncoding="UTF-8"%>
 <script>
 $(document).ready(function(){
+	// 신고하기 ////////////////////////////
+	$("#reportBoard").on("click",function(){
+		if('${member.userid}' == ""){
+			alert("신고하려면 로그인 해주세요");
+		}
+		else{
+			$('#reportUserModal').modal("show");
+			$("#reportContent").val("");
+			$("#reportUserHeader").text("글 제목: ${board.title} 신고하기");
+			$("#reportInfo").empty();
+			$("#reportInfo").append(
+				"<input type='hidden' id='target' value='"+${board.bno}+"'>"+		
+				"<input type='hidden' id='group' value='b'>"		
+			);
+		}
+	})
+	
+	$(document).on("click",".reply-report",function(){
+		if('${member.userid}' == ""){
+			alert("신고하려면 로그인 해주세요");
+		}
+		else{
+			$('#reportUserModal').modal("show");
+			$("#reportContent").val("");
+			$("#reportUserHeader").text("댓글 내용: "+$($($(this).parents()[1]).children().children($(".reply-content"))[3]).text()+" 신고하기");
+			$("#reportInfo").empty();
+			$("#reportInfo").append(
+				"<input type='hidden' id='target' value='"+${board.bno}+"'>"+		
+				"<input type='hidden' id='group' value='r'>"		
+			);
+		}
+	})
+	// 신고하기 //
+	
+	
 	$("#reportUserBtn").on("click",function(e){
 		if($("#reportType option:selected").val()=="none"){
 			alert("신고 사유를 선택해주세요");

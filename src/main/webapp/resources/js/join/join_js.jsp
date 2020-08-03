@@ -54,10 +54,8 @@
 		    		type: "GET",
 		    		dataType: "text",
 		    		success: function(result, status, xhr){
-		    			console.log(result);
 		    			idStatus = result;
 		    			if(idStatus == 'duplicated'){
-		    	    		console.log("idStatus : " + idStatus);
 		    	    		$("#userId").parent().addClass("wrong-input");
 		    	    		$("#userId-duplicated-text").addClass("wrong-text-show");
 		    	    	} else {
@@ -93,10 +91,8 @@
 		    		type: "GET",
 		    		dataType: "text",
 		    		success: function(result, status, xhr){
-		    			console.log(result);
 		    			nameStatus = result;
 		    			if(nameStatus == 'duplicated'){
-		    	    		console.log("nameStatus : " + nameStatus);
 		    	    		$("#nickName").parent().addClass("wrong-input");
 		    	    		$("#nickName-duplicated-text").addClass("wrong-text-show");
 		    	    	} else {
@@ -137,10 +133,8 @@
 		    		contentType: "application/x-www-form-urlencoded; charset=UTF-8",
 		    		dataType: "text",
 		    		success: function(result, status, xhr){
-		    			console.log(result);
 		    			emailStatus = result;
 		    			if(emailStatus == 'duplicated'){
-		    	    		console.log("emailStatus : " + emailStatus);
 		    	    		isEmailDuplicated = true;
 		    	    		$("#email").parent().addClass("wrong-input");
 		    	    		$("#email-duplicated-text").addClass("wrong-text-show");
@@ -182,7 +176,6 @@
 					contentType: "application/x-www-form-urlencoded; charset=UTF-8",
 					dataType: "text",
 					success: function(result, status, xhr){
-		    			console.log(result);
 		    			$("#originEmailNum").val(result);
 		    			isSendEmail = true;
 		    		}
@@ -198,7 +191,6 @@
 			var originNumber = $("#originEmailNum").val(); //서버에서 넘겨받은 인증번호 정답
 			
 			var dataForCompare = {"userNumber" : userNumber, "originNumber" : originNumber};
-			console.log(dataForCompare);
 			
 			if(userNumber){
 				$.ajax({
@@ -211,7 +203,6 @@
 					dataType: "text", //서버에서 클라이언트로 받는 타입
 					contentType: "application/json", //서버로 전송할 타입
 					success: function(result){
-						console.log("받아온 결과값 : " + result);
 						if(result === 'same'){
 							$("#email-input-group").undelegate("#emailAuthBtn", "click");
 							$("#auth-wrong-text").removeClass("wrong-text-show");

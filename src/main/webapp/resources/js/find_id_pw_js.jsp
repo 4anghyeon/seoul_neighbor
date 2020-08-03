@@ -21,7 +21,6 @@ $(document).ready(function () {
     $(document).on("click","#id-find-button",function (e) {
     	
         var raw_email = $("#email").val();
-        console.log("작성한 이메일 주소"+raw_email);
         
         var form = { email : raw_email };
         
@@ -33,9 +32,6 @@ $(document).ready(function () {
                 xhr.setRequestHeader(csrfHeaderName, csrfTokenValue)
             },
             success: function (result) {
-                console.log("아이디 찾기 성공");
-                console.log("result :" +result);
-                console.log(typeof result);
                 
                 if (result == "null") {
                     var string2 = "<p>입력하신 이메일과 일치하는 서울이웃 아이디가 없습니다.</p>"
@@ -51,7 +47,6 @@ $(document).ready(function () {
                 } 
             },	
             error: function () {
-                console.log("아이디 찾기 실패");
             }
         });
         /* 아이디 찾기 버튼을 눌렀을 때! */
@@ -62,8 +57,6 @@ $(document).ready(function () {
         
         var raw_username = $("#username").val();
         var raw_email = $("#pwemail").val();
-        console.log("작성한 아이디"+raw_username);
-        console.log("작성한 이메일 주소"+raw_email);
         
         var form = { username : raw_username,
                      email : raw_email 
@@ -77,9 +70,6 @@ $(document).ready(function () {
                 xhr.setRequestHeader(csrfHeaderName, csrfTokenValue)
             },
             success: function (result) {
-                console.log("비밀번호 찾기 성공");
-                console.log("result :" +result);
-                console.log(typeof result);
                 
                 if (result == "fail_noUser") {
                     alert("가입정보가 없는 회원입니다. 정보를 다시 입력해주세요.");
@@ -95,17 +85,8 @@ $(document).ready(function () {
                            + "<button class='btn button-colored float-right' onclick='location.href=\"\/subLogin\"'>로그인</button>";
                 
                     $("#pw-fieldset").html(string1);
-                    
-                    if (result == "success_send") {
-                        console.log("메일 전송 성공");
-                        
-                    } else {
-                        console.log("메일 전송 실패");
-                    }
+
                 } 
-            },	
-            error: function () {
-                console.log("비밀번호 찾기 실패");
             }
         });
         /* 비밀번호 찾기 버튼을 눌렀을 때! */

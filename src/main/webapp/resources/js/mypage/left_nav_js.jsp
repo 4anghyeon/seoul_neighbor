@@ -8,11 +8,14 @@ $(document).ready(function(){
 		$("#leftNav").css("left",-$("#leftNav").width()-100);
 		$("#leftNav").css("position","fixed");
 		$("#dropDownBtn").css("left","0px");
+		$("#dontEditEmail").css("margin-left","0px");
+		$(".label").css("float","none");
 		$("#dropDownBtn").show();
 	}else{
 		$("#dropDownBtn").hide();
 		$("#leftNav").css("position","relative");
 		$("#leftNav").css("left","0");
+		$("#dontEditEmail").css("margin-left","90px");
 		$("#dropDownBtn").css("left","0px");
 	}
 	//초기값 설정
@@ -24,13 +27,17 @@ $(document).ready(function(){
 			$("#leftNav").css("position","fixed");
 			$("#dropDownBtnIcon").css("transform","rotate(0deg)");
 			$("#dropDownBtn").css("left","0px");
+			$("#dontEditEmail").css("margin-left","0");
+			$(".label").css("float","none");
 			isDropDownClicked = false;
 			$("#dropDownBtn").show();
 		}else{
 			$("#leftNav").css("position","relative");
 			$("#leftNav").css("left","0");
 			$("#dropDownBtn").css("left","0px");
+			$(".label").css("float","left");
 			$("#dropDownBtnIcon").css("transform","rotate(0deg)");
+			$("#dontEditEmail").css("margin-left","90px");
 			isDropDownClicked = false;
 			$("#dropDownBtn").hide();
 		}

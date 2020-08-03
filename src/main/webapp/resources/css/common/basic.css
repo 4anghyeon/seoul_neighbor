@@ -1,7 +1,25 @@
 /* font *********************************/
-@font-face { font-family: 'HangeulNuri-Bold'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_three@1.0/HangeulNuri-Bold.woff') format('woff'); font-weight: normal; font-style: normal; }
-@font-face { font-family: 'Handon3gyeopsal300g'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_seven@1.2/Handon3gyeopsal300g.woff') format('woff'); font-weight: normal; font-style: normal; }
+@font-face { font-family: 'Recipekorea'; src: url("/resources/font/RecipeKorea.ttf")}
+@font-face { font-family: 'Spoqa-bold'; src: url("/resources/font/Spoqa Han Sans Bold.ttf")}
+@font-face { font-family: 'Spoqa-reg'; src: url("/resources/font/Spoqa Han Sans Regular.ttf")}
 
+h1, h2, h3, h4, h5, h6{
+	font-family:"RecipeKorea";
+}
+
+* {
+	font-family: "Spoqa-reg";
+}
+
+.font-recipe {
+	font-family:"RecipeKorea";
+}
+
+.font-spoqaB {
+	font-family: "Spoqa-bold";
+}
+
+/* font */
 /* font */
 
 .button-gray {

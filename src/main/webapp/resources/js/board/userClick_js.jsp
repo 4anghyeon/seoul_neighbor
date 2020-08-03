@@ -11,7 +11,6 @@ $(document).ready(function(){
 		else{
 			$("#sendMessageUser").modal("show");
 			tempUserNickname = $($(this).parents().prev()[0]).text();
-			console.log(tempUserNickname)
 			$("#messageReplyContentToUser").val("");
 			$("#warnToUser").empty();
 			$("#warnToUser").append("(0/100) 글자");
@@ -40,8 +39,6 @@ $(document).ready(function(){
 	
 	$("#messageReplySendToUserBtn").on("click",function(){ //쪽지 전송
 		var tempNickname = tempUserNickname;
-		console.log(tempNickname);
-		console.log($("#messageReplyContentToUser").val());
 		
         var form = {
         		receiver: tempNickname,

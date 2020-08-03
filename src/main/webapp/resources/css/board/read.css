@@ -36,10 +36,6 @@ ul{
 	display: none;
 }
 
-#writerProfile {
-	
-}
-
 #writerProfile>span>img {
 	width: 40px;
 	height: 40px;
@@ -125,6 +121,14 @@ ul{
 	font-size: 13px;
 }
 
+.re-reply-create{
+	cursor:pointer;
+}
+
+.re-reply-create:hover{
+	color:#9775fa;
+}
+
 .re-reply>span::before {
 	content: "";
 	display: inline-block;
@@ -166,6 +170,14 @@ ul{
 	color:red;
 }
 
+.reply-report{
+	cursor:pointer;
+}
+
+.reply-report:hover{
+	color:red;
+}
+
 .warn{
 	border-color:red !important;
 	box-shadow:inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(255, 0, 0, 0.6) !important;
@@ -182,5 +194,5 @@ ul{
 
 /* 좋아요 */
 .likeClicked{
-	color:#ae3ec9 !important;
+	color:#b197fc !important;
 }

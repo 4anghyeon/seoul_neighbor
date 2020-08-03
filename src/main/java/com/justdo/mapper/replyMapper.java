@@ -22,6 +22,9 @@ public interface ReplyMapper {
 	//댓글 삭제
 	public int delete(int no);
 	
+	//대댓글이 달린 댓글 삭제
+	public int deleteExist(int no);
+	
 	//대댓글 삭제
 	public int deleteRe(int no);
 	

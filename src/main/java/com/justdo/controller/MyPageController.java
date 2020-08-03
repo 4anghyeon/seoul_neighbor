@@ -134,7 +134,6 @@ public class MyPageController {
 	// 쪽지 Ajax로 유저 선택해서 보내기 ///////////////////////////////////////////////////
 	@PostMapping("myMessageSendToUserAjax")
 	@ResponseBody public void myMessageSendToUserAjax(MessageVO vo){
-		System.out.println(vo.getReceiver());
 		myPageService.sendMessageToUser(vo);
 	}
 	// 쪽지 유저 선택해서 보내기 //

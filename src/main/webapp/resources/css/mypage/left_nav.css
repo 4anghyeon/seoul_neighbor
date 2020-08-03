@@ -31,14 +31,12 @@
 
 
 #hello{
-	font-family:"IBM";
 	font-size:1.1rem;
 }
 
 #leftNav{
 	padding:0;
 	width:auto;
-	font-family: 'Handon3gyeopsal300g';
 	z-index:1;
 }
 

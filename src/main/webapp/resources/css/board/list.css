@@ -1,16 +1,64 @@
+.select-span{
+   text-align: center; 
+   line-height: 45px;
+}
+
+.icon {
+   width: 30px;
+   height: auto;
+}
+
+.card-title > label {
+   font-family: "Recipekorea" !important;
+   font-size: 1.5rem;
+}
+
+.c-content-container {
+   float:left;
+   background-color: #E6E5FF;
+   width: 65%;
+   height: 110px;
+   border-radius: 10px;
+}
+
+.text-container {
+   width: 100%;
+   padding: 18px 0px 18px 0px;
+   text-align: center;
+   display: inline-block;
+}
+
+.image-container{
+   width: 30%;
+   float: right;
+}
+
+.c-link{
+   font-size: 1rem;
+   font-family: "Spoqa-bold"
+}
+
+.pic {
+   width: 152px;
+   height: 110px;
+   float: left;
+   object-fit:cover;
+   border-radius: 10px;
+}
+
 .table {
-	font-size: 70%;
-	white-space: nowrap;
+   font-size: 70%;
+   white-space: nowrap;
 }
 
 .collapsing-parallax {
-	height: 350px;
-	width: 100%;
-	background: url("/resources/img/common/list_background.png")
-		center center no-repeat;
-	background-color: rgb(33,14,61);
-	background-size: cover;
-	z-index: 99;
+   height: 350px;
+   width: 100%;
+   background: url("/resources/img/common/list_background.png")
+      center center no-repeat;
+   background-color: rgb(33,14,61);
+   background-size: cover;
+   z-index: 99;
 }
 
 .navbar-default{
@@ -18,86 +66,81 @@
  transition: 1s;
 }
 .cardview{
-	box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.18),
-		0px 4px 14px 0px rgba(0, 0, 0, 0.15);
+   box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.18),
+      0px 4px 14px 0px rgba(0, 0, 0, 0.15);
 }
 
 /*게시글 리스트 */
-.panel-heading{
-	font-family:"Ridi";
-}
 
 .tab-content thead{
-	font-family:"ImcreSoojin";
-	font-size:0.9rem;
+   font-family:"ImcreSoojin";
+   font-size:0.9rem;
 }
 
 tbody{
-	font-family:"SC";
-	font-size:0.8rem;
+   font-family:"SC";
+   font-size:0.8rem;
 }
 
 .userNickname{
-	cursor:pointer;
+   cursor:pointer;
 }
 
 .sendMessageToUser{
-	cursor:pointer;
+   cursor:pointer;
 }
 
 /* 서울 소식 */
 #seoulNews{
-	height:100px;
-	overflow:hidden;
-	line-height:50px;
-	border: outset 1px #dee2e6;
-	border-radius:5px;
-	padding:10px;
-	margin-bottom:10px;
-}
-
-#seoulNews h5{
-	font-family: 'Mapo';
-}
-
-#seoulNews p{
-	font-family:"IBM";
-	margin:0;
+   height:220px;
+   overflow:hidden;
+   border: outset 1px #e6e6e6;
+   border-radius:5px;
+   padding:10px;
+   margin-bottom:10px;
 }
 
 #seoulNews div{
-	width:100%;
+   width:100%;
+   height:auto;
 }
 
 .newsDiv{
-	overflow:hidden;
-	border-radius:5px;
-	background-color:#edf2ff;
+   overflow:hidden;
+   border-radius:0 0 6px 6px;
+   background-color:#E6E5FF;
+   position:relative;
 }
 
 .newsDiv p{
-	cursor:pointer;
+   cursor:pointer;
+}
+
+.newsImageBox{
+	overflow:hidden;
+	border:1px solid #dee2e6;
+	border-radius:6px 6px 0 0;
+}
+
+.newsImageBox img{
+	width:100%;
 }
 
 /* 서울 문화 */
 #seoulCulture{
-	border: outset 1px #dee2e6;
-	border-radius:5px;
-	padding:10px;
-	font-family:"IBM";
-}
-
-#seoulCulture h5{
-	font-family: 'Mapo';
+   height:220px;
+   border: outset 1px #dee2e6;
+   border-radius:5px ;
+   padding:10px;
 }
 
 /* 반응형 */
 @media screen and (max-width: 968px) {
-	#seoulCulture{
-		order:1;
-		margin-bottom:10px;
-	}
-	#listLeft{
-		order:2;
-	}
+   #seoulCulture{
+      order:1;
+      margin-bottom:10px;
+   }
+   #listLeft{
+      order:2;
+   }
 }

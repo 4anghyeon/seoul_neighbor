@@ -55,7 +55,6 @@ $(document).ready(function(){
 		$(this).nextAll().removeClass("active");
 		$(this).prevAll().removeClass("active");
 		$(this).addClass("active");
-		console.log($(this).text()*8-8)
         var form = {
                 userid: '${member.userid}',
                 pageNum: $(this).text()*8-8
@@ -147,7 +146,6 @@ $(document).ready(function(){
 	
 	function cutContentLength(){
 		var writeQAContent = $("#writeQAContent").val();
-		console.log(writeQAContent);
 		stringLength = writeQAContent.length
 		if(stringLength>1000){
 			$("#qaWarn").empty();
@@ -158,7 +156,6 @@ $(document).ready(function(){
 			$("#writeQAContent").addClass("warn");
 		}
 		else{
-			console.log("stringlength"+stringLength);
 			$("#writeQAContent").removeClass("warn");
 			$("#qaWarn").empty();
 			$("#qaWarn").append("("+stringLength+"/1000) 글자");

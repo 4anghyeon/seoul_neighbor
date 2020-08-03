@@ -49,7 +49,6 @@ public class LoginController {
 	// 로그인 성공 - 목록 이동 //////////////////////////////////
 	@RequestMapping(value = "list", method = RequestMethod.POST)
 	public String loginSuccess(HttpSession session, HttpServletRequest request) {
-		log.warn("login controller - 로그인 > 목록 페이지로 접속");
 		return "board/list";
 	}
 	// 로그인 성공 - 목록 이동 //
@@ -71,11 +70,8 @@ public class LoginController {
     @RequestMapping(value = "find_id_form", method = RequestMethod.POST)
     @ResponseBody
     public String find_id_form(String email, Model model) throws Exception {
-    	log.warn("----------------------------[아이디 찾기]------------------------------");
-    	log.warn(email);
     	
 		String username = service.findIdByEmail(email);
-		log.warn("이메일과 매칭된 아이디 : " + username);
 		
 		if (username != null) {
 			return username;
@@ -91,45 +87,34 @@ public class LoginController {
 	@RequestMapping(value = "find_pw_form", method = RequestMethod.POST, produces = "application/text; charset=utf-8")
     @ResponseBody
     public String find_pw_form(String username, String email, Model model) throws Exception {
-    	log.warn("----------------------------[비밀번호 찾기]------------------------------");
-    	log.warn("작성한 아이디 + 메일 : "+username+"+"+email);
 
     	MemberVO idVO = loginService.loadInfoByUsername(username);
     	MemberVO emailVO = loginService.loadInfoByEmail(email);
     	
-    	log.warn("idVO"+idVO);
-    	log.warn("emailVO"+emailVO);
-    	
     	// 아이디로 정보 확인하기
     	if (idVO == null) {
     		if (emailVO == null) {
-    			log.warn("[결과 1] 아이디 없음 + 이메일 없음");
     			return "fail_noUser";
 			} else {
-    			log.warn("[결과 2] 아이디 없음 + 이메일 있음");
 				return "fail_noID";
 			}
 			
 		} else if (idVO != null) {
 			if (emailVO == null) {
 				
-    			log.warn("[결과 3] 아이디 있음 + 이메일 없음");
 				return "fail_noEmail";
 			} else {
 				
 				if (!idVO.equals(emailVO)) {
-					log.warn("[결과 4] 아이디 있음 + 이메일 있음 + 두 정보가 다름");
 					return "fail_diffrentInfo";
 					
 				} else {
 					
-					log.warn("[결과 5] 아이디 있음 + 이메일 있음 + 두 정보가 같음");
 					// 임시비밀번호 생성하기
 					String new_password = "";
 					for (int i = 0; i < 12; i++) {
 						new_password += (char) ((Math.random() * 26) + 97);
 					}
-					log.warn("임시비밀번호 : "+new_password);
 					
 					String encoded_pw = pwEncoder.encode(new_password);
 					
@@ -160,10 +145,8 @@ public class LoginController {
 						} catch(Exception e) {
 							e.printStackTrace();
 						}
-						log.warn("메일 전송 완료");
 						return "success_send";
 					} else {
-						log.warn("비밀번호 변경 실패");
 						return "fail_send";
 					}
 				}

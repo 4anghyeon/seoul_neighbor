@@ -3,6 +3,7 @@
 /* form 디자인 *************************************/
 .content-box {
 	margin-top: 20px;
+	padding-left:20px;
 }
 
 h3:nth-child(n+4) {
@@ -22,6 +23,7 @@ h3:nth-child(n+4) {
 	background-color:#827FFE ;
 	border-color:#827FFE ;
 	color:white;
+	float:right;
 }
 #saveChangeBtn:hover{
 	background-color:#6663db;
@@ -38,6 +40,7 @@ h3:nth-child(n+4) {
 }
 
 #searchPost{
+	width:fit-content;
 	background-color:#827FFE ;
 	border-color:#827FFE ;
 	color:white;
@@ -90,7 +93,14 @@ h3:nth-child(n+4) {
 
 /* 파일 업로드 디자인 */
 
+/* profile.jsp */
 
+
+#dontEditEmail{
+	color:red; 
+	font-size:0.8rem; 
+	margin-left:90px;
+}
 /* myPassword.jsp */
 
 .row{
@@ -98,7 +108,12 @@ h3:nth-child(n+4) {
 }
 
 #passwordChangeBtn{
-	background-color:#534fd6;
+	background-color:#827FFE;
 	color:white;
+	float:right;
+}
+
+#passwordChangeBtn:hover{
+	background-color:#6663db;
 }
 

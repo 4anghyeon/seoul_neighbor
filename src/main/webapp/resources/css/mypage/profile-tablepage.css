@@ -43,20 +43,27 @@ tbody > tr:active {
 
 /* myQA.css */
 
-#QABtn{
-	margin-bottom:20px;
-}
 
 #writeQAContent{
 	margin-top:20px;
 }
 
 #insertQABtn{
-	background-color:#534fd6;
+	background-color:#827FFE;
 	color:white
+}
+#insertQABtn:hover{
+	background-color:#6663db;
 }
 
 #QABtn{
-	background-color:#534fd6;
-	color:white
+	margin-bottom:20px;
+	background-color:#827FFE;
+	color:white;
+	width:fit-content;
+	float:right;
+}
+
+#QABtn:hover{
+	background-color:#6663db;
 }

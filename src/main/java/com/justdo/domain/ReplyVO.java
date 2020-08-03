@@ -11,5 +11,6 @@ public class ReplyVO {
 	private String replyDate;
 	private String updateDate;
 	private String member_filename;
+	private int exist;
 	}
 

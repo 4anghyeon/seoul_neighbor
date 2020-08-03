@@ -49,7 +49,6 @@ $(document).ready(function(){
 	        type: "GET",
 	        data: form,
 	        success: function(data){
-	        	console.log(data);
 				$("#subMessageDiv").empty();
             	$("#subMessageDiv").append(
             			"<h5 class='dropdown-header'>최근 5개 메시지</h5>"
@@ -88,7 +87,6 @@ $(document).ready(function(){
 	$(document).on({
 		mouseenter:function(){
 			$($(this)[0]).addClass("subMessageDivHover");
-			console.log($(this)[0]);
 		},
 		mouseleave:function(){
 			$(this).removeClass("subMessageDivHover");

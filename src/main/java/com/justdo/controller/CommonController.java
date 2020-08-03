@@ -9,7 +9,6 @@ import java.security.Principal;
 import java.util.HashMap;
 
 import javax.mail.internet.MimeMessage;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -118,7 +117,6 @@ public class CommonController {
         
         // 쿠키가 있을 경우 
         if (sessions != null) {
-        	System.out.println("세션있음");
         	if(sessions.getAttribute("readSession"+vo.getBno().toString()) != null) {
         		viewSession = sessions.getAttribute("readSession"+vo.getBno()).toString();
         	}
@@ -128,7 +126,6 @@ public class CommonController {
 		      model.addAttribute("board",vo);
 		      model.addAttribute("fileName",boardService.selectWriterProfile(vo.getNickname()));
 		      model.addAttribute("hotList",boardService.selectHotListFromRead(cri));
-		      System.out.println(boardService.selectHotListFromRead(cri));
 				if(principal != null) {
 					String username = principal.getName();
 					model.addAttribute("member", myPageService.selectUser(username));
@@ -192,30 +189,24 @@ public class CommonController {
 	//회원가입 페이지 호출
 	@GetMapping("join")
 	public String joinForm() {
-		System.out.println("회원가입페이지로 이동합니다.");
 		return "joinpage/join";
 	}
 	
 	//회원가입 진행
 	@PostMapping("/join")
 	public String join(MemberVO vo, BindingResult result, RedirectAttributes rttr) {
-		System.out.println("회원가입 처리 서비스를 호출합니다.");
-		System.out.println("받은 회원 정보 : " + vo.toString());
 		
 		boolean isDuplicated = 
 				service.isUniqueID(vo.getUserid()) && service.isUniqueNickName(vo.getNickname());
-		System.out.println(isDuplicated);
 		
 		try {
 			if(!isDuplicated) {
-				System.out.println("아이디 or 닉네임 뭔가가 중복되었다");
 				rttr.addFlashAttribute("warning", "회원가입에 실패하였습니다.");
 				return "redirect:/join";
 			} else {
 				JoinValidator validator = new JoinValidator();
 				validator.validate(vo, result);
 				if(result.hasErrors()) {
-					System.out.println("유호성검사 실패");
 					rttr.addFlashAttribute("warning", "당신은 거절당했습니다. 가입불가");
 					return "redirect:/join";
 				}
@@ -255,7 +246,6 @@ public class CommonController {
 	//이메일 중복됬는지 체크
 	@RequestMapping(value = "/checkEmail" , method = RequestMethod.GET, produces = "application/text; charset=utf-8")
 	public @ResponseBody ResponseEntity<String> checkEmail(@RequestParam("email") String email) throws UnsupportedEncodingException{
-		System.out.println("이메일 중복확인 컨트롤러, 검증할 값 : " + email.trim());
 		String responseMsg;
 		if(service.isUniqueEmail(email.trim())) {
 			responseMsg = "new";
@@ -288,7 +278,6 @@ public class CommonController {
 			messageHelper.setTo(tomail);
 			messageHelper.setSubject(title);
 			messageHelper.setText(content);
-			System.out.println("메일은 실제 보내진 않았습니다");
 			
 			mailSender.send(message);
 		} catch(Exception e) {
@@ -302,7 +291,6 @@ public class CommonController {
 			consumes = "application/json",
 			produces = {MediaType.TEXT_PLAIN_VALUE})
 	public ResponseEntity<String> compareEmailAuth(@RequestBody HashMap<String, Object> map){
-		System.out.println(map);
 		
 		String userNumber = (String) map.get("userNumber"); //유저가 입력한 번호
 		String originNumber = (String) map.get("originNumber"); //서버에서 만들어 유저에게 보내준 번호

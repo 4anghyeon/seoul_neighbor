@@ -59,6 +59,12 @@ public class ReplyServiceImpl implements ReplyService {
 		return mapper.delete(rno);
 	}
 	
+	//대댓글이 달린 댓글 삭제
+	@Override
+	public int removeExist(int no) {
+		return mapper.deleteExist(no);
+	}
+	
 	//대댓글 삭제
 	@Override
 	public int removeRe(int no) {

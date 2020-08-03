@@ -53,7 +53,6 @@ $(document).ready(function(){
 		$(this).nextAll().removeClass("active");
 		$(this).prevAll().removeClass("active");
 		$(this).addClass("active");
-		console.log($(this).text()*8-8)
         var form = {
                 userid: '${member.userid}',
                 pageNum: $(this).text()*8-8
@@ -102,7 +101,8 @@ $(document).ready(function(){
 	// 게시글 클릭 하면 상세페이지 이동 //////////////////////////////////
 	$(document).on("click",".boardTitle",function(){
 		var bno = $($(this).parents().siblings("td")[0]).text();
-		location.href = "/board/read/"+bno;
+		var gu = $($(this).parents().siblings("td")[1]).text();
+		location.href = "/board/read/"+bno+"?gu="+gu;
 		
 	})
 	// 게시글 클릭 하면 상세페이지 이동 //

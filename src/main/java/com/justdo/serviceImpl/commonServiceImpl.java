@@ -59,7 +59,6 @@ public class commonServiceImpl implements commonService {
 	//회원가입 
 	@Override
 	public void join(MemberVO vo) {
-		System.out.println("회원가입을 처러하기 위한 mapper를 호출합니다.");
 		mapper.insertUser(vo);
 		mapper.insertUserAuth(vo.getUserid());
 	}
@@ -68,10 +67,8 @@ public class commonServiceImpl implements commonService {
 	@Override
 	public boolean isUniqueID(String userId) {
 		if(mapper.checkID(userId) == 0) {
-			System.out.println("중복된 아이디가 없습니다. 사용가능합니다.");
 			return true;
 		}
-		System.out.println(" *Warning!!! 아이디가 중복되었습니다!!! ***********");
 		return false;
 	}
 
@@ -79,20 +76,16 @@ public class commonServiceImpl implements commonService {
 	@Override
 	public boolean isUniqueNickName(String nickName) {
 		if(mapper.checkNickName(nickName) == 0) {
-			System.out.println("중복된 닉네임이 없습니다. 사용가능합니다.");
 			return true;
 		}
-		System.out.println(" *Warning!!! 닉네임이 중복되었습니다!!! ***********");
 		return false;
 	}
 
 	@Override
 	public boolean isUniqueEmail(String email) {
 		if(mapper.checkEmail(email) == 0) {
-			System.out.println("중복된 이메일이 없습니다. 사용가능합니다.");
 			return true;
 		}
-		System.out.println(" *Warning!!! 이메일이 중복되었습니다!!! ***********");
 		return false;
 	}
 
@@ -156,8 +149,6 @@ public class commonServiceImpl implements commonService {
 		else {
 			baseTime ="2300";
 		}
-		System.out.println(todayHour);
-		System.out.println(baseTime);
 		if(gu == null) {
 			nx = "60"; //중구
 			ny = "127";
@@ -271,7 +262,6 @@ public class commonServiceImpl implements commonService {
          * GET방식으로 전송해서 파라미터 받아오기
          */
         URL url = new URL(urlBuilder.toString());
-        System.out.println(url);
         //어떻게 넘어가는지 확인하고 싶으면 아래 출력분 주석 해제
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
         conn.setRequestMethod("GET");

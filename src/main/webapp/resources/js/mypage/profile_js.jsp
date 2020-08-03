@@ -33,7 +33,6 @@
                     $("#profileChangeImg").attr("src", e.target.result);
                     $("#fileNameContainer").empty();
                     $("#fileNameContainer").append("<input type=hidden name='member_filename' value='"+f.name+"'/>");
-                    console.log(f.name);
                 }
                 reader.readAsDataURL(f);
             });
@@ -71,10 +70,8 @@
 		    		type: "GET",
 		    		dataType: "text",
 		    		success: function(result, status, xhr){
-		    			console.log(result);
 		    			nameStatus = result;
 		    			if(nameStatus == 'duplicated'){
-		    	    		console.log("nameStatus : " + nameStatus);
 		    	    		$("#nickName-duplicated-text").show();
 		    	    		nickNameValid = false;
 		    	    	} else {
@@ -442,7 +439,6 @@
 		var locationArr = location.split("_");
  		$("#member_location").empty();
 		$("#member_location").append("<input type='hidden' name='member_location' value='"+locationArr[0]+"_"+locationArr[1]+"' />");	
-		console.log(locationArr[1])
 		changeDong(locationArr[0]);
 		changeGu(locationArr[0],locationArr[1]);
 		
@@ -457,7 +453,6 @@
 		$("#selectDong").change(function(){ // 동 바뀜
 			gu = $("#selectGu option:selected");
 			dong = $("#selectDong option:selected");
-			console.log(dong);
 			$("#member_location").empty();
 			$("#member_location").append("<input type='hidden' name='member_location' value='"+gu.val()+"_"+dong.val()+"' />");		
 		})
@@ -470,7 +465,6 @@
 	                gu = data.sigungu; // 구
 					dong = data.bname; // 동
 	                
-	                console.log(gu+dong);
 	                // 주소 정보를 해당 필드에 넣는다.
 	                changeDong(gu);
 	                $("#selectGu").val(gu).attr("seleceted","seleceted");

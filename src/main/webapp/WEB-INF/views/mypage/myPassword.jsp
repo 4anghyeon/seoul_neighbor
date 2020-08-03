@@ -34,26 +34,27 @@
 		<!-- 1.1 왼쪽 메뉴 -->
 		<!-- 1.2 비밀번호 변경 레이아웃 ---------------------------------->
 			<div id="rightDiv" class="col-lg-9 p-5">
-				<h1>비밀번호 변경</h1>
-				<div id="rightDivContent" class="container mt-5">
+				<h3>비밀번호 변경</h3>
+				<div id="rightDivContent" class="container">
 					<form id="changePasswordForm" method="post" action="changePassword">
+					<div class="content-box">
 						<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 						<input type="hidden" name="userid" value="${member.userid }">
-						<h3><span style="color:red"> * </span>현재 비밀번호</h3>
+						<span class="label" style="width:140px">현재 비밀번호<span style="color:red"> * </span></span>
 						<div class="row">
 							<div class="col-md-6">
 							<input type="password" id="nowPassword" name="userpw" class="form-control" />
 							</div>
 							<div class="col-md-6" style="line-height:38px"><span id="showChangeResult"></span></div>
 						</div>
-						<h3><span style="color:red"> * </span>변경 할 비밀번호</h3>
+						<span class="label" style="width:140px">새 비밀번호<span style="color:red"> * </span></span>
 						<div class="row">
 							<div class="col-md-6">
 							<input type="password" id="changePassword" name="changePw" class="form-control" />
 							</div>
 							<div class="col-md-6"><span id="showVerifyResult"></span></div>
 						</div>
-						<h3><span style="color:red"> * </span>변경 할 비밀번호 확인</h3>
+						<span class="label" style="width:140px">새 비밀번호 확인<span style="color:red"> * </span></span>
 						<div class="row">
 							<div class="col-md-6">
 							<input type="password" id="changePasswordCheck" class="form-control" />
@@ -65,6 +66,7 @@
 								<button id="passwordChangeBtn" class="btn">비밀번호 변경</button>
 							</div>
 						</div>
+					</div>
 					</form>
 				</div>
 			</div>

@@ -34,7 +34,6 @@ kakao.maps.event.addListener(map, 'click', function(mouseEvent) {
             
           	//서울시 제거, 구 동만 표기
             var choice = (result[0].address.region_2depth_name+"_"+result[0].address.region_3depth_name);
-            console.log(choice);
             
           	//서울이 아닌곳 검열
             if(result[0].address.region_1depth_name != "서울"){
@@ -46,8 +45,6 @@ kakao.maps.event.addListener(map, 'click', function(mouseEvent) {
 	         	//구와 동
 	         	var before_gu = result[0].address.region_2depth_name;
 	         	var before_dong = result[0].address.region_3depth_name;
-	         	console.log(before_gu);
-	         	console.log(before_dong);
 	       
 	         	//자른글자 드롭박스에 대입
 	         	$("#selectGu").text(before_gu);
@@ -55,7 +52,6 @@ kakao.maps.event.addListener(map, 'click', function(mouseEvent) {
 	         	changeDong(before_gu);
 	         	
 	        	//알림글 변경
-	        	console.log("구알림글");
 	        	$("#gu_notice").css("display","block");
 	        	$("#dong_notice").css("display","none");
             }
@@ -70,9 +66,6 @@ function searchDetailAddrFromCoords(coords, callback) {
 function centerChange(gu_lat,gu_lng) {
     // 이동할 위도 경도 위치를 생성합니다 
     var moveLatLng = new kakao.maps.LatLng(gu_lat,gu_lng);
-    console.log("위치 변경");
-    console.log(gu_lat);
-    console.log(gu_lng);
    
     // 지도 중심을 이동 시킵니다
     map.setCenter(moveLatLng);

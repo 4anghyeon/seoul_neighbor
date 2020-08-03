@@ -10,9 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.justdo.domain.MemberVO;
 import com.justdo.mapper.MemberMapper;
 
-import lombok.extern.log4j.Log4j;
 
-@Log4j
 @Service
 public class CustomUserDetailsService implements UserDetailsService{
 	
@@ -27,14 +25,11 @@ public class CustomUserDetailsService implements UserDetailsService{
 			throw new UsernameNotFoundException(username);
 		}
 	
-		log.warn("아이디로 유저 불러오기 :"+username);
 		
 		MemberVO vo = memberMapper.read_auth(username);
-		log.warn("쿼리에 의해 불러와진 유저 :"+vo);
 		
 		CustomUser user = new CustomUser(vo);
 		
-		log.warn("CustomUser에서 불러온 유저 :"+user);
 		
 		return vo == null? null : user;
 	}
@@ -79,9 +74,7 @@ public class CustomUserDetailsService implements UserDetailsService{
 		
 		MemberVO vo = memberMapper.read_auth(username);
 		String[] location = vo.getMember_location().split("_");
-		log.warn("설정 지역 : "+location);
 		String location_gu = location[0];
-		log.warn("구 : "+location_gu);
 		return location_gu;
 	}
 }
