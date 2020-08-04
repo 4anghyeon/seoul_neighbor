@@ -11,8 +11,6 @@
 
 <!-- CSS style ------------------------------>
 <link rel="stylesheet" href="/resources/css/board/read.css">
-
-
 </head>
 
 <body>
@@ -21,11 +19,11 @@
 	<!-- header include -->
 
 
-    <div class="container" style="margin-top:30px">
+    <div class="container" style="margin-top:30px;margin-bottom:60px;">
         <div class="row">
         
         	<!-- 왼쪽 사이드메뉴 ---------------------------------------->
-            <div class="col-sm-2 left-menu">
+            <div class="col-lg-3 left-menu">
                 <div id="speedMove">
                     <h5><b>빠른 게시판 이동</b></h5>
                     <div class="input-group mb-3">
@@ -73,51 +71,50 @@
             <!-- 왼쪽 사이드메뉴 -->
 
 			<!-- 상세보기 본문 ------------------------------------------------------->
-            <div class="col-sm-10">
+            <div class="col-lg-9" style="background-color:rgba(255,255,255,0.4)">
                 <div id="contentTitle">
-                    <div id="writer" class="d-flex justify-content-between">
-                        <div id="contentInfo">
-                            <div>
-                                <h2><c:out value="${board.title}"/></h2>
-                            </div>
-                            <div>
-                                <span><c:out value="${board.regdate}"/></span>
-                                <span>조회 <c:out value="${board.view_count}"/></span>
-                                <span  id="likeCount">추천 <c:out value="${board.like_count}"/></span>
-                                <span>댓글 <c:out value="${board.reply_count}"/></span>
-                                <span id="reportBoard">신고하기</span>
-                            </div>
+                    <div id="writer" class="d-flex justify-content-between row">
+                    	<div class="col-lg-8">
+	                    	<div id="contentInfo">
+	                            <div>
+	                                <h2><c:out value="${board.title}"/></h2>
+	                            </div>
+	                            <div style="font-size:0.85rem;">
+	                                <span><c:out value="${board.regdate}"/></span>
+	                                <span>조회 <c:out value="${board.view_count}"/></span>
+	                                <span  id="likeCount">추천 <c:out value="${board.like_count}"/></span>
+	                                <span>댓글 <c:out value="${board.reply_count}"/></span>
+	                                <span id="reportBoard">신고하기</span>
+	                            </div>
+	                        </div>
+                    	</div>
+                    	<div class="col-lg-4" style="line-height:70px">
 
-                        </div>
-	
-                        <div id="writerProfile">
-                            <span> 
-                            	<c:choose>
-									<c:when test="${fileName eq null }">
-										<img id="profileChangeImg"
-											class="card-img-top"
-											src="/resources/img/mypage/profile_sample.png" alt="프로필 사진">
-									</c:when>
-									<c:when test="${fileName != null }">
-										<img id="profileChangeImg" class="card-img-top"
-											src="/resources/img/mypage/<c:out value="${fileName}"/>"
-											alt="프로필 이미지">
-									</c:when>
-								</c:choose>
-							</span>
-                            <span class="userNickname" data-toggle="dropdown">${board.nickname }</span>
-                            <div class="dropdown-menu">
-							<a class="dropdown-item sendMessageToUser">쪽지 보내기</a>
-                        </div>
-                    </div>
-
+	                        <div id="writerProfile" class="name">
+	                            <span> 
+	                            	<c:choose>
+										<c:when test="${fileName eq null }">
+											<img id="profileChangeImg"
+												class="card-img-top rounded-circle"
+												src="/resources/img/mypage/profile_sample.png" alt="프로필 사진">
+										</c:when>
+										<c:when test="${fileName != null }">
+											<img id="profileChangeImg" class="card-img-top rounded-circle"
+												src="/resources/img/mypage/<c:out value="${fileName}"/>"
+												alt="프로필 이미지">
+										</c:when>
+									</c:choose>
+								</span>
+	                            <span class="userNickname" data-toggle="dropdown">${board.nickname }</span>
+	                            <div class="dropdown-menu">
+									<a class="dropdown-item sendMessageToUser">쪽지 보내기</a>
+	                        	</div>
+	                    	</div>                   	
+                    	</div>
                 </div>
-
                 <div id="contentBody">
                		${board.content}
                 </div>
-
-
                 <div class="recomend_box d-flex justify-content-between">
                     <div>
                         <span class="likeCount"><c:out value="${board.like_count}"/></span>
@@ -128,6 +125,21 @@
                         <i class="unLikeButton likeIcon far fa-thumbs-down"></i>
                     </div>
                 </div>
+                
+                <!-- 버튼 모음 -------------------------------->
+                <div class="btn-box">
+                    <button id="registerButton" class="btn">글쓰기</button>
+                    <sec:authorize access="isAuthenticated()">
+                    	<sec:authentication property="principal.username" var="loginid"/> 
+                    </sec:authorize>
+                    <c:set var = "userid" value ="${board.userid}" />
+                    <c:if test ="${userid eq loginid}" >
+                    <button id="modfiyButton" class="btn">삭제</button>
+                    <button id="deleteButton" class="btn">수정</button>
+                    </c:if>
+                    <button class="btn">목록</button>
+                </div>
+                <!-- 버튼모음 -->
                 
 				<!-- 댓글창 ----------------------------------------------------->
                 <div id="commentDiv">
@@ -149,7 +161,7 @@
                         <div class="input-group mb-3">
                             <textarea id="replyInput" class="form-control" placeholder="남에게 상처주는 말을 하지 맙시다."></textarea>
                             <div class="input-group-append">
-                              <button id="replyBtn" class="btn btn-outline-secondary">댓글등록하기</button>
+                              <button id="replyBtn" class="btn">댓글등록하기</button>
                             </div>
                         </div>
                     </div>
@@ -157,16 +169,6 @@
 
                 </div>
                 <!-- 댓글창 -->
-
-                <!-- 버튼 모음 -------------------------------->
-                <div class="btn-box d-flex">
-                    <button class="btn btn-primary mr-auto m-1">목록으로</button>
-                    <button class="btn btn-warning m-1">수정하기</button>
-                    <button class="btn btn-warning m-1">삭제하기</button>
-                    <button class="btn btn-primary m-1">글쓰기</button>
-                </div>
-                <!-- 버튼모음 -->
-
             </div>
             <!-- 상세보기 본문 -->
         </div>
@@ -190,14 +192,28 @@ $(document).ajaxSend(function(e, xhr, options){
 	xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
 });
 
+// 수정,삭제,등록 버튼
+$("#modfiyButton").click(function(){
+	location.href = "/board/modify?bno="+'${board.bno}';
+})
+$("#deleteButton").click(function(){
+	location.href = "/board/modify?bno="+'${board.bno}';
+})
+$("#registerButton").click(function(){
+	if('${member.userid}' == ""){
+		alert("신고하려면 로그인 해주세요");
+	}else{
+		location.href = "/board/register";
+	}
+})
+
 var replyService = (function(){
 
-	
-	// 빠른 게시판 이동 ////////////////////////////////
-	$("#selectGu").change(function(){
-		location.href = "/board/list?gu="+$(this).val();
-	})
-	// 빠른 게시판 이동 //
+// 빠른 게시판 이동
+$("#selectGu").change(function(){
+	location.href = "/board/list?gu="+$(this).val();
+})
+
 	
 //댓글 등록
 	function add(reply, callback, error) {
@@ -313,7 +329,7 @@ var replyService = (function(){
 
 
 	$(document).ready(function(){
-		//좋아요 눌렀는지 확인 ////////////////////////////
+		//좋아요 눌렀는지 확인
 		function likeCheck(){
 	            var form = {
  	            		bno: '${board.bno}',
@@ -342,11 +358,9 @@ var replyService = (function(){
  		 	         }
  		 	      });
 		}
-		
 		likeCheck();
-		//좋아요 눌렀는지 확인 //
 		
-		// 좋아요 싫어요 ////////////////////////////////////
+		// 좋아요 싫어요
 	    $(document).on("click",".likeButton",function(){
 	    	if('${member.userid}' == ""){
 	    		alert("로그인 해주세요");
@@ -412,9 +426,8 @@ var replyService = (function(){
 	    	}
 
 	   });
-		// 좋아요 싫어요 //
 		
-		// 좋아요 싫어요 취소 ///////////////////////////
+		// 좋아요 싫어요 취소
 		$(document).on("click",".likeClicked",function(){
 			if($(this)[0].dataset.icon == "thumbs-up"){
  	            var form = {
@@ -452,13 +465,12 @@ var replyService = (function(){
  						xhr.setRequestHeader('${_csrf.headerName}', '${_csrf.token}')
  					 },
  		 	         success: function(result, status, xhr){
- 		 	        	likeCheck()
- 		 	        	$(".unlikeCount").html(parseInt($(".unlikeCount").text()) -1)
+ 		 	        	likeCheck();
+ 		 	        	$(".unlikeCount").html(parseInt($(".unlikeCount").text()) -1);
  		 	         }
  		 	      });
 			}
 		})
-		// 좋아요 싫어요 취소 //
 	
 		var bnoValue = <c:out value="${board.bno}"/>;
 		var replyList = $("#commentList");
@@ -512,7 +524,9 @@ var replyService = (function(){
 						str += '					<div class="d-flex flex-row user-info">';
 						str += '						<img class="rounded-circle" src="/resources/img/mypage/'+result.replyList[i].member_filename+'" width="40" height="40">';
 						str += '						<div class="d-flex flex-column justify-content-start ml-2">';
-						str += '							<span class="d-block font-weight-bold name">'+result.replyList[i].replyer+'</span>';
+						str += '							<span class="d-block font-weight-bold name" data-toggle="dropdown">'+result.replyList[i].replyer+'</span>';
+						str += '							<div class="dropdown-menu">'
+	                    str += '							<a class="dropdown-itme sendMessageToUser">쪽지 보내기</a></div>'
 						str += '							<span class="date text-black-50">'+result.replyList[i].replyDate+'</span>';
 						str += '						</div>';
 						str += '						<div class="reply-content mt-2">';

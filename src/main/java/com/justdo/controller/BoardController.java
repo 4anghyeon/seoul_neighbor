@@ -8,6 +8,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.apache.commons.io.FileUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -35,10 +38,8 @@ import com.justdo.service.commonService;
 import com.justdo.service.myPageService;
 
 import lombok.AllArgsConstructor;
-import lombok.extern.log4j.Log4j;
 
 @Controller
-@Log4j
 @RequestMapping("/board/*")
 @AllArgsConstructor
 public class BoardController {
@@ -91,8 +92,6 @@ public class BoardController {
 			model.addAttribute("temperature",weatherData[1]);
 			model.addAttribute("weatherGu",weatherData[2]);
 			
-		} else {
-			log.warn("로그인 하지 않았음!");
 		}
 	}
 	
@@ -141,7 +140,7 @@ public class BoardController {
 	
 	// 수정화면불러오기
 	@GetMapping("/modify")
-	public String modify(@RequestParam("bno") Long bno, Model model, Principal principal) {
+	public String modify(@RequestParam("bno") Long bno, Model model, Principal principal, HttpServletRequest request) {
 		if (principal != null) {
 			String username = principal.getName();
 			MemberVO mvo =  myPageService.selectUser(username);
@@ -149,6 +148,9 @@ public class BoardController {
 			if(mvo.getUserid().equals(bvo.getUserid())) {
 				model.addAttribute("member", mvo);
 				model.addAttribute("board", bvo);
+				String prevPage = request.getHeader("REFERER");
+				model.addAttribute("prevPage",prevPage);
+				System.out.println(prevPage);
 				return "/board/modify";
 			}else {
 				return "redirect:/";
@@ -161,11 +163,16 @@ public class BoardController {
 		
 	// 수정처리
 	@PostMapping("/modify")
-	public String modify(BoardVO board, RedirectAttributes rttr) {
+	public void modify(BoardVO board,String prevPage, RedirectAttributes rttr,HttpServletResponse response) {
 		if(service.modify(board)) {
 			rttr.addFlashAttribute("result", "success");
 		}
-		return "redirect:/board/list";
+		System.out.println(prevPage);
+		try {
+			response.sendRedirect(prevPage);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	//삭제

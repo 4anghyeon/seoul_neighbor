@@ -399,7 +399,11 @@ public class commonServiceImpl implements commonService {
         int randInt = (int)((Math.random())*9);
 
         JsonObject tempCultureInfo = (JsonObject)parseItems.get(randInt);
-        String[] culutreInfo = {tempCultureInfo.get("TITLE").getAsString(),tempCultureInfo.get("DATE").getAsString(),tempCultureInfo.get("PLACE").getAsString(),tempCultureInfo.get("ORG_LINK").getAsString(),tempCultureInfo.get("MAIN_IMG").getAsString()};
+        String temp = tempCultureInfo.get("MAIN_IMG").getAsString();
+        if(temp.lastIndexOf("http")>0) {
+        	temp = temp.substring(temp.lastIndexOf("http"));
+        }
+        String[] culutreInfo = {tempCultureInfo.get("TITLE").getAsString(),tempCultureInfo.get("DATE").getAsString(),tempCultureInfo.get("PLACE").getAsString(),tempCultureInfo.get("ORG_LINK").getAsString(),temp};
 		return culutreInfo;
         
 	}

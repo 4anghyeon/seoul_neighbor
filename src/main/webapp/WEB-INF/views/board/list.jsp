@@ -1,7 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
 <!DOCTYPE html>
 <html>
@@ -9,51 +7,157 @@
 <meta charset="UTF-8">
 <link rel="stylesheet" href="/resources/css/board/list.css">
 <link rel="stylesheet" href="/resources/css/common/basic.css">
-<title>Insert title here</title>
+<title>서울이웃 :: I SEOUL U</title>
+<style>
+.form-row{
+  padding: 10px;
+  margin: 10px;
+	color: #fff;
+	border-radius: 4px;
+	background-color: #827ffe;
+}
+.allcontent {
+  padding: 10px;
+  margin: 10px;
+	color: #fff;
+	border-radius: 4px;
+	background-color: #827ffe;
+}
+.best-table{
+table-layout:fixed;
+}
+a {
+	color: #000000 !important;
+}
+
+.best-table td {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis; 
+}
+
+.best-table td:nth-of-type(1){
+	width: 90px;
+}
+
+.best-table td:nth-of-type(2){
+	width: 170px;
+}
+
+.best-table td:nth-of-type(3){
+	width: 90px;
+}
+
+.table {
+	font-size: 15px !important;
+	border-radius:10px !important;
+	text-overflow: ellipsis !important;
+	
+	
+}
+
+.tabtable {
+	border: 1px solid #e2e2e2 !important;
+}
+
+#tbodyName td:nth-of-type(1){
+	width: 80px;
+}
+
+#tbodyName td:nth-of-type(2){
+	width: 100px;
+}
+
+#tbodyName td:nth-of-type(3){
+	width: 120px;
+}
+
+#tbodyName td:nth-of-type(4){
+	width: 400px;
+	white-space: normal;
+}
+#tbodyName td:nth-of-type(5){
+	width: 130px;
+}
+#tbodyName td:nth-of-type(6){
+	width: 60px;
+}
+#tbodyName td:nth-of-type(7){
+	width: 60px;
+}
+
+.tab-content tr{
+	text-align:center;
+}
+
+th {
+  font-size: 16px;
+  line-height: 1.4;
+  background-color: transparent;
+  border-bottom: 2px solid #e2e2e2;
+}
+
+tbody > tr:hover {
+  background-color: #ececff;
+  cursor: pointer;
+}
+
+tbody > tr:active {
+  color: #827FFE;
+  cursor: pointer;
+}
+
+</style>
 </head>
 <body>
 
 <!-- header include ------------>
 <%@include file="../common/header.jsp"%>
 <!-- header include -->
+ <header id="parallax_main" class="collapsing-parallax">
+ </header>
 
-   <main class="container">
+<main id="#content" class="site-main" role="main">
+	<div id="page-wrapper" class="container">
       <!-- 상단 영역(지역선택 + 서울시 새소식 + 서울의 문화공연 소식) --------------------------------------------------------->
-      <div class="row">
+      <div class="row pb-3 pt-5">
          <!-- 지역선택 --------------------------------------------------------------------->
-         <div class="col-xl-12 pt-3 pb-3">
-            <div class="form-row">
-               <h4 class="select-span pr-2 mb-0">지역선택 : </h4> 
-               <select id="selectGu" style="Width: 150px" name="gu" class="form-control selectBox"
-                     onchange="document.location='list?amount=<c:out value="${pageMaker.cri.amount}"/>&gu='+this.value;">
-                  <option selected><c:out value="${criteria.gu}"/></option>
-                  <option value="강남구">강남구</option>
-                  <option value="강동구">강동구</option>
-                  <option value="강북구">강북구</option>
-                  <option value="강서구">강서구</option>
-                  <option value="관악구">관악구</option>
-                  <option value="광진구">광진구</option>
-                  <option value="구로구">구로구</option>
-                  <option value="금천구">금천구</option>
-                  <option value="노원구">노원구</option>
-                  <option value="도봉구">도봉구</option>
-                  <option value="동대문구">동대문구</option>
-                  <option value="동작구">동작구</option>
-                  <option value="마포구">마포구</option>
-                  <option value="서대문구">서대문구</option>
-                  <option value="서초구">서초구</option>
-                  <option value="성동구">성동구</option>
-                  <option value="성북구">성북구</option>
-                  <option value="송파구">송파구</option>
-                  <option value="양천구">양천구</option>
-                  <option value="영등포구">영등포구</option>
-                  <option value="용산구">용산구</option>
-                  <option value="은평구">은평구</option>
-                  <option value="종로구">종로구</option>
-                  <option value="중구">중구</option>
-                  <option value="중랑구">중랑구</option>
-               </select>
-            </div>
+         <div id="locationSelect" class="col-xl-12 pb-3">
+         	<div class="page-header">
+	         	<!-- 상단 영역(추천 및 인기글 목록 테이블) ---------------------------------------------------------------------------------------------->
+	            <div class="form-row">
+					<span class="mr-4" style="text-align: center; line-height:38px"><b>지역선택 : </b></span>
+						<select id="selectGu" style="Width:150px" name="gu" class="form-control selectBox" 
+						onchange="document.location='list?amount=<c:out value="${pageMaker.cri.amount}"/>&gu='+this.value;">
+							<option selected><c:out value="${criteria.gu}"/></option>
+							<option value="강남구">강남구</option>
+							<option value="강동구">강동구</option>
+							<option value="강북구">강북구</option>
+							<option value="강서구">강서구</option>
+							<option value="관악구">관악구</option>
+							<option value="광진구">광진구</option>
+							<option value="구로구">구로구</option>
+							<option value="금천구">금천구</option>
+							<option value="노원구">노원구</option>
+							<option value="도봉구">도봉구</option>
+							<option value="동대문구">동대문구</option>
+							<option value="동작구">동작구</option>
+							<option value="마포구">마포구</option>
+							<option value="서대문구">서대문구</option>
+							<option value="서초구">서초구</option>
+							<option value="성동구">성동구</option>
+							<option value="성북구">성북구</option>
+							<option value="송파구">송파구</option>
+							<option value="양천구">양천구</option>
+							<option value="영등포구">영등포구</option>
+							<option value="용산구">용산구</option>
+							<option value="은평구">은평구</option>
+							<option value="종로구">종로구</option>
+							<option value="중구">중구</option>
+							<option value="중랑구">중랑구</option>
+						</select>
+	            </div>
+         	</div>
          </div>
          <!-- 지역선택 -->
          <div class="col-xl-12 card-deck">
@@ -92,7 +196,7 @@
                      </div>
                   </div>
                   <div class="image-container">
-                     <img class="pic pl-3" src=${cultureImg }
+                     <img class="pic" src=${cultureImg }
                         onerror="this.src='/resources/img/common/noimage.gif'">
                   </div>
                </div>
@@ -127,14 +231,14 @@
 					<div class="row">
 						<div class="col-xl-6">
 							<!-- 선택된 지역의 추천수가 많은 테이블 ---------------------------------------------------------------------------------------------->
-							<table class="table table-striped table-bordered table-hover cardview" id="dataTables-example">
+							<table class="table table-hover cardview best-table" id="dataTables-example">
 								<thead>
 									<tr>
-										<th colspan="3">추천 수가 많은 소식</th>
+										<th colspan="3" style="text-align: center;">추천 수가 많은 소식</th>
 									</tr>
 								</thead>
 								<tbody>
-									<c:forEach items="${locationlist}" var="board" begin="0" end="5" step="1" varStatus="i">
+									<c:forEach items="${locationlist}" var="board" begin="0" end="2" step="1" varStatus="i">
 										<tr>
 											<td>[<c:out value="${board.location}"/>]</td>
 											<td><a class='move smallList' href='<c:out value="${board.bno}"/>'><c:out value="${board.title}"/></a>
@@ -149,17 +253,17 @@
 						</div>
 						<div class="col-xl-6">
 							<!-- 선택된 지역의 댓글수가 많은 테이블 ---------------------------------------------------------------------------------------------->
-							<table class="table table-striped table-bordered table-hover cardview" id="dataTables-example">
+							<table class="table table-hover cardview best-table" id="dataTables-example">
 								<thead>
 									<tr>
-										<th colspan="3">댓글 수가 많은 소식</th>
+										<th colspan="3" style="text-align: center;">댓글 수가 많은 소식</th>
 									</tr>
 								</thead>
 								<tbody>
-									<c:forEach items="${locationlist}" var="board" begin="6" end="11" step="1" varStatus="i">
+									<c:forEach items="${locationlist}" var="board" begin="3" end="5" step="1" varStatus="i">
 										<tr>
 											<td>[<c:out value="${board.location}"/>]</td>
-											<td><a class='move smallList' href='<c:out value="${board.bno}" />'><c:out value="${board.title}"/></a>
+											<td style="width:20%;"><a class='move smallList' href='<c:out value="${board.bno}" />'><c:out value="${board.title}"/></a>
 												<b>[<c:out value="${board.reply_count}"/>]</b>
 											</td>
 											<td><i class="far fa-thumbs-up"></i> <c:out value="${board.like_count}"/></td>
@@ -180,9 +284,9 @@
 					<div class="row">
 						<div class="col-xl-12">
 							<!-- 서울 전지역의 인기글 테이블 ---------------------------------------------------------------------------------------------->
-							<table class="table table-hover cardview" id="dataTables-example">
+							<table class="table table-hover cardview best-table" id="dataTables-example">
 								<tbody>
-									<c:forEach items="${locationlist}" var="board" begin="12" end="18" step="1" varStatus="i">
+									<c:forEach items="${locationlist}" var="board" begin="6" end="9" step="1" varStatus="i">
 										<tr>
 											<td>[<c:out value="${board.location}"/>]</td>
 											<td><a class='move smallList' href='<c:out value="${board.bno}" />'><c:out value="${board.title}"/></a>
@@ -204,9 +308,7 @@
 		<!-- 하단 영역(선택지역 카테고리별 목록 테이블) ---------------------------------------------------------------------------------------------->
 		<div class="row">
 			<div class="col-lg-12">
-				<div class="panel panel-default ">
-					<div class="panel-heading pt-5 pb-3"><c:out value="${criteria.gu}"/>의 전체이야기</div>
-				</div>
+					<div class="panel-heading allcontent"><c:out value="${criteria.gu}"/>의 전체이야기</div>
 				<div class="panel panel-body">
 					<!-- 카테고리별 네비게이션  목록---------------------------------------------------------------------------------------------->
 					<ul class="nav nav-tabs" role="tablist" id="mytab">
@@ -235,10 +337,9 @@
 					<div class="tab-content pt-4">
 						<div id="all" class="navlinktab tab-pane active">
 							<!-- 선택지역의 카테고리(전체) 글목록---------------------------------------------------------------------------------------------->
-							<table style="Width:100%"
-								class="table table-striped table-bordered table-hover" id="dataTables-example">
+							<table class="table table-hover tabtable" id="dataTables-example">
 								<thead>
-									<tr>
+									<tr style="text-align: center;">
 										<th>글번호</th>
 										<th>지역</th>
 										<th>카테고리</th>
@@ -273,12 +374,12 @@
 									</c:forEach>
 								</tbody>
 							</table>
+							
 							<!-- 선택지역의 카테고리(전체) 글목록-->
 						</div>
-						
 						<div id="menu1" class="navlinktab tab-pane fade">
 							<table style="Width:100%"
-								class="table table-striped table-bordered table-hover" id="dataTables-example">
+								class="table table-hover tabtable" id="dataTables-example">
 								<thead>
 									<tr>
 										<th>글번호</th>
@@ -298,7 +399,7 @@
 						</div>
 						<div id="menu2" class="navlinktab tab-pane fade">
 							<table style="Width:100%"
-								class="table table-striped table-bordered table-hover" id="dataTables-example">
+								class="table table-hover tabtable" id="dataTables-example">
 								<thead>
 									<tr>
 										<th>글번호</th>
@@ -318,7 +419,7 @@
 						</div>
 						<div id="menu3" class="navlinktab tab-pane fade">
 							<table style="Width:100%"
-								class="table table-striped table-bordered table-hover" id="dataTables-example">
+								class="table table-hover tabtable" id="dataTables-example">
 								<thead>
 									<tr>
 										<th>글번호</th>
@@ -372,6 +473,7 @@
 				<!-- 검색---------------------------------------------------------------------------------------------->
 				<form id='searchForm' action="/board/list" method='get'>
 					<select name='type'>
+						<option value="" <c:out value="${pageMaker.cri.type == null?'selected':''}"/>>---</option>
 						<option value="A" <c:out value="${pageMaker.cri.type eq 'A'?'selected':''}"/>>전체</option>
 						<option value="T" <c:out value="${pageMaker.cri.type eq 'T'?'selected':''}"/>>제목</option>
 						<option value="C" <c:out value="${pageMaker.cri.type eq 'C'?'selected':''}"/>>내용</option>
@@ -392,8 +494,9 @@
 			<!-- col end -->
 		</div>
 		<!-- row end -->
+	</div>
 	<!--page-wrapper end  -->
-	</main>
+</main>
 	<!-- 뉴스 상세보기 모달 -->
 	<div class="modal" id="newsModal">
 	  <div class="modal-dialog modal-dialog-centered modal-xl">

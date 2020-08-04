@@ -1,3 +1,22 @@
+.container::before {
+  background-image: url("../../img/mypage/profile_background.png");
+  background-repeat: no-repeat;
+  background-size:contain;
+  opacity: 0.6;
+  
+  position: fixed;
+  top: 60%;
+  left: 0;
+  
+  width: 100%;
+  height: 120%;
+  
+  content: "";
+  display: block;
+  z-index: -1;
+  /* pointer-events: none; */
+}
+
 ul{
 	list-style:none;	
 }
@@ -11,11 +30,6 @@ ul{
 
 .nav-item {
 	font-size: 12px;
-}
-
-#contentTitle {
-	border-top: solid 1px black;
-	border-bottom: solid 1px black;
 }
 
 #contentInfo>span {
@@ -39,6 +53,17 @@ ul{
 #writerProfile>span>img {
 	width: 40px;
 	height: 40px;
+}
+
+#writerProfile{
+	float:right;
+	font-weight:bold;
+}
+
+#writer{
+	border-top: 3px solid #f1f3f5;
+	border-bottom: 3px solid #f1f3f5;
+	padding:15px;
 }
 
 #contentBody {
@@ -69,10 +94,6 @@ ul{
 
 
 /* 댓글창 css */
-#commentDiv {
-	border-top: 1px solid black;
-	border-bottom: 1px solid black;
-}
 
 .date {
 	font-size: 11px
@@ -91,7 +112,13 @@ ul{
 }
 
 .name {
-	color: #007bff
+	color: #74c0fc;
+	cursor:pointer;
+	font-size:0.85rem;
+}
+
+.name:hover{
+	color:#4263eb;
 }
 
 .cursor:hover {
@@ -118,7 +145,7 @@ ul{
 }
 
 .re-reply {
-	font-size: 13px;
+	font-size: 0.8rem;
 }
 
 .re-reply-create{
@@ -143,18 +170,51 @@ ul{
 	display: none;
 }
 
-.reply-container {
-	border-bottom: 1px solid #b6b3b3 !important;
-}
 
 #replyPaging {
 	margin-top : 20px;
+}
+
+#replyBtn{
+	background-color:#9775fa;
+	color:white;
+	transition:0.5s;
+}
+
+#replyBtn:hover{
+	background-color:#6741d9;
+}
+
+.user-info{
+	padding:5px;
+	border-bottom:1px solid #e9ecef;
+}
+
+/* 드롭다운 */
+.dropdown-menu{
+	text-align:center !important;
+}
+
+.sendMessageToUser{
+	line-height:15px;
 }
 
 /* 버튼 뭉치들 */
 .btn-box {
 	margin-top: 15px;
 	margin-bottom: 15px;
+	height: 38px;
+	border-bottom: 3px solid #e9ecef;
+}
+
+.btn-box button{
+	margin:0;
+	float:right;
+	transition:0.3s;
+}
+
+.btn-box button:hover{
+	color:#9775fa;
 }
 
 #commentWrite {

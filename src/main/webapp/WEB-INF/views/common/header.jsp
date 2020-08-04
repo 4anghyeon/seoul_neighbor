@@ -25,7 +25,7 @@
 </head>
 <body>
 	<!-- nav -------------------------------------------------------------------------------->
-	<nav class="navbar navbar-expand-lg navbar-light bg-light">
+	<nav class="navbar navbar-expand-lg navbar-light sticky-top" style="background-color:rgba(255,255,255,0.9)">
 		<a class="navbar-brand" href="/">
 			<img src="/resources/img/common/logoblack-borderw.png" width="140px" alt="logo">
 		</a>

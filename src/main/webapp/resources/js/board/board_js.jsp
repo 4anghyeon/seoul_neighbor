@@ -485,5 +485,22 @@ $(function() {
 			}
 		});
 	}
+	
+	//제목 길면 자르기 ////////////////////////////////////
+	function cutTitleLength(){
+		var forCutTitleLength = $("#title")
+		
+		if($(forCutTitleLength).val().length >20){
+			var tempMessageContent = $(forCutTitleLength).val();
+			$(forCutTitleLength).val(forCutTitleLength.val().substring(0,20));
+		}
+	}
+	
+	$("#title").on("propertychange change keyup paste",function(){
+		cutTitleLength();
+	})
+	// 제목 길면 자르기 //
+	
+	// 1:1문의 작성 문자 길이 제한 ////////////////////////////////////
 });
 </script>
