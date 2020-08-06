@@ -17,17 +17,43 @@
   /* pointer-events: none; */
 }
 
-ul{
-	list-style:none;	
-}
-#speedMove {
-	margin-bottom: 30px;
+ul, li {
+	margin: 0px;
+	padding: 4px;
+	list-style: none;
+	overflow: hidden; 
+	white-space: nowrap;
+	text-overflow: ellipsis;
 }
 
 .left-menu {
-	padding-top: 20px;
+	padding: 60px 20px;
+}
+h5 {
+	text-align: center;
 }
 
+#popularity {
+	margin : 20px 0px;
+	padding-top: 10px;
+	background-color: RGB(130,127,254,0.1);
+	border-radius: 2px;
+}
+#popularity p {
+	margin: 0px;
+	text-align: center;
+}
+
+#select-wrap {
+	margin: 20px 0px;
+	padding: 20px 35px;
+	background-color: RGB(130,127,254,0.1);
+	border-radius: 2px;
+}
+#selectGu {
+	border: 5px solid #E6E6E6 !important;
+	height: auto;
+}
 .nav-item {
 	font-size: 12px;
 }
@@ -92,7 +118,6 @@ ul{
 	cursor: pointer;
 }
 
-
 /* 댓글창 css */
 
 .date {
@@ -112,7 +137,7 @@ ul{
 }
 
 .name {
-	color: #74c0fc;
+	color: #007bff;
 	cursor:pointer;
 	font-size:0.85rem;
 }
@@ -129,7 +154,7 @@ ul{
 	cursor: pointer
 }
 
-#commentWrite textarea, .re-replyInput {
+#commentWrite textarea .re-replyInput {
 	resize: none
 }
 
@@ -216,6 +241,7 @@ ul{
 .btn-box button:hover{
 	color:#9775fa;
 }
+
 
 #commentWrite {
 	margin-top: 50px;

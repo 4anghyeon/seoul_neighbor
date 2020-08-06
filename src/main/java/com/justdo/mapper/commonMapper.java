@@ -2,7 +2,6 @@ package com.justdo.mapper;
 
 import org.apache.ibatis.annotations.Param;
 
-import com.justdo.domain.BoardVO;
 import com.justdo.domain.MemberVO;
 
 public interface commonMapper {
@@ -10,8 +9,6 @@ public interface commonMapper {
 	//로그인
 	public MemberVO login(MemberVO vo);
 	
-	//상세페이지 bno로 데이터 불러오
-	public BoardVO selectBoard(int bno);
 	
 	// tbl_member에 insert
 	public void insertUser(MemberVO vo);

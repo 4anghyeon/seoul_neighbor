@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <script>
 $(document).ready(function(){
-	/* 게시글 페이지 번호 개수 지정 */
+	// 게시글 페이지 번호 개수 지정 //////////////////////////
 	var pageTotalNum = '${pageTotalNum}'
 	var nowPageNum = '${nowPageNum}'
 	
@@ -32,20 +32,23 @@ $(document).ready(function(){
 	}
 	changePageList();
 	$("#pageNumBtnList :first-child").addClass("active");
+	// 게시글 페이지 번호 개수 지정 //	
 	
-	/* 게시글 리스트 다음 버튼 */
+	// 게시글 리스트 다음 버튼 ////////////////////////////////
 	$(document).on("click","#messageNextBtn",function(){
 		nowPageNum = parseInt(nowPageNum) +5;
 		changePageList();
 	})
+	// 게시글 리스트 다음 버튼 //
 		
-	/* 게시글 리스트 이전 버튼 */
+	// 게시글 리스트 이전 버튼 ////////////////////////////////
 	$(document).on("click","#messagePrevBtn",function(){
 		nowPageNum = parseInt(nowPageNum) -5;
 		changePageList();
 	})
+	// 게시글 리스트 이전 버튼 //
 			
-	/* AJAX 게시글 페이지 이동 */
+	// Ajax 게시글 페이지 이동 //////////////////////////////
 	$(document).on("click",".pageBtn",function(){
 		$(this).nextAll().removeClass("active");
 		$(this).prevAll().removeClass("active");
@@ -79,8 +82,9 @@ $(document).ready(function(){
             }
         });
 	})
+	// Ajax 게시글 페이지 이동 //
 	
-	/* 게시글 제목 길면 ...로 자르기 */
+	// 게시글 제목 길면 ...로 자르기 ////////////////////////////////////
 	function cutContent(){
 		var forCutMessageContent = $(".boardTitle")
 		for(var i=0; i<8; i++){
@@ -92,14 +96,16 @@ $(document).ready(function(){
 		}
 	}
 	cutContent();
+	// 게시글 제목 길면 ...로 자르기 //
 	
-	/* 게시글 클릭하면 상세페이지 이동 */
+	// 게시글 클릭 하면 상세페이지 이동 //////////////////////////////////
 	$(document).on("click",".boardTitle",function(){
 		var bno = $($(this).parents().siblings("td")[0]).text();
 		var gu = $($(this).parents().siblings("td")[1]).text();
 		location.href = "/board/read/"+bno+"?gu="+gu;
 		
 	})
+	// 게시글 클릭 하면 상세페이지 이동 //
 })
 
 </script>

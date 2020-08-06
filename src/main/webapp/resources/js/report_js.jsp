@@ -2,10 +2,10 @@
     pageEncoding="UTF-8"%>
 <script>
 $(document).ready(function(){
-	/* 신고하기 */
+	// 신고하기 ////////////////////////////
 	$("#reportBoard").on("click",function(){
 		if('${member.userid}' == ""){
-			alert("신고하려면 로그인 해주세요");
+			alert("로그인한 회원만 이용할 수 있습니다");
 		}
 		else{
 			$('#reportUserModal').modal("show");
@@ -34,6 +34,8 @@ $(document).ready(function(){
 			);
 		}
 	})
+	// 신고하기 //
+	
 	
 	$("#reportUserBtn").on("click",function(e){
 		if($("#reportType option:selected").val()=="none"){

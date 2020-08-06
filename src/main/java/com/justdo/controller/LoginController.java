@@ -1,11 +1,8 @@
 package com.justdo.controller;
 
-import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -28,7 +25,6 @@ public class LoginController {
 	
 	private CustomUserDetailsService loginService;
 	private commonServiceImpl service;
-	private JavaMailSender mailSender;
 	private BCryptPasswordEncoder pwEncoder;
 	
 	// 메인 로그인 페이지로 이동 //////////////////////////////////
@@ -46,18 +42,21 @@ public class LoginController {
 	}
 	// 서브 로그인 페이지로 이동 //
 	
-	// 로그인 성공 - 목록 이동 //////////////////////////////////
+	// 로그인 성공 - 목록 이동
 	@RequestMapping(value = "list", method = RequestMethod.POST)
 	public String loginSuccess(HttpSession session, HttpServletRequest request) {
 		return "board/list";
 	}
 	// 로그인 성공 - 목록 이동 //
 	
-	// 권한 없음 페이지로 이동  ///////////////////////////////////
+	// 권한 없음 페이지로 이동 
     @RequestMapping(value = "access_denied", method = RequestMethod.GET)
     public String accessDeniedPage() throws Exception {
         return "/login/access_denied";
     }
+    
+    
+    
     // 아이디/비밀번호 찾기 페이지로 이동 //////////////////////////////
     @RequestMapping(value = "find_id_pw", method = RequestMethod.GET)
     public String find_id_pw() throws Exception {
@@ -133,17 +132,10 @@ public class LoginController {
 						log.warn("비밀번호 변경 완료");
 						
 						try {
-							MimeMessage message = mailSender.createMimeMessage();
-							MimeMessageHelper messageHelper = new MimeMessageHelper(message, true, "UTF-8");
-							
-							messageHelper.setFrom(setfrom);
-							messageHelper.setTo(tomail);
-							messageHelper.setSubject(title);
-							messageHelper.setText(content);
-							
-							mailSender.send(message);
+							service.commonMailSender(setfrom, tomail, title, content);
 						} catch(Exception e) {
 							e.printStackTrace();
+							return "fail_send";
 						}
 						return "success_send";
 					} else {

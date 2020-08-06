@@ -3,7 +3,7 @@
 <script>
 $(document).ready(function(){
 	
-	/* 초기값 설정 */
+	//초기값 설정 ///////////////////////////////////	
 	if($(window).width() < 988) { 
 		$("#leftNav").css("left",-$("#leftNav").width()-100);
 		$("#leftNav").css("position","fixed");
@@ -18,8 +18,9 @@ $(document).ready(function(){
 		$("#dontEditEmail").css("margin-left","90px");
 		$("#dropDownBtn").css("left","0px");
 	}
+	//초기값 설정
 	
-	/* 반응형 */
+	// 반응형 //////////////////////////////////////////
 	$(window).resize(function() {
 		if($(window).width() < 988) { 
 			$("#leftNav").css("left",-$("#leftNav").width()-100);
@@ -41,8 +42,9 @@ $(document).ready(function(){
 			$("#dropDownBtn").hide();
 		}
 	});
+	// 반응형 //
 	
-	/* 드롭다운 버튼 클릭 */
+	// 드롭다운 버튼 클릭 //////////////////////////////////
 	var isDropDownClicked = false;
 	$("#dropDownBtn").on("click",function(){
 		if(isDropDownClicked == false){
@@ -74,8 +76,9 @@ $(document).ready(function(){
 		}
 
 	});
+	// 드롭다운 버튼 클릭 //
 	
-	/* 무슨 페이지인지 읽어오기 */
+	// 무슨 페이지인지 읽어오기 ///////////////////////
 	var url = window.window.location.pathname;
 	if(url == "/profile"){
 		$(".flex-column").children().eq(0).css("border-left","solid 5px #827FFE").css("font-weight","bold");
@@ -92,10 +95,12 @@ $(document).ready(function(){
 	else if(url == "/myPassword"){
 		$(".flex-column").children().eq(4).css("border-left","solid 5px #827FFE").css("font-weight","bold");
 	}
+	// 무슨 페이지인지 읽어오기 //
 	
-	/* 프로필 사진 모달창 z-index */
+	// 프로필 사진 모닫창 z-index ///////////////////////////
 	$("#changePicture").on("click",function(){
 		$("#changePicture").css("z-index","1500");
 	})
+	// 프로필 사진 모달창 z-index //
 })
 </script>

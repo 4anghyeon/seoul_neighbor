@@ -45,7 +45,7 @@
 				<div id="gudongchoice_wrap">
 					<!-- 1.1.1.1 구선택 ------------->
 					<div class="dropdown">
-						<input type="hidden" id="criteria_gu" name="criteria_gu" value="<%= request.getParameter("criteria_gu") %>">
+						<input type="hidden" id="criteria_gu" name="criteria_gu" value="<c:out value='${criteria.gu}'/>">
 					    <button class="btn dropdown-toggle" type="button" id="selectGu" data-toggle="dropdown">구
 					    <span class="caret"></span></button>
 				    	<div id="gu" class="dropdown-menu" aria-labelledby="dropdownMenuButton">
@@ -121,21 +121,33 @@
 							</div>
 						</div>
 						<!-- 1.2.1.1 카테고리 선택 -->
-						<input type="text" id="title" name="title" placeholder="제목"><br><!-- 글제목 -->
+						<input type="text" id="title" name="title" placeholder="제목" maxlength="60"><br><!-- 글제목 -->
        				</div>
        				<!-- 1.2.1 타이틀 -->
 		            <input type="hidden" name="userid" value="<c:out value='${member.userid}'/>"><!-- 유저아이디 -->
 		            <input type="hidden" name="nickname" value="<c:out value='${member.nickname}'/>"><!-- 유저아이디 -->
 					<textarea name="content" id="content" class="summernote" cols="80" rows="15"></textarea><br><!-- 글내용 -->
-					<input type="hidden" id="location" name="location" value="<c:out value='${member.member_location}'/>"><!-- 지역 -->
+					<input type="hidden" id="location" name="location" value="<c:out value="${criteria.gu}"/>"><!-- 지역 -->
+					<input type='hidden' name='pageNum' value='${pageMaker.cri.pageNum}'> 
+					<input type='hidden' name='amount' value='${pageMaker.cri.amount}'>
+					<input type='hidden' name='type' value='<c:out value="${pageMaker.cri.type}"/>'>
+					<input type='hidden' name='keyword' value='<c:out value="${pageMaker.cri.keyword}"/>'>
+					<input type='hidden' name='gu' value='<c:out value="${criteria.gu}"/>'>
 					<button type="submit" id="register_btn" class="btn button-colored bottomButton" onclick="return boardCheck()">작성</button><!-- 작성버튼 -->
 		        </form>
 		        <!-- 1.2 수정 폼 -->
 		        <!-- 1.3 취소버튼 ----------->
-		        <form role="form" action="/" method="get">
+		        <form role="form" action="/board/list" method="get">
+		            <input type='hidden' name='pageNum' value='${pageMaker.cri.pageNum}'> 
+					<input type='hidden' name='amount' value='${pageMaker.cri.amount}'>
+					<input type='hidden' name='type' value='<c:out value="${pageMaker.cri.type}"/>'>
+					<input type='hidden' name='keyword' value='<c:out value="${pageMaker.cri.keyword}"/>'>
+					<input type='hidden' name='gu' value='<c:out value="${criteria.gu}"/>'>
 		        	<button type="submit" id="cancel_btn" class="btn button-gray bottomButton">취소</button>
 		        </form>
 	        	<!-- 1.3 취소버튼 -->
+	        	
+	        	
 			</div>
 		</div>
 	</main>

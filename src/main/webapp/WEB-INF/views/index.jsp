@@ -8,17 +8,15 @@
 -자바스크립트 적용
 -->
 <!-- index.jsp -->
-
-
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 
 <head>
 <title>서울이웃 :: I SEOUL U</title>
 <!-- CSS style ------------------------------>
 <link rel="stylesheet" href="/resources/css/common/index.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css"/>
 </head>
 
 <body>
@@ -67,11 +65,11 @@
 			<!-- 1.2 비회원 입장 ------------------------------>
 				<div class="text-center pr-3 pl-3 pb-3">
 					<p class="mb-1">비회원으로 입장하시겠어요?</p>
-					<form action="board/list">
+					<form action="nonMember">
 						<div class="row pr-3 pl-3">
 							<div class="col-xl-8">
 								<div class="form-row mr-0 ml-0">
-									<select id="selectGu" name="gu" class="form-control selectBox">
+									<select id="selectGu" name="nonMemGu" class="form-control selectBox">
 										<option selected>지역을 선택하세요</option>
 										<option>강남구</option>
 										<option>강동구</option>

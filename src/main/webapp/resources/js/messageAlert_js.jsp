@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <script>
 $(document).ready(function(){
-	/* 메시지 알림 함수 */
+	//메시지 알림 함수 //////////////////////////////////////////////
 	var isLinkChanged = true;
 	function messageAlert(){
 			var beforeCount = $("#noReadCount").text();
@@ -34,9 +34,9 @@ $(document).ready(function(){
 		setInterval(messageAlert,1000); //1초마다 개수 불러옴
 	}
 	startMessageListen();
-	
+	//메시지 알림함수//
 
-	/* 미니 쪽지함 리스트 불러오기 */
+	// 미니 쪽지함 리스트 불러오기 //////////////////////////////////
 	function getMiniMessage(){
 	    var form = {
 	            userid:'${member.userid}'
@@ -67,8 +67,7 @@ $(document).ready(function(){
 	                
 	            });
 	            $("#subMessageDiv").append(
-	            		"<h5 class='dropdown-header'>더 보기</h5>"+
-	                    "<a class='dropdown-item' href='/myMessage' style='background-color:white;color:black'>쪽지함 이동 <i class='fas fa-angle-right'></i></a>"
+	            		"<a href='/myMessage'><h5 class='dropdown-header'>더 보기<i class='fas fa-angle-right'></i></h5></a>"
 				);
 	            cutContent();
 	        }
@@ -87,8 +86,9 @@ $(document).ready(function(){
 		}
 	},"#subMessageDiv a")
 
+	// 미니 쪽지함 리스트 불러오기 //
 
-	/* 쪽지 내용 모달창 */
+	// 쪽지 내용 모달창 ////////////////////////////////////////////
 	$(document).on("click",".miniMessageContent",function(){
 		var messageInfo = $(this).children();
 		$("#messageShowHeader").empty();
@@ -120,8 +120,9 @@ $(document).ready(function(){
 		
 		
 	})
+	// 쪽지 답장 모달창 //
 
-	/* 쪽지 답장 모달창 */
+	// 쪽지 답장 모달창 ////////////////////////////////////////////
 	var info;
 	$(document).on("click","#replyMessageBtn",function(){
 		info = $($(this).parent().siblings())[2];
@@ -155,8 +156,10 @@ $(document).ready(function(){
 		}
 	})
 
-	/* 쪽지 답장 모달창 */
-	 $(document).on("click","#messageReplySendBtn",function(){
+	// 쪽지 답장 모달창 //
+
+	// 쪽지 답장 전송 ////////////////////////////////////////////
+	 		$(document).on("click","#messageReplySendBtn",function(){
 	       var form = {
 	       		mno: $($($(info).children().eq(0)[0])[0]).val(),
 	               sender: '${member.userid}',
@@ -174,8 +177,9 @@ $(document).ready(function(){
 	           }
 	       });
 	})
+	// 쪽지 답장 전송 //
 
-	/* 쪽지 내용 길면 ..로 자르기 */
+	// 쪽지 내용 길면 ...로 자르기 ////////////////////////////////////
 	function cutContent(){
 		var forCutMessageContent = $(".realContent")
 		for(var i=0; i<5; i++){
@@ -185,8 +189,9 @@ $(document).ready(function(){
 			}
 		}
 	}
+	// 쪽지 내용 길면 ...로 자르기 //
 
-	/* 쪽지 삭제 */
+	// 쪽지 삭제 /////////////////////////////////////////////////////
 	$("#deleteMessageBtn").on("click",function(){
 		if(confirm("삭제하시겠습니까?")){
 	        var form = {
@@ -242,5 +247,6 @@ $(document).ready(function(){
 	        });
 		}
 	})
+	// 쪽지 삭제 //
 })
 </script>

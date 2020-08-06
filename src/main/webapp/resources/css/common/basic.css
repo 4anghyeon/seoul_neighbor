@@ -140,6 +140,11 @@ iframe {
   border-top-color: #e6e6e6
 }
 
+.add-border-bottom {
+  border-top: 1px solid;
+  border-top-color: #e6e6e6
+}
+
 .text-right {
   text-align: right;
 }

@@ -373,25 +373,26 @@ function changeDong(gu){
 /* 드롭다운으로 지역선택 */
 //구
 $("#gu a").on("click", function() {
-    // 드롭다운에 선택된 항목 텍스트 넣기 
-    $("#selectGu").text($(this).text());
     gu = $(this).text()
+    // 드롭다운에 선택된 항목 텍스트 넣기 
+    $("#selectGu").text(gu);
+    $("input[name='gu']").val(gu);
     
     //구선택시 동추가
-    changeDong($(this).text());
+    changeDong(gu);
     //구선택시 첫번째 클릭
     $("#dong a")[0].click();
     //구선택시 지도변경
-    gu_coordinate($(this).text());
+    gu_coordinate(gu);
 	//알림글 변경
 	$("#gu_notice").css("display","none");
 	$("#dong_notice").css("display","block");
 });
 //동
-$("#dong").on("click",".dropdown-item", function() {
-    // 드롭다운에 선택된 항목 텍스트 넣기 
-    $("#selectDong").text($(this).text());
-   dong = $(this).text()
+$("#dong").on("click",".dropdown-item", function() { 
+    dong = $(this).text()
+    // 드롭다운에 선택된 항목 텍스트 넣기
+    $("#selectDong").text(dong);
    
 	//주소정보를 전달
 	$("#location").val(gu+"_"+dong);
@@ -401,21 +402,32 @@ $("#dong").on("click",".dropdown-item", function() {
 });
 // 작성/수정 페이지 진입시 지역정보 자동선택
 var before_location = document.getElementById("location").value
+var criteria_gu = document.getElementById("criteria_gu").value
 if(before_location == ""){
 }else{
-	//수정
+	
 	//글자자르기
 	var after_location = before_location.split("_");
 	var before_gu = after_location[0]
 	var before_dong = after_location[1]
-	//자른글자 대입
-	$("#selectGu").text(before_gu);
-	$("#selectDong").text(before_dong);
 	
-	//구선택시 동추가
-    changeDong($("#selectGu").text());
-	//지도에도 표시한다
-	gu_coordinate(before_gu)
+	//자른글자 대입
+	//구
+	for(var i = 0; i <$("#gu a").length; i++){
+		if($("#gu a")[i].text == criteria_gu){
+			$("#gu a")[i].click();
+		}			
+	}
+	
+	//목록 페이지의 지역과 프로필상 지역이 같을때
+	if(before_gu == criteria_gu){
+		//동
+		for(var i = 0; i <$("#dong a").length; i++){
+			if($("#dong a")[i].text == before_dong){
+				$("#dong a")[i].click();
+			}			
+		}
+	}	
 };
 //구선택시 지도변경 함수
 function gu_coordinate(gu){
@@ -486,21 +498,5 @@ $(function() {
 		});
 	}
 	
-	//제목 길면 자르기 ////////////////////////////////////
-	function cutTitleLength(){
-		var forCutTitleLength = $("#title")
-		
-		if($(forCutTitleLength).val().length >20){
-			var tempMessageContent = $(forCutTitleLength).val();
-			$(forCutTitleLength).val(forCutTitleLength.val().substring(0,20));
-		}
-	}
-	
-	$("#title").on("propertychange change keyup paste",function(){
-		cutTitleLength();
-	})
-	// 제목 길면 자르기 //
-	
-	// 1:1문의 작성 문자 길이 제한 ////////////////////////////////////
 });
 </script>

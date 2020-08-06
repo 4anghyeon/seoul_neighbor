@@ -43,8 +43,7 @@
 				<div id="gudongchoice_wrap">
 					<!-- 1.1.1.1 구선택 ------------->
 					<div class="dropdown">
-						<input type="hidden" id="criteria_gu" name="criteria_gu" value="<%= request.getParameter("criteria_gu") %>">
-						<input type="hidden" name="prevPage" value="<c:out value='${prevPage}'/>">
+						<input type="hidden" id="criteria_gu" name="criteria_gu" value="<c:out value="${criteria.gu}"/>">
 					    <button class="btn dropdown-toggle" type="button" id="selectGu" data-toggle="dropdown" disabled>구
 					    <span class="caret"></span></button>
 				    	<div id="gu" class="dropdown-menu" aria-labelledby="dropdownMenuButton">
@@ -109,7 +108,7 @@
 	       				<!-- 1.2.1.1 카테고리 선택 -------->
 			        	<div class="dropdown" id="category_wrap">
 			        		<input type="hidden" id="category" name="category" value="<c:out value='${board.category}'/>">
-						    <button class="btn dropdown-toggle" type="button" id="selectcategory" data-toggle="dropdown">카테고리
+						    <button class="btn dropdown-toggle" type="button" id="selectcategory" data-toggle="dropdown"><c:out value='${board.category}'/>
 						    	<span class="caret"></span>
 						    </button>
 					    	<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
@@ -126,13 +125,17 @@
 		            <input type="hidden" name="userid" value="<c:out value='${board.userid}'/>"><!-- 유저아이디 -->
 		            <textarea name="content" id="content" class="summernote" cols="80" rows="15"><c:out value='${board.content}'/></textarea><br><!-- 글내용 -->
 					<input type="hidden" id="location" name="location" value="<c:out value='${board.location}'/>"><!-- 지역 -->
+					<input type="hidden" name="nickname" value="<c:out value='${board.nickname}'/>"><!-- 지역 -->
+					<input type='hidden' name='pageNum' value='${pageMaker.cri.pageNum}'> 
+					<input type='hidden' name='amount' value='${pageMaker.cri.amount}'>
+					<input type='hidden' name='type' value='<c:out value="${pageMaker.cri.type}"/>'>
+					<input type='hidden' name='keyword' value='<c:out value="${pageMaker.cri.keyword}"/>'>
+					<input type='hidden' name='gu' value='<c:out value="${criteria.gu}"/>'>
 					<button type="submit" class="btn button-colored bottomButton" onclick="return boardCheck()">수정</button><!-- 수정버튼 -->
 		        </form>
 		        <!-- 1.2 수정 폼 -->
 		        <!-- 1.3 취소버튼 ----------->
-		        <form role="form" action="/" method="get">
-		        	<button type="submit" class="btn button-gray bottomButton">취소</button>
-		        </form>
+		        <button type="submit" class="btn button-gray bottomButton"  onClick="history.go(-2)">취소</button>
 		        <!-- 1.3 취소버튼 -->
 			</div>
 		</div>

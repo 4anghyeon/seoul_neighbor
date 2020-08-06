@@ -3,7 +3,7 @@
 <script>
 	$(document).ready(function(){
 		
-		/* 쪽지 페이지 번호 개수 지정 */
+		// 쪽지 페이지 번호 개수 지정 //////////////////////////
 		var pageTotalNum = '${pageTotalNum}'
 		var nowPageNum = '${nowPageNum}'
 		
@@ -32,20 +32,23 @@
 		}
 		changePageList();
 		$("#pageNumBtnList :first-child").addClass("active");
+		// 쪽지 페이지 번호 개수 지정 //
 		
-		/* 쪽지 리스트 다음 버튼 */
+		// 쪽지 리스트 다음 버튼 ////////////////////////////////
 		$(document).on("click","#messageNextBtn",function(){
 			nowPageNum = parseInt(nowPageNum) +5;
 			changePageList();
 		})
+		// 쪽지 리스트 다음 버튼 //
 		
-		/* 쪽지 리스트 이전 버튼 */
+		// 쪽지 리스트 이전 버튼 ////////////////////////////////
 		$(document).on("click","#messagePrevBtn",function(){
 			nowPageNum = parseInt(nowPageNum) -5;
 			changePageList();
 		})
+		// 쪽지 리스트 이전 버튼 //
 		
-		/* AJAX 쪽지 페이지 이동 */
+		// Ajax 쪽지 페이지 이동 //////////////////////////////
 		var pageNum = 0;
 		$(document).on("click",".pageBtn",function(){
 			$(this).nextAll().removeClass("active");
@@ -94,8 +97,9 @@
 	            }
 	        });
 		})
+		// Ajax 쪽지 페이지 이동 //
 		
-		/* 쪽지 답장 모달창 */
+		// 쪽지 답장 모달창 ////////////////////////////////////////////
 		var info;
 		$(document).on("click","#replyMessageBtn",function(){
 			info = $($(this).parent().siblings())[2];
@@ -128,8 +132,9 @@
 			}
 		})
 		
+		// 쪽지 답장 모달창 //
 		
-		/* 쪽지 답장 전송 */
+		// 쪽지 답장 전송 ////////////////////////////////////////////
    		$(document).on("click","#messageReplySendBtn",function(){
 	        var form = {
 	        		mno: $($($(info).children().eq(0)[0])[0]).val(),
@@ -151,8 +156,9 @@
 	            }
 	        });
 		})
+		// 쪽지 답장 전송 //
 		
-		/* 쪽지 내용 길면 ...로 자르기 */
+		// 쪽지 내용 길면 ...로 자르기 ////////////////////////////////////
 		function cutContent(){
 			var forCutMessageContent = $(".messageContent")
 			for(var i=0; i<8; i++){
@@ -164,8 +170,9 @@
 			}
 		}
 		cutContent();
+		// 쪽지 내용 길면 ...로 자르기 //
 		
-		/* 쪽지 내용 모달창 */
+		// 쪽지 내용 모달창 ////////////////////////////////////////////
 		$(document).on("click",".messageContent",function(){
 			var messageInfo = $(this).siblings();
 			$("#messageShowHeader").empty();
@@ -226,10 +233,19 @@
 	    	                	}
 	    	                });
 	    	                cutContent();
+	    	            },
+	    	            error: function(){
+	    	                alert("simpleWithObject err");
 	    	            }
 	    	        });
+		       },
+		       error: function(){
+		           alert("simpleWithObject err");
 		       }
 		   });
 		})
+		// 쪽지 답장 모달창 //
+		
+
 	})
 </script>

@@ -2,6 +2,13 @@
     pageEncoding="UTF-8"%>
 <script>
 $(document).ready(function(){
+	var html = '';
+	for (var i = 1; i <= 50; i ++) {
+	    html += '<div class="shape-container--'+i+' shape-animation"><div class="random-shape"></div></div>';
+	}
+	  
+	document.querySelector('.shape').innerHTML += html;
+	
 	var temp;
 	var typeoption;
     var keywordtext;
@@ -97,6 +104,7 @@ $(document).ready(function(){
 		$($(".pageNumber")[0]).addClass("page-item").addClass("active");
 	}
 	//페이징 액티브 효과 주기//
+	
 	
 	//하단 지역별 소식 카테고리별 페이징(Ajax)/////////////////////////////
 	var pageNumber;
@@ -666,6 +674,12 @@ $(document).ready(function(){
   //글쓰기 버튼 링크연결//
     
   //지역별 전체 소식 글 상세보기 링크연결/////////////////////////////
+   $(".move").on('click',function(e){
+      e.preventDefault();
+      actionForm.attr("action","/board/read/"+$(this).attr('href'));
+      actionForm.submit();
+   });
+  
     $("tbody").on('click', '.move',function(e){
         e.preventDefault();
         actionForm.attr("action","/board/read/"+$(this).attr('href'));
