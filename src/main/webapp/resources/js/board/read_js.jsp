@@ -314,7 +314,7 @@ var replyService = (function(){
 		//댓글 기능은 기본적으로 로그인한 유저만 작성이 가능하므로 로그인된 정보 중 닉네임을 replyer로 기본 설정
 		var replyer = null;
 		<sec:authorize access="isAuthenticated()">
-			replyer = '${member.nickname}'
+			replyer = '${member.userid}'
 		</sec:authorize>
 			
 		//대댓글 입력칸 토글 변수, true : 생성이 안됬으니 생성해라, false : 생성되었으니 없애라
@@ -354,7 +354,7 @@ var replyService = (function(){
 						str += '	<div class="d-flex row">';
 						str += '		<div class="col-md-12">';
 						str += '			<div class="d-flex flex-column comment-section">';
-						str += '				<div class="bg-white p-2">';
+						str += '				<div class="reply-container p-2">';
 						str += '					<div class="d-flex flex-row user-info">';
 						if(result.replyList[i].member_filename == null) {
 			                  var fileName = 'profile_sample.png';
@@ -369,12 +369,12 @@ var replyService = (function(){
 						str += '							<span class="date text-black-50">'+result.replyList[i].replyDate+'</span>';
 						str += '						</div>';
 						str += '						<div class="reply-content mt-2">';
-						str += '							<p class="comment-text">'+result.replyList[i].reply+'</p>';
+						str += '							<p class="comment-text"><pre>'+result.replyList[i].reply+'</pre></p>';
 						str += '						</div>';
 						str += '						<div class="re-reply ml-auto mt-2" data-rno="'+result.replyList[i].rno+'" data-type="0">';
 						str += '							<sec:authorize access="isAuthenticated()">';
 						str += '								<span class="re-reply-create cursor">댓글달기</span>';
-						if(replyer == result.replyList[i].replyer) {
+						if('${member.nickname}' == result.replyList[i].replyer) {
 							str += '									<span class="reply-update cursor">수정</span>';
 							str += '									<span class="reply-delete cursor">삭제</span>';
 						} else {
@@ -397,7 +397,7 @@ var replyService = (function(){
 						str += '	<div class="d-flex row">';
 						str += '		<div class="col-md-12">';
 						str += '			<div class="d-flex flex-column comment-section">';
-						str += '				<div class="bg-white p-2">';
+						str += '				<div class="reply-container p-2">';
 						str += '					<div class="d-flex flex-row user-info">';
 						str += '						<div class="re-reply ml-auto mt-2" data-rno="'+result.replyList[i].rno+'" data-type="0">';
 						str += '						</div>';
@@ -427,7 +427,7 @@ var replyService = (function(){
 					re_str += '	<div class="d-flex row">';
 					re_str += '		<div class="col-md-12">';
 					re_str += '			<div class="d-flex flex-column comment-section">';
-					re_str += '				<div class="bg-white p-2">';
+					re_str += '				<div class="r_reply-container p-2">';
 					re_str += '					<div class="d-flex flex-row user-info">';
 					if(result.replyList[i].member_filename == null) {
 		                  var fileName = 'profile_sample.png';
@@ -442,11 +442,11 @@ var replyService = (function(){
 					re_str += '							<span class="date text-black-50">'+result.reReplyList[i].r_replyDate+'</span>';
 					re_str += '						</div>';
 					re_str += '						<div class="reply-content mt-2">';
-					re_str += '							<p class="comment-text">'+result.reReplyList[i].r_reply+'</p>';
+					re_str += '							<p class="comment-text"><pre>'+result.reReplyList[i].r_reply+'</pre></p>';
 					re_str += '						</div>';
 					re_str += '						<div class="re-reply ml-auto mt-2" data-rno="'+result.reReplyList[i].r_rno+'" data-type="1">';
 					re_str += '							<sec:authorize access="isAuthenticated()">';
-					if(replyer == result.reReplyList[i].r_replyer) {
+					if('${member.nickname}' == result.reReplyList[i].r_replyer) {
 						re_str += '									<span class="reply-update cursor">수정</span>';
 						re_str += '									<span class="reply-delete cursor">삭제</span>';
 					} else {
@@ -630,7 +630,7 @@ var replyService = (function(){
 		//수정하기 누를 시 수정하는 입력칸
 		replyList.on("click", ".reply-update", function(e){
 			var rno = $(this).closest("div").data("rno");
-			var point = $(this).closest(".bg-white");
+			var point = $(this).closest(".reply-container");
 			
 			var type = $(this).closest("div").data("type");
 			

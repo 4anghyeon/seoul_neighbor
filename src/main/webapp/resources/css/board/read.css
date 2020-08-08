@@ -17,7 +17,7 @@
   /* pointer-events: none; */
 }
 
-ul, li {
+.left-menu ul,.left-menu li {
 	margin: 0px;
 	padding: 4px;
 	list-style: none;
@@ -56,6 +56,10 @@ h5 {
 }
 .nav-item {
 	font-size: 12px;
+}
+
+#contentInfo div{
+	overflow:hidden;
 }
 
 #contentInfo>span {
@@ -105,7 +109,7 @@ h5 {
 	margin: 0 auto 36px;
 	padding-top: 0;
 	border-radius: 2px;
-	background: #fff;
+	background: transparent;
 }
 
 .recomend_box>div {
@@ -169,6 +173,11 @@ h5 {
 	width: 60%;
 }
 
+.reply-content pre{
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
 .re-reply {
 	font-size: 0.8rem;
 }
@@ -200,20 +209,38 @@ h5 {
 	margin-top : 20px;
 }
 
-#replyBtn{
-	background-color:#9775fa;
-	color:white;
-	transition:0.5s;
+/* 새봄 추가 */
+input:focus::-webkit-input-placeholder, textarea:focus::-webkit-input-placeholder {
+   /* WebKit browsers */ 
+   color:transparent; 
 }
 
-#replyBtn:hover{
-	background-color:#6741d9;
+textarea {
+   resize: none;
+   border-radius: 5px !important;
+   margin-right: 10px !important;
+   margin-top: 10px !important;
+}
+
+button {
+   border-radius: 5px !important;
+   margin-top: 10px !important;
+}
+
+.comment-section {
+   border-radius: 5px;
+   background: white;
 }
 
 .user-info{
-	padding:5px;
-	border-bottom:1px solid #e9ecef;
+   padding:10px;
 }
+
+.reply-container {
+   border-bottom: 1px solid #e6e6e6;
+}
+
+/* 새봄 추가 */
 
 /* 드롭다운 */
 .dropdown-menu{

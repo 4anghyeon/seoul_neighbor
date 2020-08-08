@@ -77,7 +77,7 @@ $(document).ready(function(){
 	
 	//문화공연 제목 길면 패딩 없애기 ////////////////////////
 	function longTitleNoPadding(){
-		if($($(".text-container").children(1)[0]).innerHeight() >= 54){
+		if($($(".text-container").children(1)[0]).innerHeight() >= 53){
 			$(".text-container").css("padding","0");
 		}
 	}	
@@ -90,7 +90,7 @@ $(document).ready(function(){
     
     $(".paginate_button a").on("click", function(e){
   	  e.preventDefault();
-  	  
+  	 
   	  actionForm.find("input[name='pageNum']").val($(this).attr("href"));
   	  actionForm.submit();
     });	
@@ -101,16 +101,16 @@ $(document).ready(function(){
 		$($(".pageNumber")[pageNumber%10-1]).addClass("page-item").addClass("active");
 	}
 	function firstActivePage(){ //탭누를때 1번페이지 무조건 액티브 주기
-		$($(".pageNumber")[0]).addClass("page-item").addClass("active");
+		$($(".pageNumber")[($("#pageNum").val()%10)-1]).addClass("page-item").addClass("active");
 	}
 	//페이징 액티브 효과 주기//
 	
 	
 	//하단 지역별 소식 카테고리별 페이징(Ajax)/////////////////////////////
-	var pageNumber;
     $(".pagination").on("click",".page-link", function(e){
   	  e.preventDefault();
   	  	pageNumber = $(this).html();
+  	  	$("#pageNum").val(pageNumber);
   	  	var lastNumber;
   	  	if(pageNumber == "Next"){
   	  		lastNumber = $($(this).parents().prev()[0]).text();
@@ -148,7 +148,7 @@ $(document).ready(function(){
   	    							"<td>"+board.bno+"</td>"+
   	    							"<td>"+board.location+"</td>"+
   	    							"<td>"+board.category+"</td>"+
-  	    							"<td><a class='move' href='"+board.bno+"'>"+board.title+"</a>"+
+  	    							"<td><a class='move' href='"+board.bno+"'>"+board.title+"</a> "+
   	    							"<b>["+board.reply_count+"]</b>"+
   	    							"</td>"+
   	    							"<sec:authorize access='isAnonymous()'>"+
@@ -200,7 +200,7 @@ $(document).ready(function(){
   	    							"<td>"+board.bno+"</td>"+
   	    							"<td>"+board.location+"</td>"+
   	    							"<td>"+board.category+"</td>"+
-  	    							"<td><a class='move bigList' href='"+board.bno+"'>"+board.title+"</a>"+
+  	    							"<td><a class='move bigList' href='"+board.bno+"'>"+board.title+"</a> "+
   	    							"<b>["+board.reply_count+"]</b>"+
   	    							"</td>"+
   	    							"<sec:authorize access='isAnonymous()'>"+
@@ -250,7 +250,7 @@ $(document).ready(function(){
   	    							"<td>"+board.bno+"</td>"+
   	    							"<td>"+board.location+"</td>"+
   	    							"<td>"+board.category+"</td>"+
-  	    							"<td><a class='move bigList' href='"+board.bno+"'>"+board.title+"</a>"+
+  	    							"<td><a class='move bigList' href='"+board.bno+"'>"+board.title+"</a> "+
   	    							"<b>["+board.reply_count+"]</b>"+
   	    							"</td>"+
   	    							"<sec:authorize access='isAnonymous()'>"+
@@ -300,7 +300,7 @@ $(document).ready(function(){
   	    							"<td>"+board.bno+"</td>"+
   	    							"<td>"+board.location+"</td>"+
   	    							"<td>"+board.category+"</td>"+
-  	    							"<td><a class='move bigList' href='"+board.bno+"'>"+board.title+"</a>"+
+  	    							"<td><a class='move bigList' href='"+board.bno+"'>"+board.title+"</a> "+
   	    							"<b>["+board.reply_count+"]</b>"+
   	    							"</td>"+
   	    							"<sec:authorize access='isAnonymous()'>"+
@@ -350,7 +350,7 @@ $(document).ready(function(){
   								"<td>"+board.bno+"</td>"+
   								"<td>"+board.location+"</td>"+
   								"<td>"+board.category+"</td>"+
-  								"<td><a class='move bigList' href='"+board.bno+"'>"+board.title+" </a>"+
+  								"<td><a class='move bigList' href='"+board.bno+"'>"+board.title+" </a> "+
   								"<b>["+board.reply_count+"]</b>"+
   								"</td>"+
     							"<sec:authorize access='isAnonymous()'>"+
@@ -431,7 +431,7 @@ $(document).ready(function(){
     							"<td>"+board.bno+"</td>"+
     							"<td>"+board.location+"</td>"+
     							"<td>"+board.category+"</td>"+
-    							"<td><a class='move bigList' href='"+board.bno+"'>"+board.title+" </a>"+
+    							"<td><a class='move bigList' href='"+board.bno+"'>"+board.title+" </a> "+
     							"<b>["+board.reply_count+"]</b>"+
     							"</td>"+
 	    						"<sec:authorize access='isAnonymous()'>"+
@@ -480,7 +480,7 @@ $(document).ready(function(){
 							"<td>"+board.bno+"</td>"+
 							"<td>"+board.location+"</td>"+
 							"<td>"+board.category+"</td>"+
-							"<td><a class='move bigList' href='"+board.bno+"'>"+board.title+" </a>"+
+							"<td><a class='move bigList' href='"+board.bno+"'>"+board.title+" </a> "+
 							"<b>["+board.reply_count+"]</b>"+
 							"</td>"+
   							"<sec:authorize access='isAnonymous()'>"+
@@ -529,7 +529,7 @@ $(document).ready(function(){
 							"<td>"+board.bno+"</td>"+
 							"<td>"+board.location+"</td>"+
 							"<td>"+board.category+"</td>"+
-							"<td><a class='move bigList' href='"+board.bno+"'>"+board.title+" </a>"+
+							"<td><a class='move bigList' href='"+board.bno+"'>"+board.title+" </a> "+
 							"<b>["+board.reply_count+"]</b>"+
 							"</td>"+
   							"<sec:authorize access='isAnonymous()'>"+
@@ -578,7 +578,7 @@ $(document).ready(function(){
 							"<td>"+board.bno+"</td>"+
 							"<td>"+board.location+"</td>"+
 							"<td>"+board.category+"</td>"+
-							"<td><a class='move bigList' href='"+board.bno+"'>"+board.title+" </a>"+
+							"<td><a class='move bigList' href='"+board.bno+"'>"+board.title+" </a> "+
 							"<b>["+board.reply_count+"]</b>"+
 							"</td>"+
   							"<sec:authorize access='isAnonymous()'>"+
@@ -627,7 +627,7 @@ $(document).ready(function(){
 							"<td>"+board.bno+"</td>"+
 							"<td>"+board.location+"</td>"+
 							"<td>"+board.category+"</td>"+
-							"<td><a class='move bigList' href='"+board.bno+"'>"+board.title+" </a>"+
+							"<td><a class='move bigList' href='"+board.bno+"'>"+board.title+" </a> "+
 							"<b>["+board.reply_count+"]</b>"+
 							"</td>"+
   							"<sec:authorize access='isAnonymous()'>"+
@@ -699,14 +699,21 @@ $(document).ready(function(){
   //게시판 에서 보여질 글 갯수 설정//
   
   //카테고리별 게시판 탭(Ajax)/////////////////////////////
+  	$('a[data-toggle="tab"]').on("click",function(){
+  		$("#pageNum").val(1);
+  	});
+  
     $('a[data-toggle="tab"]').on('show.bs.tab',function(e){
     	typeoption = null;
       	keywordtext = null;
     	var str="";
     	temp = $(this).html();
+    	var pageNum = $("#pageNum").val();
+    	console.log(pageNum);
         var form = {
                 category :temp,
                 gu:'${criteria.gu}',
+                pageNum: pageNum,
                 amount:'${criteria.amount}'
         }
     
@@ -725,7 +732,7 @@ $(document).ready(function(){
     							"<td>"+board.bno+"</td>"+
     							"<td>"+board.location+"</td>"+
     							"<td>"+board.category+"</td>"+
-    							"<td><a class='move bigList' href='"+board.bno+"'>"+board.title+" </a>"+
+    							"<td><a class='move bigList' href='"+board.bno+"'>"+board.title+" </a> "+
     							"<b>["+board.reply_count+"]</b>"+
     							"</td>"+
     							"<sec:authorize access='isAnonymous()'>"+
@@ -774,7 +781,7 @@ $(document).ready(function(){
 							"<td>"+board.bno+"</td>"+
 							"<td>"+board.location+"</td>"+
 							"<td>"+board.category+"</td>"+
-							"<td><a class='move bigList' href='"+board.bno+"'>"+board.title+" </a>"+
+							"<td><a class='move bigList' href='"+board.bno+"'>"+board.title+" </a> "+
 							"<b>["+board.reply_count+"]</b>"+
 							"</td>"+
   							"<sec:authorize access='isAnonymous()'>"+
@@ -823,7 +830,7 @@ $(document).ready(function(){
 							"<td>"+board.bno+"</td>"+
 							"<td>"+board.location+"</td>"+
 							"<td>"+board.category+"</td>"+
-							"<td><a class='move bigList' href='"+board.bno+"'>"+board.title+" </a>"+
+							"<td><a class='move bigList' href='"+board.bno+"'>"+board.title+" </a> "+
 							"<b>["+board.reply_count+"]</b>"+
 							"</td>"+
   							"<sec:authorize access='isAnonymous()'>"+
@@ -872,7 +879,7 @@ $(document).ready(function(){
 							"<td>"+board.bno+"</td>"+
 							"<td>"+board.location+"</td>"+
 							"<td>"+board.category+"</td>"+
-							"<td><a class='move bigList' href='"+board.bno+"'>"+board.title+" </a>"+
+							"<td><a class='move bigList' href='"+board.bno+"'>"+board.title+" </a> "+
 							"<b>["+board.reply_count+"]</b>"+
 							"</td>"+
   							"<sec:authorize access='isAnonymous()'>"+

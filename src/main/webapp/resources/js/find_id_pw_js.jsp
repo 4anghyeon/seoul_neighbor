@@ -87,7 +87,20 @@ $(document).ready(function () {
                     $("#pw-fieldset").html(string1);
 
                 } 
+                
+                var form = { username : raw_username,
+                        email : raw_email 
+                    };
+                $.ajax({
+                    url: "/sendEmail",
+                    data: form,
+                    type: "POST",
+                    beforeSend: function(xhr){
+                        xhr.setRequestHeader(csrfHeaderName, csrfTokenValue)
+                    },
+                    success: function (result) {}})
             }
+
         });
         /* 비밀번호 찾기 버튼을 눌렀을 때! */
     });

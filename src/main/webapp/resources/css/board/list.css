@@ -998,15 +998,15 @@ a {
 	font-size:90%;
 }
 .best-ol li div:nth-of-type(2){
-	width: 200px;
-	text-overflow: ellipsis;
-	white-space: nowrap;
-	overflow: hidden;
+   width: 190px;
+   text-overflow: ellipsis;
+   white-space: nowrap;
+   overflow: hidden;
 }
 .best-ol li div:nth-of-type(3){
-	width: 50px;
-	font-size:80%;
-	padding-left: 10px;
+   width: 60px;
+   font-size:80%;
+   padding-left: 10px;
 }
 /* 지역별 추천소식 (end) */
 /* 테이블  */

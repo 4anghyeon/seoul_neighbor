@@ -202,7 +202,7 @@
                     <!--댓글 입력---------------------------------------->
                     <div id="commentWrite">
                         <div class="input-group mb-3">
-                            <textarea id="replyInput" class="form-control" placeholder="남에게 상처주는 말을 하지 맙시다."></textarea>
+                            <textarea id="replyInput" class="form-control mr-3" placeholder="무분별한 비판과 비난은 서로에게 상처가 될 수 있습니다."></textarea>
                             <div class="input-group-append">
                               <button id="replyBtn" class="btn button-colored">댓글등록하기</button>
                             </div>

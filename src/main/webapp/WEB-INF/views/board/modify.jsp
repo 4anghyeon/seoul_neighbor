@@ -43,7 +43,6 @@
 				<div id="gudongchoice_wrap">
 					<!-- 1.1.1.1 구선택 ------------->
 					<div class="dropdown">
-						<input type="hidden" id="criteria_gu" name="criteria_gu" value="<c:out value="${criteria.gu}"/>">
 					    <button class="btn dropdown-toggle" type="button" id="selectGu" data-toggle="dropdown" disabled>구
 					    <span class="caret"></span></button>
 				    	<div id="gu" class="dropdown-menu" aria-labelledby="dropdownMenuButton">
@@ -130,7 +129,7 @@
 					<input type='hidden' name='amount' value='${pageMaker.cri.amount}'>
 					<input type='hidden' name='type' value='<c:out value="${pageMaker.cri.type}"/>'>
 					<input type='hidden' name='keyword' value='<c:out value="${pageMaker.cri.keyword}"/>'>
-					<input type='hidden' name='gu' value='<c:out value="${criteria.gu}"/>'>
+					<input type='hidden' id="criteria_gu" name='gu' value='<c:out value="${criteria.gu}"/>'>
 					<button type="submit" class="btn button-colored bottomButton" onclick="return boardCheck()">수정</button><!-- 수정버튼 -->
 		        </form>
 		        <!-- 1.2 수정 폼 -->

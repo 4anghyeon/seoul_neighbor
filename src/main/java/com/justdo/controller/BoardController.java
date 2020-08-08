@@ -103,8 +103,6 @@ public class BoardController {
 			model.addAttribute("temperature", weatherData[1]);
 			model.addAttribute("weatherGu", weatherData[2]);
 
-		} else {
-			log.warn("로그인 하지 않았음!");
 		}
 		
 		return "board/list";
