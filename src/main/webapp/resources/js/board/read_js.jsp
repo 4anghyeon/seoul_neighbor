@@ -156,9 +156,17 @@ var replyService = (function(){
 
 		
 		// 빠른 게시판 이동
-		$("#selectGu").change(function(){
-			location.href = "/board/list?gu="+$(this).val();
-		})
+		var pre_select = null; 
+		$("#selectGu").focus(function(){
+			pre_select = $(this).val();
+		}).change(function(){
+			if(confirm($(this).val()+"로 이동하시겠습니까?")){
+				location.href = "/board/list?gu="+$(this).val();
+			}
+			else{
+				$(this).val(pre_select);
+			}
+		});
 
 		
 		//좋아요 눌렀는지 확인
@@ -358,10 +366,11 @@ var replyService = (function(){
 						str += '					<div class="d-flex flex-row user-info">';
 						if(result.replyList[i].member_filename == null) {
 			                  var fileName = 'profile_sample.png';
+			                  str += '                  <img class="rounded-circle" src="/resources/img/mypage/' + fileName + '" width="40" height="40">';
 			               } else {
 			                  var fileName = result.replyList[i].member_filename;
+			                  str += '                  <img class="rounded-circle" src="/profile/image/' + fileName + '" width="40" height="40">';
 			               }
-		                str += '                  <img class="rounded-circle" src="/resources/img/mypage/' + fileName + '" width="40" height="40">';
 						str += '						<div class="d-flex flex-column justify-content-start ml-2">';
 						str += '							<span class="d-block font-weight-bold name" data-toggle="dropdown">'+result.replyList[i].replyer+'</span>';
 						str += '							<div class="dropdown-menu">'
@@ -429,12 +438,14 @@ var replyService = (function(){
 					re_str += '			<div class="d-flex flex-column comment-section">';
 					re_str += '				<div class="r_reply-container p-2">';
 					re_str += '					<div class="d-flex flex-row user-info">';
-					if(result.replyList[i].member_filename == null) {
+		            re_str += '                 	<img src="/resources/img/board/replyArrow.png" width="30" height="30">';
+					if(result.reReplyList[i].member_filename == null) {
 		                  var fileName = 'profile_sample.png';
+			                re_str += '                  <img class="rounded-circle" src="/resources/img/mypage/' + fileName + '" width="40" height="40">';
 		               } else {
-		                  var fileName = result.replyList[i].member_filename;
+		                  var fileName = result.reReplyList[i].member_filename;
+			                re_str += '                  <img class="rounded-circle" src="/profile/image/' + fileName + '" width="40" height="40">';
 		               }
-	                re_str += '                  <img class="rounded-circle" src="/resources/img/mypage/' + fileName + '" width="40" height="40">';
 					re_str += '						<div class="d-flex flex-column justify-content-start ml-2">';
 					re_str += '							<span class="d-block font-weight-bold name userNickname" data-toggle="dropdown">'+result.reReplyList[i].r_replyer+'</span>';
 					re_str += '							<div class="dropdown-menu">'
@@ -667,7 +678,6 @@ var replyService = (function(){
 					reply : reply
 			};
 			replyService.update(data, type, function(result){
-				alert(result);
 				showList(pageNum);
 				point.html("");
 				reReplyToggle = true;

@@ -159,7 +159,7 @@
 		// 쪽지 답장 전송 //
 		
 		// 쪽지 내용 길면 ...로 자르기 ////////////////////////////////////
-		function cutContent(){
+/* 		function cutContent(){
 			var forCutMessageContent = $(".messageContent")
 			for(var i=0; i<8; i++){
 				if($(forCutMessageContent[i]).text().length >15){
@@ -169,7 +169,7 @@
 				}
 			}
 		}
-		cutContent();
+		cutContent(); */
 		// 쪽지 내용 길면 ...로 자르기 //
 		
 		// 쪽지 내용 모달창 ////////////////////////////////////////////
@@ -232,7 +232,7 @@
 	        			             )
 	    	                	}
 	    	                });
-	    	                cutContent();
+	    	                //cutContent();
 	    	            },
 	    	            error: function(){
 	    	                alert("simpleWithObject err");

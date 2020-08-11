@@ -83,18 +83,18 @@
 			      	<li class="nav-item">
 			      	<div class="dropdown">
 			      		<a id="showMiniMessageBtn" class="nav-link" data-toggle="dropdown"><i class="far fa-comments" style="font-size:1.4rem; line-height:51px"></i><span id="noReadCount" class="badge badge-light"></span></a>
-						<div id="subMessageDiv" class="dropdown-menu"></div>
+						<div id="subMessageDiv" class="dropdown-menu dropdown-menu-right"></div>
 			      	</div>
 			      	</li>
 			      	<!-- 메시지 알림 창 -->				
-					<li class="nav-item dropdown">
+					<li class="nav-item dropdown ">
 						<a class="nav-link dropdown-toggle" href="/profile"	id="nav-profile" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 							<c:choose>
 								<c:when test="${member.member_filename eq null }">
 									 <img src="/resources/img/mypage/profile_sample.png" width="35" height="35" class="rounded-circle" alt="프로필 사진">
 								</c:when>
 								<c:when test="${member.member_filename != null}">
-									<img src="/resources/img/mypage/<c:out value="${member.member_filename}"/>" width="35" height="35" class="rounded-circle" onerror='this.src="/resources/img/mypage/profile_sample.png"' alt="프로필 사진">
+									<img src="/profile/image/<c:out value="${member.member_filename}"/>" width="35" height="35" class="rounded-circle" onerror='this.src="/resources/img/mypage/profile_sample.png"' alt="프로필 사진">
 								</c:when>
 							</c:choose>
 						</a>

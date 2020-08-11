@@ -74,4 +74,9 @@
 	}
 	// 비밀번호 변경 결과 확인 //
 	
+	//추가
+	$("#nowPassword").on("propertychange change keyup paste",function(){
+      $("#showChangeResult").text("")
+   })
+	
 </script>

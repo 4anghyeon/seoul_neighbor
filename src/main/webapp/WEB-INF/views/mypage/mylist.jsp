@@ -91,7 +91,7 @@
 								</c:when>
 								<c:when test="${member.member_filename != null }">
 									<img id="profileChangeImg" class="card-img-top"
-										src="/resources/img/mypage/<c:out value="${member.member_filename}"/>"
+										src="/profile/image/<c:out value="${member.member_filename}"/>"
 										alt="프로필 이미지">
 								</c:when>
 							</c:choose>

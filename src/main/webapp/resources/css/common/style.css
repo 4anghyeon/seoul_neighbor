@@ -62,8 +62,25 @@
 }
 
 #subMessageDiv{
-	left:-3vw;
+	left:-10vw;
 	top:52px;
+	overflow: hidden;
+	width: 300px;
+}
+
+
+.miniMessageContent {
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+
+#readMessageContent {
+	word-break: break-all;
+}
+
+.badge-light {
+	background-color: transparent;
 }
 
 /* 상단 메시지 디자인 */
@@ -81,4 +98,11 @@
 	#guWeatherText{
 		display:none;
 	}
+}
+
+.bAddr {
+	padding:5px;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	white-space: nowrap;
 }

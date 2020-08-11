@@ -231,7 +231,7 @@ public class MyPageController {
 	public String profile(MemberVO vo, MultipartFile[] uploadFile, String isFileChanged, Principal principal) {
 		File file;
 		
-		String uploadFolder = "c://Project/seoulneighbor/seoulNeighbor/src/main/webapp/resources/img/mypage";
+		String uploadFolder = "C:\\seoulneighbor\\profile_image\\";
 		
 		UUID uuid = UUID.randomUUID();
 		

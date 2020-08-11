@@ -30,7 +30,7 @@
 		  		<img class="card-img-top" src="/resources/img/mypage/profile_sample.png" alt="프로필 사진">
 		  		</c:when>
 		  		<c:when test = "${member.member_filename != null}">
-		  		<img class="card-img-top leftnav-photo" src="/resources/img/mypage/<c:out value="${member.member_filename}"/>" onerror='this.src="/resources/img/mypage/profile_sample.png"' alt="프로필 사진">
+		  		<img class="card-img-top leftnav-photo" src="/profile/image/<c:out value="${member.member_filename}"/>" onerror='this.src="/resources/img/mypage/profile_sample.png"' alt="프로필 사진">
 		  		</c:when>
 		  	</c:choose>
 			<div class="card-body filebox text-center"  data-toggle="modal" data-target="#changePicture" style="overflow:hidden; top:-45px; position:relative">
@@ -38,7 +38,7 @@
 			</div>
 		</div>
 	<!-- 1.1 프로필 이미지 -->
-	<h6>${member.nickname }님 반갑습니다.</h6>
+	<h6 class="hello-msg">${member.nickname }님 반갑습니다.</h6>
 	<!-- 1.2 메뉴바 ----------------------------->
 	
 		<div id="leftNavBar" class="container-fluid sidebar">

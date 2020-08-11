@@ -123,7 +123,7 @@
 										<c:when test="${fileName != null }">
 											<img id="profileChangeImg" 
 												class="card-img-top rounded-circle"
-												src="/resources/img/mypage/<c:out value="${fileName}"/>" 
+												src="/profile/image/<c:out value="${fileName}"/>" 
 												onError='this.src="/resources/img/mypage/profile_sample.png"' alt="프로필 사진">
 										</c:when>
 									</c:choose>
@@ -150,7 +150,7 @@
                 </div>
                 
                 <!-- 버튼 모음 -------------------------------->
-                <div class="btn-box">
+                <div class="btn-box pb-5">
                     <button id="registerButton" class="btn">글쓰기</button>
                     <sec:authorize access="isAuthenticated()">
                     	<sec:authentication property="principal.username" var="loginid"/> 

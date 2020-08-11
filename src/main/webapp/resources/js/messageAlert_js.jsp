@@ -61,7 +61,7 @@ $(document).ready(function(){
 	            	else{
 	                	$("#subMessageDiv").append(
 	                			"<a class='dropdown-item miniMessageContent' data-toggle='modal' data-target='#readMessage' style='background-color:white;color:black'>"+"<span>"+message.nickname+"</span>"+"<span>: </span>"+
-	                			"<span>"+message.message_content+"</span>"+"<span style='display:none'>"+message.message_content+"</span>"+"<span style='display:none'>"+message.mno+"</span></a>"
+	                			"<span class='subMsgContent'>"+message.message_content+"</span>"+"<span style='display:none'>"+message.message_content+"</span>"+"<span style='display:none'>"+message.mno+"</span></a>"
 	    				);
 	            	}
 	                
@@ -69,7 +69,7 @@ $(document).ready(function(){
 	            $("#subMessageDiv").append(
 	            		"<a href='/myMessage'><h5 class='dropdown-header'>더 보기<i class='fas fa-angle-right'></i></h5></a>"
 				);
-	            cutContent();
+	            //cutContent();
 	        }
 	    });
 	}
@@ -180,7 +180,7 @@ $(document).ready(function(){
 	// 쪽지 답장 전송 //
 
 	// 쪽지 내용 길면 ...로 자르기 ////////////////////////////////////
-	function cutContent(){
+/* 	function cutContent(){
 		var forCutMessageContent = $(".realContent")
 		for(var i=0; i<5; i++){
 			if($(forCutMessageContent[i]).text().length >15){
@@ -188,7 +188,7 @@ $(document).ready(function(){
 				$(forCutMessageContent[i]).text(tempMessageContent.substring(0,15)+" ...");
 			}
 		}
-	}
+	} */
 	// 쪽지 내용 길면 ...로 자르기 //
 
 	// 쪽지 삭제 /////////////////////////////////////////////////////
@@ -240,7 +240,7 @@ $(document).ready(function(){
 	        			             )
 	    	                	}
 	    	                });
-	    	                cutContent();
+	    	                //cutContent();
 	    	            }
 	    	        });
 	            }

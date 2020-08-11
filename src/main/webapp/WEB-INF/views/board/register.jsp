@@ -9,7 +9,6 @@
 1.2 작성 폼
 1.2.1 타이틀
 1.2.1.1 카테고리 선택
-1.3 취소버튼
 2. javaScript -->
 <!-- register.jsp -->
 
@@ -24,7 +23,6 @@
 <link rel="stylesheet" href="/resources/css/mypage/profile-basic.css">
 <link rel="stylesheet" href="/resources/css/mypage/profile-formpage.css">
 <link rel="stylesheet" href="/resources/css/common/basic.css">
-<link rel="stylesheet" href="/resources/css/map/map.css">
 <link rel="stylesheet" href="/resources/css/board/style.css">
 <!-- include summernote css -->
 <link rel="stylesheet" type="text/css" href="/resources/css/summernote/summernote-lite.css">
@@ -133,20 +131,9 @@
 					<input type='hidden' name='keyword' value='<c:out value="${pageMaker.cri.keyword}"/>'>
 					<input type='hidden'id="criteria_gu" name='gu' value='<c:out value="${criteria.gu}"/>'>
 					<button type="submit" id="register_btn" class="btn button-colored bottomButton" onclick="return boardCheck()">작성</button><!-- 작성버튼 -->
+					<button type="button" class="btn button-gray bottomButton"  onClick="history.go(-2)">취소</button><!-- 취소버튼 -->
 		        </form>
 		        <!-- 1.2 수정 폼 -->
-		        <!-- 1.3 취소버튼 ----------->
-		        <form role="form" action="/board/list" method="get">
-		            <input type='hidden' name='pageNum' value='${pageMaker.cri.pageNum}'> 
-					<input type='hidden' name='amount' value='${pageMaker.cri.amount}'>
-					<input type='hidden' name='type' value='<c:out value="${pageMaker.cri.type}"/>'>
-					<input type='hidden' name='keyword' value='<c:out value="${pageMaker.cri.keyword}"/>'>
-					<input type='hidden' name='gu' value='<c:out value="${criteria.gu}"/>'>
-		        	<button type="submit" id="cancel_btn" class="btn button-gray bottomButton">취소</button>
-		        </form>
-	        	<!-- 1.3 취소버튼 -->
-	        	
-	        	
 			</div>
 		</div>
 	</main>

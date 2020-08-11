@@ -102,6 +102,10 @@
 	line-height:230px;
 }
 
+.hello-msg {
+	text-align : center;
+}
+
 /* input border focus 변경 **************************/
 textarea:focus, input:focus, .form-control:focus, input[type]:focus, .uneditable-input:focus {
     border-color: #827FFE;
