@@ -1,0 +1,311 @@
+.container::before {
+  background-image: url("../../img/mypage/profile_background.png");
+  background-repeat: no-repeat;
+  background-size:contain;
+  opacity: 0.6;
+  
+  position: fixed;
+  top: 60%;
+  left: 0;
+  
+  width: 100%;
+  height: 120%;
+  
+  content: "";
+  display: block;
+  z-index: -1;
+  /* pointer-events: none; */
+}
+
+.left-menu ul,.left-menu li {
+	margin: 0px;
+	padding: 4px;
+	list-style: none;
+	overflow: hidden; 
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+
+.left-menu {
+	padding: 60px 20px;
+}
+h5 {
+	text-align: center;
+}
+
+#popularity {
+	margin : 20px 0px;
+	padding-top: 10px;
+	background-color: RGB(130,127,254,0.1);
+	border-radius: 2px;
+}
+#popularity p {
+	margin: 0px;
+	text-align: center;
+}
+
+#select-wrap {
+	margin: 20px 0px;
+	padding: 20px 35px;
+	background-color: RGB(130,127,254,0.1);
+	border-radius: 2px;
+}
+#selectGu {
+	border: 5px solid #E6E6E6 !important;
+	height: auto;
+}
+.nav-item {
+	font-size: 12px;
+}
+
+#contentInfo div{
+	overflow:hidden;
+}
+
+#contentInfo>span {
+	font-size: 13px;
+}
+
+#contentInfo>div>span::before {
+	content: "";
+	display: inline-block;
+	width: 1px;
+	height: 12px;
+	background: #ccc;
+	margin: 0 10px 0 6px;
+	vertical-align: -2px;
+}
+
+#contentInfo>div>span:first-child::before {
+	display: none;
+}
+
+#writerProfile>span>img {
+	width: 40px;
+	height: 40px;
+}
+
+#writerProfile{
+	float:right;
+	font-weight:bold;
+}
+
+#writer{
+	border-top: 3px solid #f1f3f5;
+	border-bottom: 3px solid #f1f3f5;
+	padding:15px;
+}
+
+#contentBody {
+	margin: 15px;
+	margin-bottom: 100px;
+	overflow:hidden;
+	word-wrap:break-word;
+}
+
+.recomend_box {
+	width: 150px;
+	height: auto;
+	margin: 0 auto 36px;
+	padding-top: 0;
+	border-radius: 2px;
+	background: transparent;
+}
+
+.recomend_box>div {
+	display: inline-block;
+	height: 40px;
+}
+
+.likeIcon {
+	font-size: 35px;
+	cursor: pointer;
+}
+
+/* 댓글창 css */
+
+.date {
+	font-size: 11px
+}
+
+.comment-text {
+	font-size: 12px
+}
+
+.fs-12 {
+	font-size: 12px
+}
+
+.shadow-none {
+	box-shadow: none
+}
+
+.name {
+	color: #007bff;
+	cursor:pointer;
+	font-size:0.85rem;
+}
+
+.name:hover{
+	color:#4263eb;
+}
+
+.cursor:hover {
+	color: blue
+}
+
+.cursor {
+	cursor: pointer
+}
+
+#commentWrite textarea .re-replyInput {
+	resize: none
+}
+
+.fa {
+	cursor: pointer
+}
+
+.reply-content {
+	margin-left: 15px;
+	font-size: 14px;
+	vertical-align: middle;
+	width: 59%;
+}
+
+.reply-content pre{
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.re-reply {
+	font-size: 0.8rem;
+}
+
+.re-reply-create{
+	cursor:pointer;
+}
+
+.re-reply-create:hover{
+	color:#9775fa;
+}
+
+.re-reply>span::before {
+	content: "";
+	display: inline-block;
+	width: 1px;
+	height: 12px;
+	background: #ccc;
+	margin: 0 10px 0 6px;
+	vertical-align: -2px;
+}
+
+.re-reply>span:first-child::before {
+	display: none;
+}
+
+
+#replyPaging {
+	margin-top : 20px;
+}
+
+/* 새봄 추가 */
+input:focus::-webkit-input-placeholder, textarea:focus::-webkit-input-placeholder {
+   /* WebKit browsers */ 
+   color:transparent; 
+}
+
+textarea {
+   resize: none !important;
+   border-radius: 5px !important;
+   margin-right: 10px !important;
+   margin-top: 10px !important;
+}
+
+button {
+   border-radius: 5px !important;
+   margin-top: 10px !important;
+}
+
+.comment-section {
+   border-radius: 5px;
+   background: white;
+}
+
+.user-info{
+   padding:10px;
+}
+
+.reply-container {
+   border-bottom: 1px solid #e6e6e6;
+}
+
+/* 새봄 추가 */
+
+/* 드롭다운 */
+.dropdown-menu{
+	text-align:center !important;
+}
+
+.sendMessageToUser{
+	line-height:15px;
+}
+
+/* 버튼 뭉치들 */
+.btn-box {
+	margin-top: 15px;
+	margin-bottom: 15px;
+	height: 38px;
+	border-bottom: 3px solid #e9ecef;
+}
+
+.btn-box button{
+	margin:0;
+	float:right;
+	transition:0.3s;
+}
+
+.btn-box button:hover{
+	color:#9775fa;
+}
+
+
+#commentWrite {
+	margin-top: 50px;
+}
+
+/* 신고 */
+#reportBoard{
+	cursor:pointer;
+}
+
+#reportBoard:hover{
+	color:red;
+}
+
+.reply-report{
+	cursor:pointer;
+}
+
+.reply-report:hover{
+	color:red;
+}
+
+.warn{
+	border-color:red !important;
+	box-shadow:inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(255, 0, 0, 0.6) !important;
+}
+
+/* 쪽지 */
+.userNickname{
+	cursor:pointer;
+}
+
+.sendMessageToUser{
+	cursor:pointer;
+}
+
+/* 좋아요 */
+.likeClicked{
+	color:#b197fc !important;
+}
